@@ -132,6 +132,7 @@ public class GravFPS : MonoBehaviour
         }
         else
         {
+            gravFPSUI.StatusPack.money = gravFPSUI.StatusPack.saveMoney;
             gravFPSUI.StatusPack.currentScene = gravFPSUI.StatusPack.hubScene;
             sceneManager.LoadNextScene();
         }
@@ -293,6 +294,7 @@ public class GravFPS : MonoBehaviour
         }
         else if(other.tag.Equals("SceneLoad"))
         {
+            gravFPSUI.StatusPack.saveMoney = gravFPSUI.StatusPack.money;
             sceneManager.LoadNextScene();
         }
     }

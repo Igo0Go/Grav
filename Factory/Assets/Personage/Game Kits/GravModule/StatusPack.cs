@@ -12,4 +12,6 @@ public class StatusPack : ScriptableObject
 
     public int money;
     public int lifeSphereCount;
+
+    public int saveMoney;
 }
