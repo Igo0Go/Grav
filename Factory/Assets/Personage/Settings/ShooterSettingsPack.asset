@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98def92ed5964e1499b6e3df9de93d3c, type: 3}
+  m_Name: ShooterSettingsPack
+  m_EditorClassIdentifier: 
+  keys:
+  - Name: Forward
+    key: 119
+  - Name: Backward
+    key: 115
+  - Name: Right
+    key: 100
+  - Name: Left
+    key: 97
+  - Name: Jump
+    key: 32
+  - Name: Sprint
+    key: 304
+  - Name: Cancel
+    key: 27
+  - Name: View
+    key: 118
+  - Name: ViewSide
+    key: 112
+  - Name: WeaponPlus
+    key: 113
+  - Name: WeaponMinus
+    key: 101
+  - Name: Fire1
+    key: 323
+  - Name: Reload
+    key: 114
+  - Name: Action
+    key: 102
+  - Name: ChangeWeaponType
+    key: 116
+  axis:
+  - positiveButtonKeyIndex: 0
+    negativeButtonKeyIndex: 1
+    name: Vertical
+    positiveButton:
+      Name: Forward
+      key: 119
+    negativeButton:
+      Name: Backward
+      key: 115
+    sensivity: 1
+  - positiveButtonKeyIndex: 2
+    negativeButtonKeyIndex: 3
+    name: Horizontal
+    positiveButton:
+      Name: Right
+      key: 100
+    negativeButton:
+      Name: Left
+      key: 97
+    sensivity: 1
