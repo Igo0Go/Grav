@@ -13,6 +13,7 @@ public class GravGanMode
     [Tooltip("Снаряд")] public GameObject Bulleet;
 }
 
+[RequireComponent(typeof(LineRenderer))]
 public class GravityThrowerScript : MonoBehaviour
 {
     #region Публичные переменные (ссылки)
@@ -29,8 +30,8 @@ public class GravityThrowerScript : MonoBehaviour
     #endregion
 
     #region Публичные переменные (Пушка)
-    //[Tooltip("Слйдер накопления заряда")]
-    //public Slider powerSlider;
+    [Tooltip("Слйдер заряда")]
+    public Slider powerSlider;
     [Tooltip("Часть слайдера - Fill")]
     public Image powerFillArea;
     [Tooltip("Поместить объект, который должен менять цвет в зависимости от режима пушки")]
@@ -57,6 +58,7 @@ public class GravityThrowerScript : MonoBehaviour
     private float manipulationRange = 5;
     [Tooltip("Параметр кислотности - сколько связей структуры будет нарушено вокруг точки попадания.")]
     public int acidity = 3;
+    [Tooltip("количество точек, между соседними А и Б (чем больше, тем сильнее сглаживание и выше нагрузка на систему)"), Range(6, 100)] public int segmentCount = 25;
     #endregion
 
     #region Приватные переменные
@@ -65,6 +67,10 @@ public class GravityThrowerScript : MonoBehaviour
     private Rigidbody currentRB;
     private MeshRenderer manipRenderer;
     private Color materialColor;
+    private Vector3[] bezierPath;
+    private Vector3 nearPoint;
+    private Vector3 farPoint;
+    private LineRenderer line;
     private bool delay;
     private bool manipKey;
     private int toggle;
@@ -93,6 +99,8 @@ public class GravityThrowerScript : MonoBehaviour
             toggle = -1;
         }
         Toggle();
+        line = GetComponent<LineRenderer>();
+        player.gravFPSUI.onGetLoot += CheckSlider;
     }
     void Update()
     {
@@ -174,6 +182,8 @@ public class GravityThrowerScript : MonoBehaviour
             {
                 ReturnManip();
             }
+            //nearPoint = ShootPoint.position + ShootPoint.forward * Vector3.Distance(ShootPoint.position, currentManipObj.transform.position) / 2;
+            //farPoint = Vector3.Lerp(currentManipObj.transform.position, nearPoint, Vector3.Distance(nearPoint, currentManipObj.transform.position) / 2);
 
         }
 
@@ -184,6 +194,7 @@ public class GravityThrowerScript : MonoBehaviour
                 materialColor.a -= Time.deltaTime;
                 manipRenderer.material.color = materialColor;
             }
+            //DrawCurves();
         }
 
         if (Input.GetMouseButtonDown(1))
@@ -193,13 +204,16 @@ public class GravityThrowerScript : MonoBehaviour
     }
     private void AcidShoot()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && player.gravFPSUI.StatusPack.acidCount > 0)
         {
             BulletScript bullet = Instantiate(currentBullet, ShootPoint.position, ShootPoint.rotation).GetComponent<BulletScript>();
             bullet.SetSettings(this);
             delay = true;
             anim.SetTrigger("Shoot");
             shootParticles.Play();
+            player.gravFPSUI.StatusPack.acidCount--;
+            player.gravFPSUI.StatusPack.acidCount = Mathf.Clamp(player.gravFPSUI.StatusPack.acidCount,0, player.gravFPSUI.StatusPack.maxAcidCount);
+            powerSlider.value = player.gravFPSUI.StatusPack.acidCount;
         }
         if (Input.GetMouseButtonDown(1))
         {
@@ -288,9 +302,26 @@ public class GravityThrowerScript : MonoBehaviour
                 }
                 break;
         }
+        if(toggle != -1 && manipKey)
+        {
+            ReturnManip();
+        }
+        CheckSlider();
         modeIndicator.material = modes[modeNumber].modeMaterialForGun;
         powerFillArea.color = modes[modeNumber].modeColorForSlider;
         currentBullet = modes[modeNumber].Bulleet;
+    }
+    private void CheckSlider()
+    {
+        if (toggle == 0)
+        {
+            powerSlider.maxValue = player.gravFPSUI.StatusPack.maxAcidCount;
+            powerSlider.value = player.gravFPSUI.StatusPack.acidCount;
+        }
+        else
+        {
+            powerSlider.maxValue = powerSlider.value = 0;
+        }
     }
     private void ReturnManip()
     {
@@ -298,6 +329,38 @@ public class GravityThrowerScript : MonoBehaviour
         manipRenderer.material.color = materialColor;
         currentRB.useGravity = true;
         manipKey = false;
+        //line.positionCount = 0;
+    }
+
+    public void DrawCurves() // создание кривой и визуализация
+    {
+        List<Vector3> l = new List<Vector3>();
+
+        for (int j = 0; j <= segmentCount; j++)
+        {
+            float t = (float)j / segmentCount;
+            Vector3 pxl = CalculateBezierPoint(t, ShootPoint.position, nearPoint, farPoint, currentManipObj.transform.position);
+            l.Add(pxl);
+        }
+
+        bezierPath = new Vector3[] { };
+        bezierPath = l.ToArray();
+        line.positionCount = bezierPath.Length;
+        line.SetPositions(bezierPath);
+    }
+    Vector3 CalculateBezierPoint(float t, Vector3 p0, Vector3 p1, Vector3 p2, Vector3 p3)
+    {
+        float u = 1 - t;
+        float tt = t * t;
+        float uu = u * u;
+        float uuu = uu * u;
+        float ttt = tt * t;
+
+        Vector3 p = uuu * p0;
+        p += 3 * uu * t * p1;
+        p += 3 * u * tt * p2;
+        p += ttt * p3;
+        return p;
     }
     #endregion
 

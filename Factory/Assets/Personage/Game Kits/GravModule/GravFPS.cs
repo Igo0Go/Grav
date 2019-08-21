@@ -44,15 +44,17 @@ public class GravFPS : MonoBehaviour
     public float minYAngle;
     #endregion
 
-    
+
 
 
     #region Служебные
+    [HideInInspector]public int status;
+    [HideInInspector] public Rigidbody rb;
+
     private Vector3 dir;
     private Vector3 savePos;
     private Quaternion saveRot;
     private Vector3 saveGrav;
-    private Rigidbody rb;
     private Quaternion rotBufer;
     private SafePoint safePoint;
     private int gravRotSpeed;
@@ -67,6 +69,7 @@ public class GravFPS : MonoBehaviour
     #region Делегаты и Событие
 
     public event Action onDeadEvent;
+    public event Action onGroundEvent;
 
     #endregion
 
@@ -82,7 +85,7 @@ public class GravFPS : MonoBehaviour
     }
     void Update()
     {
-        if(alive)
+        if (alive && status == 0)
         {
             PlayerMove();
         }
@@ -118,7 +121,6 @@ public class GravFPS : MonoBehaviour
             }
         }
     }
-
     public void Death()
     {
         alive = false;
@@ -137,11 +139,6 @@ public class GravFPS : MonoBehaviour
             sceneManager.LoadNextScene();
         }
     }
-    public void AddAcid()
-    {
-
-    }
-
     #endregion
 
     #region Служебные
@@ -211,12 +208,16 @@ public class GravFPS : MonoBehaviour
         }
         return 1;
     }
-    private bool OnGround()
+    public bool OnGround()
     {
         if (Physics.Raycast(transform.position, Physics.gravity, out RaycastHit hit, 2, ~jumpMask))
         {
             Vector3 bufer = hit.point - transform.position;
             Debug.DrawRay(transform.position, bufer, Color.red);
+            if(status==0)
+            {
+                onGroundEvent?.Invoke();
+            }
             return true;
         }
         return false;

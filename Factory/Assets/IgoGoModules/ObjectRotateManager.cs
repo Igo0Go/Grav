@@ -66,7 +66,7 @@ public class ObjectRotateManager : UsingObject
         }
         else
         {
-            axis = transform.up;
+            axis = transform.right * rotVector.x + transform.up * rotVector.y + transform.forward * rotVector.z;
             rotHandler = RotateAroundAxis; 
         }
     }

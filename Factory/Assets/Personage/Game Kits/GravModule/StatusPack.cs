@@ -12,6 +12,9 @@ public class StatusPack : ScriptableObject
 
     public int money;
     public int lifeSphereCount;
+    public float acidCount;
 
     public int saveMoney;
+
+    public float maxAcidCount;
 }

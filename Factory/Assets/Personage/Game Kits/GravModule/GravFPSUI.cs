@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
-[System.Serializable]
+[Serializable]
 public class StatisticksPanel
 {
     public Text text;
@@ -23,6 +24,8 @@ public class GravFPSUI : MonoBehaviour
     public float Health { get { return _health; } set { _health = value; } }
     private float _health;
     private float returnTime;
+
+    public event Action onGetLoot;
 
     void Start()
     {
@@ -60,6 +63,12 @@ public class GravFPSUI : MonoBehaviour
         CheckTexts();
         panels[0].anim.SetBool("Visible", true);
         returnTime = 3;
+    }
+    public void AddAcid(float value)
+    {
+        StatusPack.acidCount+= value;
+        StatusPack.acidCount = Mathf.Clamp(StatusPack.acidCount, 0, StatusPack.maxAcidCount);
+        onGetLoot?.Invoke();
     }
     public void AddLifeSphere()
     {

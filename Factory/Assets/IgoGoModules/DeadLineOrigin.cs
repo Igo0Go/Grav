@@ -36,7 +36,7 @@ public class DeadLineOrigin : MonoBehaviour
         }
         else
         {
-            DrawDeadLine(transform.position + transform.forward * 1000);
+            DrawDeadLine(transform.position + transform.forward * maxRange);
         }
     }
 

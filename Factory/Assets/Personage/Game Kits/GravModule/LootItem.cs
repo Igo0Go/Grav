@@ -45,7 +45,7 @@ public class LootItem : MonoBehaviour
                 switch(type)
                 {
                     case ItemType.AcidBottle:
-
+                        player.gravFPSUI.AddAcid(count);
                         break;
                     case ItemType.Coin:
                         player.gravFPSUI.AddCoin();
