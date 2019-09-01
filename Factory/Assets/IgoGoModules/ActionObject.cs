@@ -5,8 +5,11 @@ using UnityEngine.UI;
 
 public abstract class UsingObject: MyTools
 {
-    public abstract void Use();
     [Tooltip("Отрисовка в редакторе")] public bool debug;
+
+    [HideInInspector] public bool used;
+    public abstract void Use();
+    public abstract void ToStart();
 }
 
 public abstract class UsingOrigin : UsingObject
@@ -69,8 +72,13 @@ public class ActionObject : UsingOrigin {
         {
             UseAll();
             key = false;
+            used = true;
             Invoke("ResetActive", 1f);
         }
+    }
+    public override void ToStart()
+    {
+        ResetActive();
     }
     public void UseAll()
     {
@@ -88,7 +96,7 @@ public class ActionObject : UsingOrigin {
     }
     private void ResetActive()
     {
+        used = false;
         key = true;
     }
-
 }

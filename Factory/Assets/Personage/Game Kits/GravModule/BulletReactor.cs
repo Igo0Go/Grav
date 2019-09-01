@@ -10,11 +10,17 @@ public class BulletReactor : UsingOrigin
     public override void Use()
     {
         UseAll();
+        used = true;
         if (once)
         {
-            Destroy(gameObject);
+            Invoke("Disable", 0.3f);
         }
     }
+    public override void ToStart()
+    {
+        used = false;
+    }
+
     public void UseAll()
     {
         for (int i = 0; i < actionObjects.Length; i++)
@@ -29,6 +35,12 @@ public class BulletReactor : UsingOrigin
             }
         }
     }
+
+    private void Disable()
+    {
+        gameObject.SetActive(false);
+    }
+
     private void OnDrawGizmos()
     {
         if(debug)

@@ -6,16 +6,17 @@ public class GameObjectActivator : UsingObject
 {
     [Tooltip("Объекты, которые будут переключены")] public List<GameObject> gameObjects;
     [Tooltip("Значение свойсва SetActive у всех объектов после ктивции")] public bool state;
-    [Tooltip("Уничтожаться после активации")] public bool once;
     public override void Use()
     {
         UseAl(state);
         state = !state;
-        if(once)
-        {
-            Destroy(gameObject);
-        }
+        used = true;
     }
+    public override void ToStart()
+    {
+        used = false;
+    }
+
     private void UseAl(bool value)
     {
         for (int i = 0; i < gameObjects.Count; i++)

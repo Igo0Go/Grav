@@ -12,13 +12,6 @@ public class ModuleReactor : MyTools
             if(MyGetComponent(other.gameObject, out usingObject))
             {
                 usingObject.Use();
-                if (usingObject is LocationReactor)
-                {
-                    if (((LocationReactor)usingObject).once)
-                    {
-                        Destroy(other.gameObject);
-                    }
-                }
             }
         }
     }

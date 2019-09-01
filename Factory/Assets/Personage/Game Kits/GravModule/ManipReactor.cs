@@ -11,6 +11,12 @@ public class ManipReactor : UsingOrigin
         foreach (var item in actionObjects)
         {
             item.Use();
+            used = true;
         }
+    }
+
+    public override void ToStart()
+    {
+        used = false;
     }
 }

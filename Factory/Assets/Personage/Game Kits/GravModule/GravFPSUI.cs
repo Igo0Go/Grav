@@ -19,25 +19,29 @@ public class GravFPSUI : MonoBehaviour
     public GameObject deadPanel;
     public List<StatisticksPanel> panels;
     public StatusPack StatusPack;
+    public GameObject loadPanel;
+    [HideInInspector] public float returnTime;
     #endregion
 
     public float Health { get { return _health; } set { _health = value; } }
     private float _health;
-    private float returnTime;
 
     public event Action onGetLoot;
 
     void Start()
     {
+        loadPanel.SetActive(false);
         _health = 100;
         healtSlider.value = 0;
+        StatusPack.saveSphere = StatusPack.lifeSphereCount;
         foreach (var item in panels)
         {
-            item.anim.SetBool("Visible", false);
-            item.text.text = "0";
+            item.anim.SetBool("Visible", true);
         }
+        panels[0].text.text = StatusPack.money.ToString();
+        panels[1].text.text = StatusPack.lifeSphereCount.ToString();
+        returnTime = 3;
     }
-
     void Update()
     {
         healtSlider.value = Mathf.Lerp(healtSlider.value, _health, Time.deltaTime * 10);
@@ -83,6 +87,10 @@ public class GravFPSUI : MonoBehaviour
         CheckTexts();
         panels[1].anim.SetBool("Visible", true);
         returnTime = 3;
+    }
+    public void CheckSpheres()
+    {
+        StatusPack.lifeSphereCount = StatusPack.saveSphere > StatusPack.lifeSphereCount ? StatusPack.lifeSphereCount : StatusPack.saveSphere;
     }
     public void Return()
     {

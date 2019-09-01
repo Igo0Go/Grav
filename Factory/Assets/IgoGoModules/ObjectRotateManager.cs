@@ -17,7 +17,7 @@ public class ObjectRotateManager : UsingObject
     [Tooltip("Смещение от стартового вращения")] public Vector3 rotVector;
     [Tooltip("Скорость движения")] public float speed;
     [Tooltip("Задержка перед запуском")] public float delay;
-    public RotateType type;
+    [Tooltip("Тип поворота")] public RotateType type;
     [Tooltip("Задержка между циклами")] public float pauseTime;
     [Tooltip("Активно сразу")] [Space(20)] public bool active;
 
@@ -28,8 +28,8 @@ public class ObjectRotateManager : UsingObject
 
     #region Служебные
     private Action rotHandler;
-    private Quaternion rot1;
-    private Quaternion rot2;
+    private Quaternion startRot;
+    private Quaternion endrot;
     private Quaternion currentTargetRot;
     private Vector3 axis;
     Vector3[] points = new Vector3[4];
@@ -51,18 +51,18 @@ public class ObjectRotateManager : UsingObject
 
     void Start()
     {
-        rot1 = transform.rotation;
-        rot2 = rot1 * Quaternion.Euler(rotVector);
+        startRot = transform.rotation;
+        endrot = startRot * Quaternion.Euler(rotVector);
         pause = false;
         if (type == RotateType.Reverse)
         {
             rotHandler = ReverceRotate;
-            currentTargetRot = rot2;
+            currentTargetRot = endrot;
         }
         else if (type == RotateType.Once)
         {
             rotHandler = ForwardRotate;
-            currentTargetRot = rot1;
+            currentTargetRot = startRot;
         }
         else
         {
@@ -78,8 +78,18 @@ public class ObjectRotateManager : UsingObject
 
     public override void Use()
     {
+        used = true;
         Invoke("Action", delay);
     }
+    public override void ToStart()
+    {
+        active = false;
+        ChangeTarget();
+        pause = false;
+        transform.rotation = startRot;
+        used = false;
+    }
+
     private void ForwardRotate()
     {
         if (active && !pause)
@@ -119,13 +129,13 @@ public class ObjectRotateManager : UsingObject
     }
     private void ChangeTarget()
     {
-        if (currentTargetRot == rot1)
+        if (currentTargetRot == startRot)
         {
-            currentTargetRot = rot2;
+            currentTargetRot = endrot;
         }
         else
         {
-            currentTargetRot = rot1;
+            currentTargetRot = startRot;
         }
         rotVector *= -1;
         pause = false;
@@ -148,24 +158,24 @@ public class ObjectRotateManager : UsingObject
     {
         if(debug && !(type == RotateType.AroundAxis))
         {
-            rot1 = transform.rotation;
-            rot2 = rot1 * Quaternion.Euler(rotVector);
+            startRot = transform.rotation;
+            endrot = startRot * Quaternion.Euler(rotVector);
             helper.position = transform.position;
             Gizmos.color = Color.cyan;
 
-            currentTargetRot = rot1;
-            helper.rotation = rot1;
+            currentTargetRot = startRot;
+            helper.rotation = startRot;
             points[0] = helper.position + helper.forward * range;
 
-            currentTargetRot = Quaternion.Lerp(rot1, rot2, 0.25f);
+            currentTargetRot = Quaternion.Lerp(startRot, endrot, 0.25f);
             helper.rotation = currentTargetRot;
             points[1] = helper.position + helper.forward * range;
 
-            currentTargetRot = Quaternion.Lerp(rot1, rot2, 0.75f);
+            currentTargetRot = Quaternion.Lerp(startRot, endrot, 0.75f);
             helper.rotation = currentTargetRot;
             points[2] = helper.position + helper.forward * range;
 
-            currentTargetRot = rot2;
+            currentTargetRot = endrot;
             helper.rotation = currentTargetRot;
             points[3] = helper.position + helper.forward * range;
 

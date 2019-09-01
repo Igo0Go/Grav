@@ -18,7 +18,7 @@ public class BezierReactor : MyTools
     private void Start()
     {
         gravFPS = GetComponent<GravFPS>();
-        gravFPS.onGroundEvent += ClearCurve;
+        gravFPS.OnGroundEvent += ClearCurve;
     }
 
     private void Update()

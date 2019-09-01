@@ -7,16 +7,16 @@ public class TimlineActivator : UsingObject
 {
     public PlayableDirector[] timlines;
     public bool active;
-    public bool destroyed;
 
     public override void Use()
     {
         active = !active;
         CheckActive();
-        if(destroyed)
-        {
-            Destroy(gameObject);
-        }
+        used = true;
+    }
+    public override void ToStart()
+    {
+        used = false;
     }
 
     private void Start()

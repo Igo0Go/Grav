@@ -15,6 +15,6 @@ public class StatusPack : ScriptableObject
     public float acidCount;
 
     public int saveMoney;
-
+    public int saveSphere;
     public float maxAcidCount;
 }

@@ -22,7 +22,12 @@ public class BezierCurve : MonoBehaviour
 
         for (int j = 0; j < transform.childCount; j++)
         {
-            point[j] = transform.GetChild(j).GetComponent<BezierPoint>();
+            BezierPoint curvePoint = transform.GetChild(j).GetComponent<BezierPoint>();
+            if(curvePoint == null)
+            {
+                curvePoint = transform.GetChild(j).GetChild(0).GetComponent<BezierPoint>();
+            }
+            point[j] = curvePoint;
         }
 
         if (last)
@@ -82,7 +87,12 @@ public class BezierCurve : MonoBehaviour
         point = new BezierPoint[transform.childCount];
         for (int j = 0; j < transform.childCount; j++)
         {
-            point[j] = transform.GetChild(j).GetComponent<BezierPoint>();
+            BezierPoint curvePoint = transform.GetChild(j).GetComponent<BezierPoint>();
+            if (curvePoint == null)
+            {
+                curvePoint = transform.GetChild(j).GetChild(0).GetComponent<BezierPoint>();
+            }
+            point[j] = curvePoint;
         }
         if (point.Length < 2 || segmentCount < 6) return; // обязательная проверка
         DrawCurves();

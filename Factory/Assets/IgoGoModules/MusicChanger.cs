@@ -6,18 +6,14 @@ public class MusicChanger : UsingObject
 {
     [Space(20)]
     [Tooltip("Какой номер из указанных в MusicManager будет играть после активации")] public int musicNumber;
-    [Tooltip("Уничтожаться после использования")] public bool destroyed;
     [Tooltip("Ссылка на MusicManager")] public MusicManager manager;
 
     public override void Use()
     {
         if(musicNumber < manager.musicBoxes.Length)
         {
+            used = true;
             manager.CurrentBox = musicNumber;
-            if (destroyed)
-            {
-                Destroy(gameObject);
-            }
         }
         else
         {
@@ -25,4 +21,9 @@ public class MusicChanger : UsingObject
                 gameObject.name);
         }
     }
+    public override void ToStart()
+    {
+        used = false;
+    }
+
 }

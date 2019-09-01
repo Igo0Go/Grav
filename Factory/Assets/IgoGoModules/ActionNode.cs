@@ -20,7 +20,12 @@ public class ActionNode : UsingOrigin {
         if(counter == actors.Length)
         {
             UseAll();
+            used = true;
         }
+    }
+    public override void ToStart()
+    {
+        used = false;
     }
     public void UseAll()
     {

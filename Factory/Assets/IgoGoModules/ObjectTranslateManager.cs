@@ -17,7 +17,7 @@ public class ObjectTranslateManager : UsingObject {
     [Tooltip("скорость движения")] public float speed;
     [Tooltip("Задержка перед запуском")] public float delay;
     [Tooltip("Задержка между циклами")] public float pauseTime;
-    public TranslateType type = TranslateType.Once;
+    [Tooltip("Тип перемещения")] public TranslateType type = TranslateType.Once;
 
     private Action moveHandler;
     private Vector3[] debugPoints = new Vector3[8];
@@ -44,6 +44,7 @@ public class ObjectTranslateManager : UsingObject {
     void Start()
     {
         pause = false;
+        startPos = transform.position;
         if (type == TranslateType.Once)
         {
             forwardWay = -1;
@@ -65,7 +66,6 @@ public class ObjectTranslateManager : UsingObject {
             }
             else
             {
-                startPos = transform.position;
                 moveHandler = LoopMove;
                 if(active)
                 {
@@ -83,7 +83,40 @@ public class ObjectTranslateManager : UsingObject {
     public override void Use()
     {
         Invoke("Action", delay);
+        used = true;
     }
+    public override void ToStart()
+    {
+        currentOffsetItem = 0;
+        transform.position = startPos;
+        pause = false;
+        if (type == TranslateType.Once)
+        {
+            forwardWay = -1;
+            currentTargetPos = transform.position;
+        }
+        else
+        {
+            currentOffsetItem = 0;
+            forwardWay = 1;
+            currentTargetPos = transform.position + forwardWay * (transform.right * offsetPos[currentOffsetItem].x + transform.up * offsetPos[currentOffsetItem].y
+                + transform.forward * offsetPos[currentOffsetItem].z);
+            moveVector = currentTargetPos - transform.position;
+            moveVector = moveVector.normalized;
+
+            if (type == TranslateType.Loop)
+            {
+                if (active)
+                {
+                    active = false;
+                    Invoke("Action", delay);
+                }
+            }
+        }
+        used = false;
+    }
+
+
     private void ForwardMove()
     {
         if (active && !pause)

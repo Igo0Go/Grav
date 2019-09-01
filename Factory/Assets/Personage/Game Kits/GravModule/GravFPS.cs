@@ -22,7 +22,9 @@ public class GravFPS : MonoBehaviour
     [Tooltip("Сила прыжка")]
     public float jumpForce;
     public GravFPSUI gravFPSUI;
+    public SphereGravModule startPlanet;
     public GravFPSSceneManager sceneManager;
+    public bool inHub;
     #endregion
     #region Публичные поля (служебное)
     [Space(20)]
@@ -44,9 +46,6 @@ public class GravFPS : MonoBehaviour
     public float minYAngle;
     #endregion
 
-
-
-
     #region Служебные
     [HideInInspector]public int status;
     [HideInInspector] public Rigidbody rb;
@@ -56,38 +55,47 @@ public class GravFPS : MonoBehaviour
     private Quaternion saveRot;
     private Vector3 saveGrav;
     private Quaternion rotBufer;
-    private SafePoint safePoint;
+    private SavePoint savePoint;
+    private Vector3 gravVector;
+    public Transform gravObj;
+    private Rigidbody gravRb;
+    private int gravMultiplicator;
     private int gravRotSpeed;
     private bool onGround;
     private bool rotToGrav;
     private bool alive;
     private float currentCamAngle;
-
-   
     #endregion
 
     #region Делегаты и Событие
 
-    public event Action onDeadEvent;
-    public event Action onGroundEvent;
+    public event Action OnDeadEvent;
+    public event Action OnGroundEvent;
 
     #endregion
 
     #region События Unity
     private void Start()
     {
+        gravObj = null;
+        gravVector = Physics.gravity;
         sceneManager.pack = gravFPSUI.StatusPack;
         gravFPSUI.StatusPack.currentScene = SceneManager.GetActiveScene().name;
         Save();
         rb = GetComponent<Rigidbody>();
         Cursor.lockState = CursorLockMode.Locked;
         currentCamAngle = cam.localRotation.eulerAngles.x;
+        if(startPlanet != null)
+        {
+            SetGravObj(startPlanet);
+        }
     }
     void Update()
     {
-        if (alive && status == 0)
+        Jump();
+        if (alive && status == 0 && gravObj == null)
         {
-            PlayerMove();
+            PlayerMoveStandard();
         }
     }
     private void LateUpdate()
@@ -99,6 +107,13 @@ public class GravFPS : MonoBehaviour
         if (rotToGrav)
         {
             RotateToGravSmooth();
+        }
+    }
+    private void FixedUpdate()
+    {
+        if(gravObj != null)
+        {
+            PlayerMoveSphere();
         }
     }
 
@@ -125,24 +140,49 @@ public class GravFPS : MonoBehaviour
     {
         alive = false;
         gravFPSUI.deadPanel.SetActive(!alive);
-        if(gravFPSUI.StatusPack.lifeSphereCount > 0)
+        CheckLoad();
+    }
+    public void RestartSceneWithLoadSphere()
+    {
+        gravFPSUI.RemoveLifeSphere();
+        RestartScene();
+    }
+    public void LoadHubScene()
+    {
+        gravFPSUI.CheckSpheres();
+        gravFPSUI.StatusPack.money = gravFPSUI.StatusPack.saveMoney;
+        gravFPSUI.StatusPack.currentScene = gravFPSUI.StatusPack.hubScene;
+        sceneManager.LoadNextScene();
+    }
+    public void RotateToGrav()
+    {
+        if (-transform.up != Physics.gravity)
         {
-            gravFPSUI.RemoveLifeSphere();
-            onDeadEvent?.Invoke();
-            Invoke("RestartRun", 2);
-            safePoint.OnRestart();
+            if(gravObj == null)
+            {
+                rotBufer = Quaternion.FromToRotation(-transform.up, Physics.gravity);
+            }
+            else
+            {
+                gravVector = gravMultiplicator * (gravObj.position - transform.position);
+                rotBufer = Quaternion.FromToRotation(-transform.up, gravVector.normalized);
+            }
+            rotBufer = rotBufer * transform.rotation;
+            gravRotSpeed = 5;
+            rotToGrav = true;
         }
-        else
-        {
-            gravFPSUI.StatusPack.money = gravFPSUI.StatusPack.saveMoney;
-            gravFPSUI.StatusPack.currentScene = gravFPSUI.StatusPack.hubScene;
-            sceneManager.LoadNextScene();
-        }
+    }
+    public void SetGravObj(SphereGravModule reactor)
+    {
+        gravObj = reactor.transform;
+        transform.parent = gravObj;
+        gravRb = gravObj.GetComponent<Rigidbody>();
+        gravMultiplicator = reactor.planetGravityType ? 1 : -1;
     }
     #endregion
 
     #region Служебные
-    private void PlayerMove()
+    private void PlayerMoveStandard()
     {
         float h, v;
 
@@ -160,21 +200,30 @@ public class GravFPS : MonoBehaviour
         {
             dir = Vector3.zero;
         }
-        if (OnGround())
-        {
-            if (Input.GetKeyDown(inputSettingsManager.GetKey("Jump")))
-            {
-                if (jumpForce < 0)
-                {
-                    Debug.LogError("Ты чё, больной?! Ты ж вниз прыгаешь...");
-                }
-                rb.AddForce(-Physics.gravity.normalized * jumpForce, ForceMode.Impulse);
-            }
-        }
         if (dir != Vector3.zero)
         {
             transform.position += (dir * speed * Time.deltaTime);
         }
+    }
+    private void PlayerMoveSphere()
+    {
+        gravVector = gravMultiplicator * (gravObj.position - transform.position);
+
+        float distance = gravVector.magnitude;
+        float strength = 10 * rb.mass * gravRb.mass / (distance * distance);
+        rb.AddForce(gravVector.normalized * strength);
+
+        if(!rotToGrav)
+        {
+            rotBufer = Quaternion.FromToRotation(-transform.up, gravVector.normalized);
+            transform.rotation = rotBufer * transform.rotation;
+        }
+
+        Vector3 down = Vector3.Project(rb.velocity, transform.up);
+        Vector3 forward = transform.forward * inputSettingsManager.GetAxis("Vertical") * speed * Sprint();
+        Vector3 right = transform.right * inputSettingsManager.GetAxis("Horizontal") * speed * Sprint(); ;
+
+        rb.velocity = down + right + forward;
     }
     private void PlayerRotate()
     {
@@ -210,40 +259,19 @@ public class GravFPS : MonoBehaviour
     }
     public bool OnGround()
     {
-        if (Physics.Raycast(transform.position, Physics.gravity, out RaycastHit hit, 2, ~jumpMask))
+        if (Physics.Raycast(transform.position, -transform.up, out RaycastHit hit, 2, ~jumpMask))
         {
             Vector3 bufer = hit.point - transform.position;
             Debug.DrawRay(transform.position, bufer, Color.red);
             if(status==0)
             {
-                onGroundEvent?.Invoke();
+                OnGroundEvent?.Invoke();
             }
             return true;
         }
         return false;
     }
-    public void RotateToGrav()
-    {
-        if(-transform.up != Physics.gravity)
-        {
-            rotToGrav = true;
-            if (Vector3.Angle(transform.up, -Physics.gravity) < 1)
-            {
-                rotToGrav = false;
-            }
-            else if (Vector3.Angle(transform.up, -Physics.gravity) < 91)
-            {
-                rotBufer = Quaternion.LookRotation(transform.up, -Physics.gravity);
-                gravRotSpeed = 5;
-            }
-            else
-            {
-                rotBufer = Quaternion.LookRotation(-transform.forward, -Physics.gravity);
-                gravRotSpeed = 3;
-            }
-        }
-    }
-    public void RotateToGravSmooth()
+    private void RotateToGravSmooth()
     {
         if (Quaternion.Angle(transform.rotation, rotBufer) < 4)
         {
@@ -273,6 +301,81 @@ public class GravFPS : MonoBehaviour
         alive = true;
         gravFPSUI.deadPanel.SetActive(!alive);
     }
+    private void CheckLoad()
+    {
+        if(inHub)
+        {
+            if (savePoint != null)
+            {
+                if (gravFPSUI.StatusPack.lifeSphereCount > 0)
+                {
+                    ReturnToSavePoint();
+                }
+                else
+                {
+                    LoadHubScene();
+                }
+            }
+            else
+            {
+                if (gravFPSUI.StatusPack.lifeSphereCount > 0)
+                {
+                    gravFPSUI.RemoveLifeSphere();
+                }
+                LoadHubScene();
+            }
+        }
+        else
+        {
+            if (savePoint != null)
+            {
+                if (gravFPSUI.StatusPack.lifeSphereCount > 0)
+                {
+                    ReturnToSavePoint();
+                }
+                else
+                {
+                    LoadHubScene();
+                }
+            }
+            else
+            {
+                if (gravFPSUI.StatusPack.lifeSphereCount > 0)
+                {
+                    Cursor.lockState = CursorLockMode.None;
+                    gravFPSUI.loadPanel.SetActive(true);
+                    gravFPSUI.panels[1].anim.SetBool("Visible", true);
+                }
+                else
+                {
+                    LoadHubScene();
+                }
+            }
+        }
+    }
+    private void Jump()
+    {
+        if (OnGround())
+        {
+            if (Input.GetKeyDown(inputSettingsManager.GetKey("Jump")))
+            {
+                rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+            }
+        }
+    }
+
+    private void RestartScene()
+    {
+        gravFPSUI.StatusPack.money = gravFPSUI.StatusPack.saveMoney;
+        sceneManager.LoadNextScene();
+    }
+    private void ReturnToSavePoint()
+    {
+        gravFPSUI.RemoveLifeSphere();
+        OnDeadEvent?.Invoke();
+        Invoke("RestartRun", 2);
+        savePoint.OnRestart();
+    }
     #endregion
 
     private void OnTriggerEnter(Collider other)
@@ -287,11 +390,14 @@ public class GravFPS : MonoBehaviour
         }
         else if (other.tag.Equals("CheckPoint"))
         {
-            safePoint = other.GetComponent<SafePoint>();
-            safePoint.Safe(transform);
-            saveGrav = Physics.gravity;
-            savePos = safePoint.playerPoint.position;
-            saveRot = safePoint.playerPoint.rotation;
+            if(savePoint != other.GetComponent<SavePoint>())
+            {
+                savePoint = other.GetComponent<SavePoint>();
+                savePoint.Save(transform);
+                saveGrav = Physics.gravity;
+                savePos = savePoint.playerPoint.position;
+                saveRot = savePoint.playerPoint.rotation;
+            }
         }
         else if(other.tag.Equals("SceneLoad"))
         {

@@ -4,13 +4,37 @@ using UnityEngine;
 
 public class Timer : UsingOrigin
 {
-    [Space(20)]
-    [Tooltip("Время, через которое будет вызван метод Use()")]
-    [Range(0,float.MaxValue)]
+    [Space(20), Tooltip("Время, через которое будет вызван метод Use()"), Range(0,float.MaxValue)]
     public float time;
+
+    private float currentTime;
+
+
+    private void Update()
+    {
+        if(used)
+        {
+            if(currentTime < time)
+            {
+                currentTime += Time.fixedUnscaledDeltaTime;
+            }
+            else
+            {
+                UseAll();
+                used = false;
+                currentTime = 0;
+            }
+        }
+    }
+
     public override void Use()
     {
-        Invoke("UseAll", time);
+        used = true;
+    }
+    public override void ToStart()
+    {
+        used = false;
+        currentTime = 0;
     }
 
     public void UseAll()

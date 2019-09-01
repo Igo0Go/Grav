@@ -36,30 +36,23 @@ public class ReplicSystem : UsingObject
 	[Space(20)]
 	public ReplicSceneLoader sceneLoader;
 
-    // Start is called before the first frame update
     void Start()
     {
-        subsPanel.SetActive(false);
         source = GetComponent<AudioSource>();
-        source.playOnAwake = false;
-        source.loop = false;
 		
 		if(sceneLoader != null)
 		{
 			onCompleteEvent += sceneLoader.CompleteReplic;
 		}
-		
-        if (source.isPlaying)
-        {
-            source.Stop();
-        }
+
+        ToStart();
+
 		if(playOnAwake)
 		{
 			Use();
 		}
     }
 
-    // Update is called once per frame
     void Update()
     {
         if(isReplic)
@@ -67,8 +60,6 @@ public class ReplicSystem : UsingObject
             CheckReplic();
         }
     }
-
-    
 
     private void SetReplic(int number)
     {
@@ -116,5 +107,19 @@ public class ReplicSystem : UsingObject
         }
         subsPanel.SetActive(true);
         isReplic = true;
+    }
+    public override void ToStart()
+    {
+        used = false;
+        isReplic = false;
+        currentNumber = 0;
+        SetReplic(currentNumber);
+        subsPanel.SetActive(false);
+        source.playOnAwake = false;
+        source.loop = false;
+        if (source.isPlaying)
+        {
+            source.Stop();
+        }
     }
 }

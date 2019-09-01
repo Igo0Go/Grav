@@ -38,5 +38,10 @@ public class ReplicSceneLoader : UsingObject
     {
         trigger = true;
         CheckComplete();
+        used = true;
+    }
+    public override void ToStart()
+    {
+        used = false;
     }
 }

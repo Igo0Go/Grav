@@ -16,6 +16,7 @@ public class WeaponReactor : UsingOrigin, IAlive
     public AudioClip clip;
 
     private AudioSource source;
+    private GameObject bufer;
 
     public float Health
     {
@@ -62,9 +63,9 @@ public class WeaponReactor : UsingOrigin, IAlive
     {
         if(ofterDeadPrefab != null)
         {
-            Instantiate(ofterDeadPrefab, transform.position, Quaternion.identity);
+           bufer = Instantiate(ofterDeadPrefab, transform.position, Quaternion.identity);
         }
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
     public void GetDamage(int damage)
     {
@@ -73,8 +74,10 @@ public class WeaponReactor : UsingOrigin, IAlive
             Health -= damage;
         }
     }
+
     public override void Use()
     {
+        used = true;
         if(model != null)
         {
             Destroy(model);
@@ -90,5 +93,12 @@ public class WeaponReactor : UsingOrigin, IAlive
         UseAl();
         Invoke("Remove", removeTime);
     }
-   
+    public override void ToStart()
+    {
+        if(bufer != null)
+        {
+            Destroy(bufer);
+        }
+        used = false;
+    }
 }

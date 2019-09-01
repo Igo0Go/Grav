@@ -26,6 +26,7 @@ public class LoadSceneScript : UsingObject
 
     public override void Use()
     {
+        used = true;
         if(loadType==2)
         {
             pack.currentScene = sceneName;
@@ -34,5 +35,9 @@ public class LoadSceneScript : UsingObject
         {
             pack.currentScene = pack.hubScene = sceneName;
         }
+    }
+    public override void ToStart()
+    {
+        used = false;
     }
 }

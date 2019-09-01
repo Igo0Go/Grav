@@ -14,9 +14,15 @@ public class LocationReactor : UsingOrigin
         UseAll();
         if(once)
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
+            used = true;
         }
     }
+    public override void ToStart()
+    {
+        used = false;
+    }
+
     public void UseAll()
     {
         for (int i = 0; i < actionObjects.Length; i++)

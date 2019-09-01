@@ -22,12 +22,13 @@ public class BulletScript : MyTools
     public BulletType type;
     [Tooltip("Сила притяжения гравитации (g)"), Range(0,10), SerializeField]
     private float power = 1;
-
+    [Tooltip("На какие слои не реагировать"), SerializeField]
+    private LayerMask ignoreMask;
+    private GravFPS player;
     #endregion
 
     #region Приватные переменные
     private float lifetime;
-    private LayerMask ignoreMask;
     private Vector3 lastPos;
     private RaycastHit hit;
     private GameObject decal;
@@ -36,7 +37,6 @@ public class BulletScript : MyTools
 
     #region Делегаты и События
     private Action moveBullet;
-    private event Action ChangeGrav;
     #endregion
 
 
@@ -57,7 +57,7 @@ public class BulletScript : MyTools
         if (type == BulletType.Grav)
         {
             moveBullet = MoveGravBullet;
-            ChangeGrav += gravityThrower.player.RotateToGrav;
+            player = gravityThrower.player;
         }
         else
         {
@@ -81,8 +81,18 @@ public class BulletScript : MyTools
             if (hit.collider.tag.Equals("Grav"))
             {
                 decal = Instantiate(Particles[0]);
-                Physics.gravity = -hit.normal * power * 9.8f;
-                ChangeGrav?.Invoke();
+                if (MyGetComponent(hit.collider.gameObject, out SphereGravModule gravReactor))
+                {
+                    Physics.gravity = Vector3.zero;
+                    player.SetGravObj(gravReactor);
+                }
+                else
+                {
+                    player.gravObj = null;
+                    player.transform.parent = null;
+                    Physics.gravity = -hit.normal * power * 9.8f;
+                }
+                player.RotateToGrav();
             }
             else
             {
@@ -127,7 +137,6 @@ public class BulletScript : MyTools
     }
     private void DestroyBullet()
     {
-        ChangeGrav = null;
         Destroy(gameObject);
     }
     #endregion

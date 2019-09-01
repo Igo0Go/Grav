@@ -66,7 +66,9 @@
     <Compile Include="Assets\IgoGoModules\CubeStructureItem.cs" />
     <Compile Include="Assets\IgoGoModules\DeadLineOrigin.cs" />
     <Compile Include="Assets\IgoGoModules\GameObjectActivator.cs" />
+    <Compile Include="Assets\IgoGoModules\LevelModuleStatus.cs" />
     <Compile Include="Assets\IgoGoModules\LocationReactor.cs" />
+    <Compile Include="Assets\IgoGoModules\ModuleConroller.cs" />
     <Compile Include="Assets\IgoGoModules\ModuleDebugContainer.cs" />
     <Compile Include="Assets\IgoGoModules\ModuleReactor.cs" />
     <Compile Include="Assets\IgoGoModules\MusicChanger.cs" />
@@ -76,6 +78,7 @@
     <Compile Include="Assets\IgoGoModules\RBActivator.cs" />
     <Compile Include="Assets\IgoGoModules\ReplicSceneLoader.cs" />
     <Compile Include="Assets\IgoGoModules\ReplicSystem.cs" />
+    <Compile Include="Assets\IgoGoModules\SizeChanger.cs" />
     <Compile Include="Assets\IgoGoModules\Timer.cs" />
     <Compile Include="Assets\IgoGoModules\TimlineActivator.cs" />
     <Compile Include="Assets\IgoGoModules\WeaponReactor.cs" />
@@ -92,10 +95,14 @@
     <Compile Include="Assets\Personage\Game Kits\GravModule\LootItem.cs" />
     <Compile Include="Assets\Personage\Game Kits\GravModule\ManipItem.cs" />
     <Compile Include="Assets\Personage\Game Kits\GravModule\ManipReactor.cs" />
-    <Compile Include="Assets\Personage\Game Kits\GravModule\SafePoint.cs" />
+    <Compile Include="Assets\Personage\Game Kits\GravModule\SavePoint.cs" />
+    <Compile Include="Assets\Personage\Game Kits\GravModule\SphereGravModule.cs" />
     <Compile Include="Assets\Personage\Game Kits\GravModule\StatusPack.cs" />
     <Compile Include="Assets\Personage\GameSystem\Scripts\AmmoInfoUIScript.cs" />
     <Compile Include="Assets\Personage\GameSystem\Scripts\MusicManager.cs" />
+    <Compile Include="Assets\Personage\GravTest.cs" />
+    <Compile Include="Assets\Personage\PlanetConstraint.cs" />
+    <Compile Include="Assets\Personage\PlayerPlanetControl.cs" />
     <Compile Include="Assets\Personage\Settings\InpustSettingsScript.cs" />
     <Compile Include="Assets\Personage\Settings\InputKit.cs" />
     <Compile Include="Assets\Personage\Settings\InputSettingsManager.cs" />

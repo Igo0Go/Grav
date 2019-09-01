@@ -32,8 +32,18 @@ public class RBActivator : UsingObject
             {
                 item.isKinematic = false;
                 item.useGravity = true;
+                used = true;
             }
         }
+    }
+
+    public override void ToStart()
+    {
+        foreach (var item in rigidbodies)
+        {
+            item.useGravity = false;
+        }
+        used = false;
     }
     private void OnDrawGizmos()
     {

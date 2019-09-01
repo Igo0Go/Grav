@@ -36,7 +36,7 @@ public class GravityThrowerScript : MonoBehaviour
     public Image powerFillArea;
     [Tooltip("Поместить объект, который должен менять цвет в зависимости от режима пушки")]
     public MeshRenderer modeIndicator;
-    [Tooltip("Режимы для пушки. 0 - нулевая гравитация, 1 - притяжение, 2 - отталкивание")]
+    [Tooltip("Режимы для пушки. 0 - кислота, 1 - притяжение, 2 - манипуляция")]
     public GravGanMode[] modes;
     [Tooltip("Частицы будут запускаться при выстреле")]
     public ParticleSystem shootParticles;
@@ -68,8 +68,8 @@ public class GravityThrowerScript : MonoBehaviour
     private MeshRenderer manipRenderer;
     private Color materialColor;
     private Vector3[] bezierPath;
-    private Vector3 nearPoint;
-    private Vector3 farPoint;
+    private Vector3 nearPoint = Vector3.zero;
+    private Vector3 farPoint = Vector3.zero;
     private LineRenderer line;
     private bool delay;
     private bool manipKey;
@@ -234,7 +234,7 @@ public class GravityThrowerScript : MonoBehaviour
     }
     private void Toggle()
     {
-        player.onDeadEvent -= ReturnManip;
+        player.OnDeadEvent -= ReturnManip;
         int modeNumber = 0;
         switch (toggle)
         {
@@ -254,7 +254,7 @@ public class GravityThrowerScript : MonoBehaviour
                 else
                 {
                     modeNumber = 2;
-                    player.onDeadEvent += ReturnManip;
+                    player.OnDeadEvent += ReturnManip;
                     shoot = ManipulationShoot;
                     toggle = -1;
                 }
@@ -270,7 +270,7 @@ public class GravityThrowerScript : MonoBehaviour
                 {
                     modeNumber = 2;
                     shoot = ManipulationShoot;
-                    player.onDeadEvent += ReturnManip;
+                    player.OnDeadEvent += ReturnManip;
                     toggle = -1;
                 }
                 else
@@ -285,7 +285,7 @@ public class GravityThrowerScript : MonoBehaviour
                 {
                     modeNumber = 2;
                     shoot = ManipulationShoot;
-                    player.onDeadEvent += ReturnManip;
+                    player.OnDeadEvent += ReturnManip;
                     toggle = -1;
                 }
                 else if(modes[0].active)
@@ -326,8 +326,11 @@ public class GravityThrowerScript : MonoBehaviour
     private void ReturnManip()
     {
         materialColor.a = 1;
-        manipRenderer.material.color = materialColor;
-        currentRB.useGravity = true;
+        if(currentManipObj != null)
+        {
+            manipRenderer.material.color = materialColor;
+            currentRB.useGravity = true;
+        }
         manipKey = false;
         //line.positionCount = 0;
     }
