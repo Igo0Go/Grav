@@ -924,7 +924,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 1988371702}
     m_Modifications:
     - target: {fileID: 5637744375896428204, guid: e612728c6258bd84b859baa7384e0b17,
         type: 3}
@@ -954,12 +954,12 @@ PrefabInstance:
     - target: {fileID: 5637744375896428112, guid: e612728c6258bd84b859baa7384e0b17,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5637744375896428112, guid: e612728c6258bd84b859baa7384e0b17,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5637744375896428112, guid: e612728c6258bd84b859baa7384e0b17,
         type: 3}
@@ -969,7 +969,7 @@ PrefabInstance:
     - target: {fileID: 5637744375896428112, guid: e612728c6258bd84b859baa7384e0b17,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5637744375896428112, guid: e612728c6258bd84b859baa7384e0b17,
         type: 3}
@@ -986,6 +986,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5637744375896428207, guid: e612728c6258bd84b859baa7384e0b17,
+        type: 3}
+      propertyPath: moduleController
+      value: 
+      objectReference: {fileID: 237265293}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e612728c6258bd84b859baa7384e0b17, type: 3}
 --- !u!4 &90745827 stripped
@@ -1928,6 +1933,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debug: 1
+  used: 0
   actionObjects:
   - {fileID: 1683834147}
   enterOnly: 1
@@ -1999,6 +2005,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debug: 1
+  used: 0
   actionObjects:
   - {fileID: 1303146065}
   enterOnly: 1
@@ -2664,6 +2671,34 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 7021e6512dfac2f4185b5a706d77f06f, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 46d96323d74e7564ba7b918b8236f781, type: 3}
+--- !u!1 &237265288 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5637744375896428204, guid: e612728c6258bd84b859baa7384e0b17,
+    type: 3}
+  m_PrefabInstance: {fileID: 89722103}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &237265292 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5637744375896428112, guid: e612728c6258bd84b859baa7384e0b17,
+    type: 3}
+  m_PrefabInstance: {fileID: 89722103}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &237265293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 237265288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b53d54edaa1ff9c45bbc0eec288ae01f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moduleStatus: {fileID: 11400000, guid: b95b272108fabaf4d9a1398a54afc8d5, type: 2}
+  saveTransformObjects: []
+  keyObjects: []
+  usingObjects: []
 --- !u!1 &240673974 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8173817803988893918, guid: 46d96323d74e7564ba7b918b8236f781,
@@ -2689,6 +2724,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debug: 1
+  used: 0
   offsetPos:
   - {x: -10, y: 0, z: 0}
   speed: 10
@@ -4769,7 +4805,7 @@ Transform:
   - {fileID: 1952104532}
   - {fileID: 1230183367}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &439919886 stripped
 GameObject:
@@ -4796,6 +4832,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debug: 1
+  used: 0
   offsetPos:
   - {x: 10, y: 0, z: 0}
   speed: 10
@@ -6685,7 +6722,7 @@ Transform:
   - {fileID: 1635694786}
   - {fileID: 465954760}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &579378566 stripped
 Transform:
@@ -6887,6 +6924,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debug: 1
+  used: 0
   actionObjects:
   - {fileID: 1618298520}
   enterOnly: 1
@@ -10109,6 +10147,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debug: 1
+  used: 0
   offsetPos:
   - {x: -10, y: 0, z: 0}
   speed: 10
@@ -10381,6 +10420,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debug: 1
+  used: 0
   offsetPos:
   - {x: 10, y: 0, z: 0}
   speed: 10
@@ -11730,6 +11770,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debug: 1
+  used: 0
   actionObjects:
   - {fileID: 1004704877}
   enterOnly: 1
@@ -12275,6 +12316,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debug: 1
+  used: 0
   actionObjects:
   - {fileID: 976073643}
   enterOnly: 1
@@ -13203,6 +13245,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debug: 0
+  used: 0
   actionObjects:
   - {fileID: 774600715}
   - {fileID: 504801431}
@@ -14225,6 +14268,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debug: 1
+  used: 0
   actionObjects:
   - {fileID: 619005936}
   enterOnly: 1
@@ -14603,9 +14647,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debug: 1
+  used: 0
   offsetPos:
   - {x: 0, y: 0, z: 30}
-  speed: 1
+  speed: 2
   delay: 0
   pauseTime: 0
   type: 1
@@ -14787,10 +14832,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debug: 1
+  used: 0
   offsetPos:
   - {x: 0, y: 0, z: 10.23}
   - {x: 12, y: 0, z: 0}
-  speed: 1
+  speed: 2
   delay: 0
   pauseTime: 0
   type: 1
@@ -15791,10 +15837,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debug: 1
+  used: 0
   offsetPos:
   - {x: 0, y: 0, z: 10.23}
   - {x: -12, y: 0, z: 0}
-  speed: 1
+  speed: 2
   delay: 0
   pauseTime: 0
   type: 1
@@ -16538,10 +16585,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debug: 1
+  used: 0
   offsetPos:
   - {x: 0, y: 0, z: 10.23}
   - {x: 0, y: -15, z: 0}
-  speed: 1
+  speed: 2
   delay: 0
   pauseTime: 0
   type: 1
@@ -17108,21 +17156,16 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5868659121329495404, guid: 36132e4bdd1a2a4449a062f85ace73cb,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9097235275856682835, guid: 36132e4bdd1a2a4449a062f85ace73cb,
         type: 3}
       propertyPath: musicBoxes.Array.data[0].clip
       value: 
       objectReference: {fileID: 8300000, guid: d9a3058c5a945964eac692a1ea075182, type: 3}
-    - target: {fileID: 5926587729589084417, guid: 36132e4bdd1a2a4449a062f85ace73cb,
-        type: 3}
-      propertyPath: near clip plane
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5926587729589084417, guid: 36132e4bdd1a2a4449a062f85ace73cb,
-        type: 3}
-      propertyPath: far clip plane
-      value: 500
-      objectReference: {fileID: 0}
     - target: {fileID: 5926587730575310864, guid: 36132e4bdd1a2a4449a062f85ace73cb,
         type: 3}
       propertyPath: modes.Array.data[2].active
@@ -17132,6 +17175,16 @@ PrefabInstance:
         type: 3}
       propertyPath: modes.Array.data[0].active
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5926587729589084417, guid: 36132e4bdd1a2a4449a062f85ace73cb,
+        type: 3}
+      propertyPath: near clip plane
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5926587729589084417, guid: 36132e4bdd1a2a4449a062f85ace73cb,
+        type: 3}
+      propertyPath: far clip plane
+      value: 200
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 36132e4bdd1a2a4449a062f85ace73cb, type: 3}
@@ -17443,6 +17496,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debug: 1
+  used: 0
   actionObjects:
   - {fileID: 1651076500}
   enterOnly: 1
@@ -17667,6 +17721,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debug: 1
+  used: 0
   offsetPos:
   - {x: -10, y: 0, z: 0}
   speed: 10
@@ -18562,6 +18617,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debug: 1
+  used: 0
   actionObjects:
   - {fileID: 240673976}
   enterOnly: 1
@@ -19453,10 +19509,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debug: 1
+  used: 0
   offsetPos:
   - {x: 0, y: 0, z: 10.23}
   - {x: 0, y: 15, z: 0}
-  speed: 1
+  speed: 2
   delay: 0
   pauseTime: 0
   type: 1
@@ -19493,7 +19550,7 @@ Transform:
   m_LocalScale: {x: 20, y: 20, z: 11.7}
   m_Children: []
   m_Father: {fileID: 1988371702}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1840908784
 MonoBehaviour:
@@ -19508,10 +19565,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debug: 1
+  used: 0
   gameObjects:
   - {fileID: 2101361509}
   state: 1
-  once: 0
 --- !u!114 &1840908785
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19525,6 +19582,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debug: 0
+  used: 0
   actionObjects:
   - {fileID: 1840908784}
   enterOnly: 1
@@ -19596,6 +19654,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debug: 1
+  used: 0
   actionObjects:
   - {fileID: 439919888}
   enterOnly: 1
@@ -19741,6 +19800,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debug: 1
+  used: 0
   actionObjects:
   - {fileID: 1641262841}
   enterOnly: 1
@@ -21368,6 +21428,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debug: 1
+  used: 0
   actionObjects:
   - {fileID: 1412479065}
   enterOnly: 1
@@ -21773,10 +21834,11 @@ Transform:
   - {fileID: 2100098311}
   - {fileID: 1037726597}
   - {fileID: 1278214662}
+  - {fileID: 237265292}
   - {fileID: 1147125621}
   - {fileID: 1840908783}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1988589220
 PrefabInstance:
@@ -22840,6 +22902,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debug: 1
+  used: 0
   actionObjects:
   - {fileID: 2092382847}
   enterOnly: 1
@@ -23143,7 +23206,7 @@ PrefabInstance:
     - target: {fileID: 5637744375896428112, guid: e612728c6258bd84b859baa7384e0b17,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5637744375896428112, guid: e612728c6258bd84b859baa7384e0b17,
         type: 3}
@@ -23160,6 +23223,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5637744375896428207, guid: e612728c6258bd84b859baa7384e0b17,
+        type: 3}
+      propertyPath: moduleController
+      value: 
+      objectReference: {fileID: 237265293}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e612728c6258bd84b859baa7384e0b17, type: 3}
 --- !u!4 &2092382846 stripped
@@ -23251,7 +23319,7 @@ Transform:
   - {fileID: 1412479064}
   - {fileID: 1734821951}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &2107603296 stripped
 Transform:

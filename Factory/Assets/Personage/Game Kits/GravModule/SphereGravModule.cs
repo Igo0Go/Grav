@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SphereGravModule : MonoBehaviour
+public class SphereGravModule : UsingObject
 {
     public bool planetGravityType;
     public List<Rigidbody> rigidbodies;
+    public GravFPS player;
 
     private Rigidbody rb;
     private Vector3 gravVector;
@@ -29,5 +30,18 @@ public class SphereGravModule : MonoBehaviour
             float strength = 10 * item.mass * rb.mass / (distance * distance);
             item.AddForce(gravVector.normalized * strength);
         }
+    }
+
+    public override void Use()
+    {
+        if(player != null)
+        {
+            player.SetGravObj(this);
+        }
+    }
+
+    public override void ToStart()
+    {
+
     }
 }
