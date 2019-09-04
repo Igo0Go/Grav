@@ -174,6 +174,7 @@ public class GravFPS : MonoBehaviour
     }
     public void SetGravObj(SphereGravModule reactor)
     {
+        startPlanet = reactor;
         gravObj = reactor.transform;
         transform.parent = gravObj;
         gravRb = gravObj.GetComponent<Rigidbody>();
@@ -210,7 +211,7 @@ public class GravFPS : MonoBehaviour
         gravVector = gravMultiplicator * (gravObj.position - transform.position);
 
         float distance = gravVector.magnitude;
-        float strength = 10 * rb.mass * gravRb.mass / (distance * distance);
+        float strength = rb.mass * gravRb.mass * distance / startPlanet.radius;
         rb.AddForce(gravVector.normalized * strength);
 
         if(!rotToGrav)

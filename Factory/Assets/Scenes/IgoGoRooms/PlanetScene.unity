@@ -4851,6 +4851,7 @@ MonoBehaviour:
   planetGravityType: 1
   rigidbodies: []
   player: {fileID: 1290450473}
+  radius: 0
 --- !u!54 &198522733
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -9609,7 +9610,7 @@ PrefabInstance:
     - target: {fileID: 4186589536857235926, guid: c5bad15d768965d4b87550143d8c3578,
         type: 3}
       propertyPath: m_Mass
-      value: 500
+      value: 0.9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5bad15d768965d4b87550143d8c3578, type: 3}
@@ -15436,7 +15437,7 @@ PrefabInstance:
     - target: {fileID: 4186589536857235926, guid: c5bad15d768965d4b87550143d8c3578,
         type: 3}
       propertyPath: m_Mass
-      value: 200
+      value: 0.8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5bad15d768965d4b87550143d8c3578, type: 3}
@@ -25028,7 +25029,7 @@ PrefabInstance:
     - target: {fileID: 4186589536857235926, guid: c5bad15d768965d4b87550143d8c3578,
         type: 3}
       propertyPath: m_Mass
-      value: 400
+      value: 0.6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5bad15d768965d4b87550143d8c3578, type: 3}
@@ -41074,7 +41075,7 @@ PrefabInstance:
     - target: {fileID: 4186589536857235926, guid: c5bad15d768965d4b87550143d8c3578,
         type: 3}
       propertyPath: m_Mass
-      value: 700
+      value: 1.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5bad15d768965d4b87550143d8c3578, type: 3}
@@ -42101,7 +42102,7 @@ PrefabInstance:
     - target: {fileID: 4186589536857235926, guid: c5bad15d768965d4b87550143d8c3578,
         type: 3}
       propertyPath: m_Mass
-      value: 200
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5bad15d768965d4b87550143d8c3578, type: 3}
@@ -46898,6 +46899,11 @@ PrefabInstance:
         type: 3}
       propertyPath: rigidbodies.Array.data[0]
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4186589536857235926, guid: c5bad15d768965d4b87550143d8c3578,
+        type: 3}
+      propertyPath: m_Mass
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5bad15d768965d4b87550143d8c3578, type: 3}

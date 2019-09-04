@@ -7,6 +7,7 @@ public class SphereGravModule : UsingObject
     public bool planetGravityType;
     public List<Rigidbody> rigidbodies;
     public GravFPS player;
+    public float radius;
 
     private Rigidbody rb;
     private Vector3 gravVector;
@@ -17,6 +18,11 @@ public class SphereGravModule : UsingObject
     {
         gravMultiplicator = planetGravityType ? 1 : -1;
         rb = GetComponent<Rigidbody>();
+        SphereCollider sphere = GetComponent<SphereCollider>();
+        if (sphere != null)
+        {
+            radius = GetComponent<SphereCollider>().radius;
+        }
     }
 
 
