@@ -60,8 +60,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\IgoGoModules\Editor\CubeStructureEditor.cs" />
-    <Compile Include="Assets\Personage\Settings\Editor\InputKitInspector.cs" />
+    <Compile Include="Assets\IgoGo\IgoGoModules\Editor\CubeStructureEditor.cs" />
+    <Compile Include="Assets\IgoGo\Personage\Settings\Editor\InputKitInspector.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>C:/MyPrograms/Unity/Projects/Grav/Factory/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
