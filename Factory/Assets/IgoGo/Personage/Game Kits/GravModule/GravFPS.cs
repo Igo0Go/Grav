@@ -49,6 +49,8 @@ public class GravFPS : MonoBehaviour
     #region Служебные
     [HideInInspector]public int status;
     [HideInInspector] public Rigidbody rb;
+    [HideInInspector]public Transform gravObj;
+    [HideInInspector] public bool inMenu;
 
     private Vector3 dir;
     private Vector3 savePos;
@@ -57,7 +59,6 @@ public class GravFPS : MonoBehaviour
     private Quaternion rotBufer;
     private SavePoint savePoint;
     private Vector3 gravVector;
-    public Transform gravObj;
     private Rigidbody gravRb;
     private SphereGravModule savePlanet;
     private int gravMultiplicator;
@@ -90,6 +91,7 @@ public class GravFPS : MonoBehaviour
         {
             SetGravObj(planet);
         }
+        inMenu = false;
     }
     void Update()
     {
@@ -188,8 +190,13 @@ public class GravFPS : MonoBehaviour
     {
         float h, v;
 
-        v = inputSettingsManager.GetAxis("Vertical");
-        h = inputSettingsManager.GetAxis("Horizontal");
+        h = v = 0;
+
+        if(!inMenu)
+        {
+            v = inputSettingsManager.GetAxis("Vertical");
+            h = inputSettingsManager.GetAxis("Horizontal");
+        }
 
         Vector3 camForward = transform.forward;
 
@@ -223,38 +230,41 @@ public class GravFPS : MonoBehaviour
         }
 
         Vector3 down = Vector3.Project(rb.velocity, transform.up);
-        Vector3 forward = transform.forward * inputSettingsManager.GetAxis("Vertical") * speed * Sprint();
-        Vector3 right = transform.right * inputSettingsManager.GetAxis("Horizontal") * speed * Sprint(); ;
+        float v, h;
+        v = h = 0;
+
+        if(!inMenu)
+        {
+            v = inputSettingsManager.GetAxis("Vertical");
+            h = inputSettingsManager.GetAxis("Horizontal");
+        }
+        
+        Vector3 forward = transform.forward * v * speed * Sprint();
+        Vector3 right = transform.right * h * speed * Sprint(); ;
 
         rb.velocity = down + right + forward;
     }
     private void PlayerRotate()
     {
         float mx, my;
-        mx = Input.GetAxis("Mouse X");
-        my = Input.GetAxis("Mouse Y");
+        mx = my = 0;
+        if(!inMenu)
+        {
+            mx = Input.GetAxis("Mouse X");
+            my = Input.GetAxis("Mouse Y");
+        }
 
         if (mx != 0 || my != 0)
         {
-            if (!rotToGrav)
-            {
-                transform.Rotate(Vector3.up, mx * camRotateSpeed * Time.deltaTime);
-                currentCamAngle -= my * camRotateSpeed * Time.deltaTime;
-                currentCamAngle = Mathf.Clamp(currentCamAngle, minYAngle, maxYAngle);
-                cam.localRotation = Quaternion.Euler(currentCamAngle, cam.localRotation.eulerAngles.y, 0);
-            }
-            else
-            {
-                //currentCamAngle -= my * camRotateSpeed * Time.deltaTime;
-                //currentCamAngle = Mathf.Clamp(currentCamAngle, minYAngle, maxYAngle);
-                //cam.localRotation = Quaternion.Euler(currentCamAngle, cam.localRotation.eulerAngles.y + mx * camRotateSpeed * Time.deltaTime, 0);
-            }
-           
+            transform.Rotate(Vector3.up, mx * camRotateSpeed * Time.deltaTime);
+            currentCamAngle -= my * camRotateSpeed * Time.deltaTime;
+            currentCamAngle = Mathf.Clamp(currentCamAngle, minYAngle, maxYAngle);
+            cam.localRotation = Quaternion.Euler(currentCamAngle, cam.localRotation.eulerAngles.y, 0);
         }
     }
     private float Sprint()
     {
-        if (Input.GetKey(inputSettingsManager.GetKey("Sprint")))
+        if (Input.GetKey(inputSettingsManager.GetKey("Sprint")) && !inMenu)
         {
             return sprintMultiplicator;
         }
@@ -391,12 +401,10 @@ public class GravFPS : MonoBehaviour
     }
     private void Jump()
     {
-        if (OnGround())
+        if (Input.GetKeyDown(inputSettingsManager.GetKey("Jump")))
         {
-            if (Input.GetKeyDown(inputSettingsManager.GetKey("Jump")))
-            {
+            if (OnGround() && !inMenu)
                 rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
-            }
         }
     }
 
