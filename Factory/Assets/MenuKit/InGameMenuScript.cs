@@ -6,6 +6,7 @@ using System;
 public class InGameMenuScript : MyTools
 {
     public InpustSettingsScript settingsScript;
+    public AudioSettingsPanelScript audioSettings;
     public GameObject menuPanel;
 
     private static bool inSettings;
@@ -16,7 +17,9 @@ public class InGameMenuScript : MyTools
         MyTime.Start();
         MyTime.TimeScale = 1;
         settingsScript.gameObject.SetActive(true);
+        audioSettings.gameObject.SetActive(true);
         settingsScript.ReturnEvent += onReturnEvent;
+        audioSettings.ReturnEvent += onReturnEvent;
         menuPanel.SetActive(false);
     }
 
@@ -32,10 +35,15 @@ public class InGameMenuScript : MyTools
     {
         GetMenuPanel();
     }
-    public void GetSettings()
+    public void GetInputSettings()
     {
         inSettings = true;
         settingsScript.GetSettingsPanel();
+    }
+    public void GetAudioSettings()
+    {
+        inSettings = true;
+        audioSettings.GetAudioPanel();
     }
     public void Exit()
     {

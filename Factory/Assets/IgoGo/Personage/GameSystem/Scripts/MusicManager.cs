@@ -12,14 +12,12 @@ public class MusicBox
 }
 
 public class MusicManager : MyTools {
-
     [Tooltip("Текст, где будет отображаться название композиции")] public Text audioName;
     [Tooltip("Динамик")] public AudioSource source;
     [Tooltip("Аниматор панельки с текстом")] public Animator anim;
     [Space(10)]
     [Tooltip("Последовательность композций с настройками")] public MusicBox[] musicBoxes;
 
-    
     public int CurrentBox
     {
         get
@@ -46,16 +44,31 @@ public class MusicManager : MyTools {
     private bool change;
     private float targetVolume;
     private float maxVolume;
+    private float firstMaxVolume;
+    private float currentVolume;
+    private float currentMultiplicator;
     #endregion
+
+    public void AudioUpdate(float value)
+    {
+        currentMultiplicator = value;
+        maxVolume = firstMaxVolume * currentMultiplicator;
+        source.volume = currentVolume * currentMultiplicator;
+    }
+
 
     private void Start()
     {
-        maxVolume = source.volume;
+        currentVolume = firstMaxVolume = source.volume;
+        maxVolume = firstMaxVolume * currentMultiplicator;
+        source.volume = currentVolume * currentMultiplicator;
         ChangeClip(0);
     }
     private void Update()
     {
-        if(debug)
+        maxVolume = firstMaxVolume * currentMultiplicator;
+        source.volume = currentVolume * currentMultiplicator;
+        if (debug)
         {
             CurrentBox = number;
         }
@@ -67,8 +80,7 @@ public class MusicManager : MyTools {
     {
         if (change)
         {
-            source.volume = Mathf.Lerp(source.volume, targetVolume, Time.deltaTime * 10);
-
+            currentVolume = Mathf.Lerp(currentVolume, targetVolume, Time.deltaTime * 10);
             if (source.volume < 0.05f)
             {
                 ChangeClip(_currentBox);
@@ -114,4 +126,5 @@ public class MusicManager : MyTools {
         targetVolume = maxVolume;
         source.Play();
     }
+
 }
