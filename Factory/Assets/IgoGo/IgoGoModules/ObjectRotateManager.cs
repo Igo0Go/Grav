@@ -29,7 +29,7 @@ public class ObjectRotateManager : UsingObject
     #region Служебные
     private Action rotHandler;
     private Quaternion startRot;
-    private Quaternion endrot;
+    private Quaternion endRot;
     private Quaternion currentTargetRot;
     private Vector3 axis;
     Vector3[] points = new Vector3[4];
@@ -52,12 +52,12 @@ public class ObjectRotateManager : UsingObject
     void Start()
     {
         startRot = transform.rotation;
-        endrot = startRot * Quaternion.Euler(rotVector);
+        endRot = startRot * Quaternion.Euler(rotVector);
         pause = false;
         if (type == RotateType.Reverse)
         {
             rotHandler = ReverceRotate;
-            currentTargetRot = endrot;
+            currentTargetRot = endRot;
         }
         else if (type == RotateType.Once)
         {
@@ -70,7 +70,6 @@ public class ObjectRotateManager : UsingObject
             rotHandler = RotateAroundAxis; 
         }
     }
-
     void Update()
     {
         rotHandler();
@@ -124,14 +123,15 @@ public class ObjectRotateManager : UsingObject
     {
         if(active)
         {
-            transform.Rotate(axis, Time.deltaTime * speed);
+            Quaternion rot = Quaternion.AngleAxis( Time.deltaTime * speed, axis);
+            transform.rotation = transform.rotation * rot;
         }
     }
     private void ChangeTarget()
     {
         if (currentTargetRot == startRot)
         {
-            currentTargetRot = endrot;
+            currentTargetRot = endRot;
         }
         else
         {
@@ -156,31 +156,47 @@ public class ObjectRotateManager : UsingObject
 
     private void OnDrawGizmos()
     {
-        if(debug && !(type == RotateType.AroundAxis))
+        if(debug)
         {
-            startRot = transform.rotation;
-            endrot = startRot * Quaternion.Euler(rotVector);
-            helper.position = transform.position;
-            Gizmos.color = Color.cyan;
+            if(type != RotateType.AroundAxis)
+            {
+                if (helper == null)
+                {
+                    helper = Instantiate(new GameObject(), transform).transform;
+                    helper.name = "helper";
+                }
+                startRot = transform.rotation;
+                endRot = startRot * Quaternion.Euler(rotVector);
+                helper.position = transform.position;
+                Gizmos.color = Color.cyan;
 
-            currentTargetRot = startRot;
-            helper.rotation = startRot;
-            points[0] = helper.position + helper.forward * range;
+                currentTargetRot = startRot;
+                helper.rotation = startRot;
+                points[0] = helper.position + helper.forward * range;
 
-            currentTargetRot = Quaternion.Lerp(startRot, endrot, 0.25f);
-            helper.rotation = currentTargetRot;
-            points[1] = helper.position + helper.forward * range;
+                currentTargetRot = Quaternion.Lerp(startRot, endRot, 0.25f);
+                helper.rotation = currentTargetRot;
+                points[1] = helper.position + helper.forward * range;
 
-            currentTargetRot = Quaternion.Lerp(startRot, endrot, 0.75f);
-            helper.rotation = currentTargetRot;
-            points[2] = helper.position + helper.forward * range;
+                currentTargetRot = Quaternion.Lerp(startRot, endRot, 0.75f);
+                helper.rotation = currentTargetRot;
+                points[2] = helper.position + helper.forward * range;
 
-            currentTargetRot = endrot;
-            helper.rotation = currentTargetRot;
-            points[3] = helper.position + helper.forward * range;
+                currentTargetRot = endRot;
+                helper.rotation = currentTargetRot;
+                points[3] = helper.position + helper.forward * range;
 
-            Gizmos.DrawSphere(points[0], 0.3f);
-            Handles.DrawBezier(points[0], points[3], points[1], points[2], Color.cyan, null, 3f);
+                Gizmos.DrawSphere(points[0], 0.3f);
+                Handles.DrawBezier(points[0], points[3], points[1], points[2], Color.cyan, null, 3f);
+            }
+            else
+            {
+                Gizmos.color = Color.cyan;
+                Vector3 offset = transform.right * rotVector.x + transform.up * rotVector.y + transform.forward * rotVector.z;
+                Gizmos.DrawSphere(transform.position - offset.normalized * range, 0.3f);
+                Gizmos.DrawSphere(transform.position + offset.normalized * range, 0.3f);
+                Gizmos.DrawLine(transform.position - offset.normalized * range, transform.position + offset.normalized * range);
+            }
         }
     }
 

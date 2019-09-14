@@ -67,11 +67,12 @@ public class ObjectTranslateManager : UsingObject {
             else
             {
                 moveHandler = LoopMove;
-                if(active)
-                {
-                    active = false;
-                    Invoke("Action", delay);
-                }
+               
+            }
+            if (active)
+            {
+                active = false;
+                Invoke("Action", delay);
             }
         }
     }
@@ -104,13 +105,10 @@ public class ObjectTranslateManager : UsingObject {
             moveVector = currentTargetPos - transform.position;
             moveVector = moveVector.normalized;
 
-            if (type == TranslateType.Loop)
+            if (active)
             {
-                if (active)
-                {
-                    active = false;
-                    Invoke("Action", delay);
-                }
+                active = false;
+                Invoke("Action", delay);
             }
         }
         used = false;
@@ -152,7 +150,13 @@ public class ObjectTranslateManager : UsingObject {
                 {
                     currentOffsetItem = 0;
                     transform.position = startPos;
-                    Invoke("ChangeTarget", pauseTime);
+                    pause = false;
+                    currentOffsetItem = 0;
+                    forwardWay = 1;
+                    currentTargetPos = transform.position + forwardWay * (transform.right * offsetPos[currentOffsetItem].x + transform.up * offsetPos[currentOffsetItem].y
+                        + transform.forward * offsetPos[currentOffsetItem].z);
+                    moveVector = currentTargetPos - transform.position;
+                    moveVector = moveVector.normalized;
                 }
                 else
                 {
@@ -258,42 +262,45 @@ public class ObjectTranslateManager : UsingObject {
             Gizmos.color = Color.cyan;
             Vector3 bufer1 = transform.position;
             Vector3 bufer2;
-            for (int i = 0; i < offsetPos.Count; i++)
+            if(offsetPos != null)
             {
-                bufer2 = bufer1 + transform.right * offsetPos[i].x + transform.up * offsetPos[i].y + transform.forward * offsetPos[i].z;
-                Gizmos.DrawLine(bufer1, bufer2);
-                bufer1 = bufer2;
-                Gizmos.DrawSphere(bufer1, 0.4f);
-                if (i == offsetPos.Count - 1)
+                for (int i = 0; i < offsetPos.Count; i++)
                 {
-                    #region Подготовка точек
-                    debugPoints[0] = bufer1 - (transform.forward * transform.lossyScale.z / 2) - (transform.right * transform.lossyScale.x / 2)
-                                   - (transform.up * transform.lossyScale.y / 2);
-                    debugPoints[1] = bufer1 - (transform.forward * transform.lossyScale.z / 2) + (transform.right * transform.lossyScale.x / 2)
-                        - (transform.up * transform.lossyScale.y / 2);
-                    debugPoints[2] = bufer1 + (transform.forward * transform.lossyScale.z / 2) + (transform.right * transform.lossyScale.x / 2)
-                        - (transform.up * transform.lossyScale.y / 2);
-                    debugPoints[3] = bufer1 + (transform.forward * transform.lossyScale.z / 2) - (transform.right * transform.lossyScale.x / 2)
-                        - (transform.up * transform.lossyScale.y / 2);
-                    debugPoints[4] = bufer1 + (transform.forward * transform.lossyScale.z / 2) - (transform.right * transform.lossyScale.x / 2)
-                        + (transform.up * transform.lossyScale.y / 2);
-                    debugPoints[5] = bufer1 - (transform.forward * transform.lossyScale.z / 2) - (transform.right * transform.lossyScale.x / 2)
-                        + (transform.up * transform.lossyScale.y / 2);
-                    debugPoints[6] = bufer1 - (transform.forward * transform.lossyScale.z / 2) + (transform.right * transform.lossyScale.x / 2)
-                        + (transform.up * transform.lossyScale.y / 2);
-                    debugPoints[7] = bufer1 + (transform.forward * transform.lossyScale.z / 2) + (transform.right * transform.lossyScale.x / 2)
-                        + (transform.up * transform.lossyScale.y / 2);
-                    #endregion
-
-                    for (int j = 0; j < debugPoints.Length-1; j++)
+                    bufer2 = bufer1 + transform.right * offsetPos[i].x + transform.up * offsetPos[i].y + transform.forward * offsetPos[i].z;
+                    Gizmos.DrawLine(bufer1, bufer2);
+                    bufer1 = bufer2;
+                    Gizmos.DrawSphere(bufer1, 0.4f);
+                    if (i == offsetPos.Count - 1)
                     {
-                        Gizmos.DrawLine(debugPoints[j], debugPoints[j + 1]);
+                        #region Подготовка точек
+                        debugPoints[0] = bufer1 - (transform.forward * transform.lossyScale.z / 2) - (transform.right * transform.lossyScale.x / 2)
+                                       - (transform.up * transform.lossyScale.y / 2);
+                        debugPoints[1] = bufer1 - (transform.forward * transform.lossyScale.z / 2) + (transform.right * transform.lossyScale.x / 2)
+                            - (transform.up * transform.lossyScale.y / 2);
+                        debugPoints[2] = bufer1 + (transform.forward * transform.lossyScale.z / 2) + (transform.right * transform.lossyScale.x / 2)
+                            - (transform.up * transform.lossyScale.y / 2);
+                        debugPoints[3] = bufer1 + (transform.forward * transform.lossyScale.z / 2) - (transform.right * transform.lossyScale.x / 2)
+                            - (transform.up * transform.lossyScale.y / 2);
+                        debugPoints[4] = bufer1 + (transform.forward * transform.lossyScale.z / 2) - (transform.right * transform.lossyScale.x / 2)
+                            + (transform.up * transform.lossyScale.y / 2);
+                        debugPoints[5] = bufer1 - (transform.forward * transform.lossyScale.z / 2) - (transform.right * transform.lossyScale.x / 2)
+                            + (transform.up * transform.lossyScale.y / 2);
+                        debugPoints[6] = bufer1 - (transform.forward * transform.lossyScale.z / 2) + (transform.right * transform.lossyScale.x / 2)
+                            + (transform.up * transform.lossyScale.y / 2);
+                        debugPoints[7] = bufer1 + (transform.forward * transform.lossyScale.z / 2) + (transform.right * transform.lossyScale.x / 2)
+                            + (transform.up * transform.lossyScale.y / 2);
+                        #endregion
+
+                        for (int j = 0; j < debugPoints.Length - 1; j++)
+                        {
+                            Gizmos.DrawLine(debugPoints[j], debugPoints[j + 1]);
+                        }
+                        Gizmos.DrawLine(debugPoints[0], debugPoints[5]);
+                        Gizmos.DrawLine(debugPoints[4], debugPoints[7]);
+                        Gizmos.DrawLine(debugPoints[2], debugPoints[7]);
+                        Gizmos.DrawLine(debugPoints[1], debugPoints[6]);
+                        Gizmos.DrawLine(debugPoints[0], debugPoints[3]);
                     }
-                    Gizmos.DrawLine(debugPoints[0], debugPoints[5]);
-                    Gizmos.DrawLine(debugPoints[4], debugPoints[7]);
-                    Gizmos.DrawLine(debugPoints[2], debugPoints[7]);
-                    Gizmos.DrawLine(debugPoints[1], debugPoints[6]);
-                    Gizmos.DrawLine(debugPoints[0], debugPoints[3]);
                 }
             }
         }

@@ -29,7 +29,7 @@ public class AudioSettingsPanelScript : MonoBehaviour
         set
         {
             audioSettings.musicMultiplicator = value;
-            ChangeMusicVolume?.Invoke(audioSettings.musicMultiplicator);
+            ChangeMusicVolume?.Invoke(value);
         }
     }
     private float OtherVolume
@@ -41,16 +41,22 @@ public class AudioSettingsPanelScript : MonoBehaviour
         set
         {
             audioSettings.otherAudioMultiplicator = value;
-            ChangeOtherVolume?.Invoke(audioSettings.otherAudioMultiplicator);
+            ChangeOtherVolume?.Invoke(value);
         }
     }
 
     void Start()
     {
         audioSettingsPanel.SetActive(false);
+
+        musicSlider.onValueChanged.AddListener(CallMusic);
+        otherAudioSlider.onValueChanged.AddListener(CallOther);
+
         musicSlider.value = MusicVolume;
         otherAudioSlider.value = OtherVolume;
+
         ChangeMusicVolume = ChangeOtherVolume = null;
+
         foreach (var item in musicManagers)
         {
             ChangeMusicVolume += item.AudioUpdate;
@@ -59,16 +65,11 @@ public class AudioSettingsPanelScript : MonoBehaviour
         {
             ChangeOtherVolume += item.VolumeUpdate;
         }
+        ChangeOtherVolume?.Invoke(audioSettings.otherAudioMultiplicator);
+        ChangeMusicVolume?.Invoke(audioSettings.musicMultiplicator);
     }
-
     void Update()
     {
-        if(audioSettingsPanel.activeSelf)
-        {
-            MusicVolume = musicSlider.value;
-            OtherVolume = otherAudioSlider.value;
-        }
-
         if (Input.GetKeyDown(manager.GetKey("Cancel")) && audioSettingsPanel.activeSelf)
         {
             GetAudioPanel();
@@ -87,4 +88,7 @@ public class AudioSettingsPanelScript : MonoBehaviour
             ReturnEvent?.Invoke();
         }
     }
+
+    private void CallMusic(float value) => MusicVolume = musicSlider.value;
+    private void CallOther(float value) => OtherVolume = otherAudioSlider.value;
 }

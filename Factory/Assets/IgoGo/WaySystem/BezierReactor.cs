@@ -20,7 +20,6 @@ public class BezierReactor : MyTools
         gravFPS = GetComponent<GravFPS>();
         gravFPS.OnGroundEvent += ClearCurve;
     }
-
     private void Update()
     {
         if(gravFPS.status > 0)
@@ -51,7 +50,6 @@ public class BezierReactor : MyTools
             gravFPS.status = 1;
         }
     }
-
     private void MoveToTarget()
     {
         if(gravFPS.status == 1)
@@ -72,7 +70,6 @@ public class BezierReactor : MyTools
             gravFPS.rb.AddForce(transform.up, ForceMode.Impulse);
         }
     }
-
     private void CheckTargetPoint()
     {
         if(pointNumber < curve.bezierPath.Length-1)
@@ -91,6 +88,10 @@ public class BezierReactor : MyTools
         gravFPS.rb.AddForce(transform.forward * 5 + transform.up * 2, ForceMode.Impulse);
         gravFPS.status = 0;
         gravFPS.RotateToGrav();
+    }
+    private void ClearCurve()
+    {
+        curve = null;
     }
 
     private void OnTriggerStay(Collider other)
@@ -113,8 +114,5 @@ public class BezierReactor : MyTools
         }
     }
 
-    private void ClearCurve()
-    {
-        curve = null;
-    }
+    
 }

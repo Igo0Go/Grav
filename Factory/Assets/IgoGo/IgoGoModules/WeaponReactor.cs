@@ -47,7 +47,7 @@ public class WeaponReactor : UsingOrigin, IAlive
 
     private void UseAl()
     {
-        for (int i = 0; i < actionObjects.Length; i++)
+        for (int i = 0; i < actionObjects.Count; i++)
         {
             if (actionObjects[i] != null)
             {

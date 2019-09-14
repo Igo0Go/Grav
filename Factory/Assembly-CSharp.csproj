@@ -75,6 +75,7 @@
     <Compile Include="Assets\IgoGo\IgoGoModules\MyTools.cs" />
     <Compile Include="Assets\IgoGo\IgoGoModules\ObjectRotateManager.cs" />
     <Compile Include="Assets\IgoGo\IgoGoModules\ObjectTranslateManager.cs" />
+    <Compile Include="Assets\IgoGo\IgoGoModules\RandomActionModule.cs" />
     <Compile Include="Assets\IgoGo\IgoGoModules\RBActivator.cs" />
     <Compile Include="Assets\IgoGo\IgoGoModules\ReplicSceneLoader.cs" />
     <Compile Include="Assets\IgoGo\IgoGoModules\ReplicSystem.cs" />
@@ -104,6 +105,7 @@
     <Compile Include="Assets\IgoGo\Personage\PlanetConstraint.cs" />
     <Compile Include="Assets\IgoGo\Personage\PlayerPlanetControl.cs" />
     <Compile Include="Assets\IgoGo\Prefabs\EffectExamples\Misc Effects\Scripts\SpawnEffect.cs" />
+    <Compile Include="Assets\IgoGo\Prefabs\Intaractive\LootPoint\LootPointScript.cs" />
     <Compile Include="Assets\IgoGo\WaySystem\BezierCurve.cs" />
     <Compile Include="Assets\IgoGo\WaySystem\BezierCurveEditor.cs" />
     <Compile Include="Assets\IgoGo\WaySystem\BezierCurvesAdjustment.cs" />

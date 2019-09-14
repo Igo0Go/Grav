@@ -6,13 +6,18 @@ public class ManipReactor : UsingOrigin
 {
     public ManipItem manip;
 
+    private void OnEnable()
+    {
+        tag = "Module";
+    }
+
     public override void Use()
     {
-        foreach (var item in actionObjects)
+        for (int i = 0; i < actionObjects.Count; i++)
         {
-            item.Use();
-            used = true;
+            actionObjects[i].Use();
         }
+        used = true;
     }
 
     public override void ToStart()

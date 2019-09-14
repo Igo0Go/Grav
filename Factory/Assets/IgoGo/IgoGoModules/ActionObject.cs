@@ -14,7 +14,7 @@ public abstract class UsingObject: MyTools
 
 public abstract class UsingOrigin : UsingObject
 {
-    [Tooltip("Объекты, у которых будет вызываться метод USE()")] public UsingObject[] actionObjects;
+    [Tooltip("Объекты, у которых будет вызываться метод USE()")] public List<UsingObject> actionObjects;
 }
 
 public class ActionObject : UsingOrigin {
@@ -82,7 +82,7 @@ public class ActionObject : UsingOrigin {
     }
     public void UseAll()
     {
-        for (int i = 0; i < actionObjects.Length; i++)
+        for (int i = 0; i < actionObjects.Count; i++)
         {
             if (actionObjects[i] != null)
             {

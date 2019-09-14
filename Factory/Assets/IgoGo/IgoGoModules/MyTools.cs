@@ -37,7 +37,8 @@ public abstract class MyTools : MonoBehaviour
 }
 public static class MyTime
 {
-    public static float PauseTime { get; set; }
+    public static float PauseTime { get; set; } = 0;
+    public static bool PauseStatus => pauseKey;
     public static void Pause()
     {
         TimeScale = PauseTime;

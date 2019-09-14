@@ -29,7 +29,7 @@ public class ActionNode : UsingOrigin {
     }
     public void UseAll()
     {
-        for (int i = 0; i < actionObjects.Length; i++)
+        for (int i = 0; i < actionObjects.Count; i++)
         {
             if (actionObjects[i] != null)
             {
@@ -47,7 +47,7 @@ public class ActionNode : UsingOrigin {
         {
             Gizmos.color = Color.blue;
             Gizmos.DrawSphere(transform.position, 0.3f);
-            for (int i = 0; i < actionObjects.Length; i++)
+            for (int i = 0; i < actionObjects.Count; i++)
             {
                 if (actionObjects[i] != null)
                 {

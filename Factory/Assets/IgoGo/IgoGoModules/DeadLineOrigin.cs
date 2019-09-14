@@ -18,7 +18,10 @@ public class DeadLineOrigin : MonoBehaviour
 
     void Update()
     {
-        DeadRay();
+        if(!MyTime.PauseStatus)
+        {
+            DeadRay();
+        }
     }
 
     private void DeadRay()
@@ -45,5 +48,11 @@ public class DeadLineOrigin : MonoBehaviour
         renderItem.positionCount = 2;
         renderItem.SetPosition(0, transform.position);
         renderItem.SetPosition(1, point);
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(transform.position, transform.position + transform.forward * maxRange);
     }
 }

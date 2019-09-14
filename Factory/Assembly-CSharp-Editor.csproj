@@ -60,6 +60,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\IgoGo\IgoGoModules\Editor\AnimActivatorEditor.cs" />
     <Compile Include="Assets\IgoGo\IgoGoModules\Editor\CubeStructureEditor.cs" />
     <Compile Include="Assets\MenuKit\Settings\Editor\InputKitInspector.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">

@@ -26,8 +26,6 @@ public class InpustSettingsScript : MonoBehaviour
     {
         changePanel.SetActive(false);
         settingsPannel.SetActive(false);
-        MyTime.Start();
-        MyTime.TimeScale = 1;
         GetHeaders();
     }
 

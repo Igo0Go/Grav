@@ -6,12 +6,11 @@ using System;
 public class AnimActivator : UsingObject {
 
     [Tooltip("Аниматор должен содержать параметр Active (bool)")]
-    public Animator[] animObjects;
-    [SerializeField]private bool useFloat;
-    [SerializeField, Range(0.01f, 1)] private float speed;
-
-
+    public List<Animator> animObjects;
+    [SerializeField]public bool useFloat;
+    [SerializeField, Range(0.01f, 1)] public float speed = 0.1f;
     [Tooltip("Начальное состояние")] public bool active;
+
     private bool currentActive;
     private float target;
     private float currentValue;
@@ -21,7 +20,6 @@ public class AnimActivator : UsingObject {
     {
         ToStart();
     }
-
     private void Update()
     {
         if(change)
@@ -40,7 +38,7 @@ public class AnimActivator : UsingObject {
     {
         if(useFloat)
         {
-            target ++;
+            target += speed;
             change = true;
         }
         else
@@ -50,7 +48,6 @@ public class AnimActivator : UsingObject {
         }
         used = !used;
     }
-
     public override void ToStart()
     {
         used = false;
@@ -65,10 +62,9 @@ public class AnimActivator : UsingObject {
             SetActiveForAll(active);
         }
     }
-
     public void SetActiveForAll(bool value)
     {
-        for (int i = 0; i < animObjects.Length; i++)
+        for (int i = 0; i < animObjects.Count; i++)
         {
             if(animObjects[i] != null)
             {
@@ -82,7 +78,7 @@ public class AnimActivator : UsingObject {
     }
     public void SetActiveForAll(float value)
     {
-        for (int i = 0; i < animObjects.Length; i++)
+        for (int i = 0; i < animObjects.Count; i++)
         {
             if (animObjects[i] != null)
             {
@@ -101,7 +97,7 @@ public class AnimActivator : UsingObject {
         {
             Gizmos.color = Color.magenta;
             Gizmos.DrawSphere(transform.position, 0.3f);
-            for (int i = 0; i < animObjects.Length; i++)
+            for (int i = 0; i < animObjects.Count; i++)
             {
                 if (animObjects[i] != null)
                 {

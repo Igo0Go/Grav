@@ -14,19 +14,19 @@ public class InGameMenuScript : MyTools
     void Start()
     {
         inSettings = false;
-        MyTime.Start();
         MyTime.TimeScale = 1;
+        MyTime.Start();
         settingsScript.gameObject.SetActive(true);
         audioSettings.gameObject.SetActive(true);
-        settingsScript.ReturnEvent += onReturnEvent;
-        audioSettings.ReturnEvent += onReturnEvent;
+        settingsScript.ReturnEvent += OnReturnEvent;
+        audioSettings.ReturnEvent += OnReturnEvent;
         menuPanel.SetActive(false);
     }
-
     private void Update()
     {
-        if (Input.GetKeyDown(settingsScript.manager.GetKey("Cancel")) && !inSettings)
+        if (Input.GetKeyDown(settingsScript.manager.GetKey("Cancel"))/* && !inSettings*/)
         {
+            if(!inSettings)
             GetMenuPanel();
         }
     }
@@ -66,7 +66,7 @@ public class InGameMenuScript : MyTools
             Cursor.lockState = CursorLockMode.Locked;
         }
     }
-    private void onReturnEvent()
+    private void OnReturnEvent()
     {
         inSettings = false;
     }

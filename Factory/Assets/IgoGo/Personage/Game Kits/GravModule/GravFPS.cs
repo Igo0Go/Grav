@@ -61,6 +61,8 @@ public class GravFPS : MonoBehaviour
     private Vector3 gravVector;
     private Rigidbody gravRb;
     private SphereGravModule savePlanet;
+    private LootPointScript currentLootPoint;
+    private Collider currentMoveTransformCol;
     private int gravMultiplicator;
     private int gravRotSpeed;
     private bool onGround;
@@ -216,33 +218,36 @@ public class GravFPS : MonoBehaviour
     }
     private void PlayerMoveSphere()
     {
-        gravVector = gravMultiplicator * (gravObj.position - transform.position);
-
-        float distance = gravVector.magnitude;
-        float strength = 100 * rb.mass * gravRb.mass * (planet.radius + distance) / (distance * 3);
-
-        rb.AddForce(gravVector.normalized * strength);
-
-        if(!rotToGrav)
+        if(status == 0)
         {
-            rotBufer = Quaternion.FromToRotation(-transform.up, gravVector.normalized);
-            transform.rotation = rotBufer * transform.rotation;
+            gravVector = gravMultiplicator * (gravObj.position - transform.position);
+
+            float distance = gravVector.magnitude;
+            float strength = 100 * rb.mass * gravRb.mass * (planet.radius + distance) / (distance * 3);
+
+            rb.AddForce(gravVector.normalized * strength);
+
+            if (!rotToGrav)
+            {
+                rotBufer = Quaternion.FromToRotation(-transform.up, gravVector.normalized);
+                transform.rotation = rotBufer * transform.rotation;
+            }
+
+            Vector3 down = Vector3.Project(rb.velocity, transform.up);
+            float v, h;
+            v = h = 0;
+
+            if (!inMenu)
+            {
+                v = inputSettingsManager.GetAxis("Vertical");
+                h = inputSettingsManager.GetAxis("Horizontal");
+            }
+
+            Vector3 forward = transform.forward * v * speed * Sprint();
+            Vector3 right = transform.right * h * speed * Sprint(); ;
+
+            rb.velocity = down + right + forward;
         }
-
-        Vector3 down = Vector3.Project(rb.velocity, transform.up);
-        float v, h;
-        v = h = 0;
-
-        if(!inMenu)
-        {
-            v = inputSettingsManager.GetAxis("Vertical");
-            h = inputSettingsManager.GetAxis("Horizontal");
-        }
-        
-        Vector3 forward = transform.forward * v * speed * Sprint();
-        Vector3 right = transform.right * h * speed * Sprint(); ;
-
-        rb.velocity = down + right + forward;
     }
     private void PlayerRotate()
     {
@@ -453,6 +458,44 @@ public class GravFPS : MonoBehaviour
         else if(other.tag.Equals("SceneLoad"))
         {
             sceneManager.LoadNextScene();
+        }
+        else if (other.tag.Equals("LootPoint"))
+        {
+            currentLootPoint = other.GetComponent<LootPointScript>();
+            gravFPSUI.SetTip(currentLootPoint, inputSettingsManager);
+        }
+        else if (other.tag.Equals("MoveTransform"))
+        {
+            currentMoveTransformCol = other;
+            transform.parent = currentMoveTransformCol.transform;
+        }
+    }
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.tag.Equals("LootPoint"))
+        {
+            if(Input.GetKeyDown(inputSettingsManager.GetKey("Using")) && currentLootPoint == other.GetComponent<LootPointScript>())
+            {
+                if(currentLootPoint.useble && gravFPSUI.StatusPack.money >= currentLootPoint.cost)
+                {
+                    gravFPSUI.SpendMoney(currentLootPoint.cost);
+                    gravFPSUI.ClearTip();
+                    currentLootPoint.SetPlayer(gravFPSUI);
+                }
+            }
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag.Equals("LootPoint") && currentLootPoint == other.GetComponent<LootPointScript>())
+        {
+            currentLootPoint = null;
+            gravFPSUI.ClearTip();
+        }
+        else if (other.tag.Equals("MoveTransform") && other == currentMoveTransformCol)
+        {
+            currentMoveTransformCol = null;
+            transform.parent = null;
         }
     }
     private void OnCollisionEnter(Collision collision)

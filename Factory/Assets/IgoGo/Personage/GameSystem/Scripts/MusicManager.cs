@@ -12,6 +12,7 @@ public class MusicBox
 }
 
 public class MusicManager : MyTools {
+    public AudioSettingsPack audioSettings;
     [Tooltip("Текст, где будет отображаться название композиции")] public Text audioName;
     [Tooltip("Динамик")] public AudioSource source;
     [Tooltip("Аниматор панельки с текстом")] public Animator anim;
@@ -49,16 +50,9 @@ public class MusicManager : MyTools {
     private float currentMultiplicator;
     #endregion
 
-    public void AudioUpdate(float value)
-    {
-        currentMultiplicator = value;
-        maxVolume = firstMaxVolume * currentMultiplicator;
-        source.volume = currentVolume * currentMultiplicator;
-    }
-
-
     private void Start()
     {
+        currentMultiplicator = audioSettings.musicMultiplicator;
         currentVolume = firstMaxVolume = source.volume;
         maxVolume = firstMaxVolume * currentMultiplicator;
         source.volume = currentVolume * currentMultiplicator;
@@ -74,6 +68,13 @@ public class MusicManager : MyTools {
         }
         SetMusicBox();
         CheckMusic();
+    }
+
+    public void AudioUpdate(float value)
+    {
+        currentMultiplicator = value;
+        maxVolume = firstMaxVolume * currentMultiplicator;
+        source.volume = currentVolume * currentMultiplicator;
     }
 
     private void SetMusicBox()

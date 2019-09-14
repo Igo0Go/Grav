@@ -6,17 +6,25 @@ public class Timer : UsingOrigin
 {
     [Space(20), Tooltip("Время, через которое будет вызван метод Use()"), Range(0,float.MaxValue)]
     public float time;
+    [SerializeField] private bool active;
 
     private float currentTime;
 
+    private void Start()
+    {
+        if(active)
+        {
+            Use();
+        }
+    }
 
     private void Update()
     {
-        if(used)
+        if(used && active)
         {
             if(currentTime < time)
             {
-                currentTime += Time.fixedUnscaledDeltaTime;
+                currentTime += Time.deltaTime;
             }
             else
             {
@@ -29,7 +37,9 @@ public class Timer : UsingOrigin
 
     public override void Use()
     {
+        active = true;
         used = true;
+        currentTime = 0;
     }
     public override void ToStart()
     {
@@ -39,7 +49,7 @@ public class Timer : UsingOrigin
 
     public void UseAll()
     {
-        for (int i = 0; i < actionObjects.Length; i++)
+        for (int i = 0; i < actionObjects.Count; i++)
         {
             if (actionObjects[i] != null)
             {
@@ -58,7 +68,7 @@ public class Timer : UsingOrigin
         {
             Gizmos.color = Color.white;
             Gizmos.DrawSphere(transform.position, 0.3f);
-            for (int i = 0; i < actionObjects.Length; i++)
+            for (int i = 0; i < actionObjects.Count; i++)
             {
                 if (actionObjects[i] != null)
                 {

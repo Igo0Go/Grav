@@ -23,7 +23,7 @@ public class BulletReactor : UsingOrigin
 
     public void UseAll()
     {
-        for (int i = 0; i < actionObjects.Length; i++)
+        for (int i = 0; i < actionObjects.Count; i++)
         {
             if (actionObjects[i] != null)
             {
@@ -47,7 +47,7 @@ public class BulletReactor : UsingOrigin
         {
             Gizmos.color = Color.red;
             Gizmos.DrawSphere(transform.position, 0.3f);
-            for (int i = 0; i < actionObjects.Length; i++)
+            for (int i = 0; i < actionObjects.Count; i++)
             {
                 if (actionObjects[i] != null)
                 {

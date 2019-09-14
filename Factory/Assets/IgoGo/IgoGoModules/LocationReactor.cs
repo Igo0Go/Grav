@@ -25,7 +25,7 @@ public class LocationReactor : UsingOrigin
 
     public void UseAll()
     {
-        for (int i = 0; i < actionObjects.Length; i++)
+        for (int i = 0; i < actionObjects.Count; i++)
         {
             if (actionObjects[i] != null)
             {
@@ -44,7 +44,7 @@ public class LocationReactor : UsingOrigin
         {
             Gizmos.color = Color.green;
             Gizmos.DrawSphere(transform.position, 0.3f);
-            for (int i = 0; i < actionObjects.Length; i++)
+            for (int i = 0; i < actionObjects.Count; i++)
             {
                 if (actionObjects[i] != null)
                 {
