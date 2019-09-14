@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 256d235b15d34794da05dd2937a9648a, type: 3}
+  m_Name: GravStatus
+  m_EditorClassIdentifier: 
+  currentScene: InsideOld
+  hubScene: TestHub
+  loadStatus: 0
+  money: 0
+  lifeSphereCount: 30
+  acidCount: 4
+  saveMoney: 0
+  saveSphere: 30
+  saveAcidCount: 0
+  maxAcidCount: 4
