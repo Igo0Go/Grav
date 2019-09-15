@@ -5,6 +5,7 @@ using UnityEngine;
 public class ManipItem : MyTools
 {
     private Rigidbody rb;
+    [HideInInspector] public bool damaged;
 
     private void OnEnable()
     {
@@ -15,6 +16,7 @@ public class ManipItem : MyTools
     {
         rb = GetComponent<Rigidbody>();
     }
+    private void ReturnDamaged() => damaged = false;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -35,11 +37,22 @@ public class ManipItem : MyTools
         {
             if (MyGetComponent(collision.gameObject, out ManipReactor manip))
             {
-                if(rb.velocity.magnitude*rb.mass > 2)
+                if (manip.manip == null)
                 {
-                    manip.Use();
+                    if (damaged)
+                    {
+                        manip.Use();
+                    }
+                }
+                else
+                {
+                    if(manip.manip == this && damaged)
+                    {
+                        manip.Use();
+                    }
                 }
             }
         }
+        Invoke("ReturnDamaged", 0.1f);
     }
 }

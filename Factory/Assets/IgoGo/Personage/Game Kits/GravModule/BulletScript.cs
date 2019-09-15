@@ -77,6 +77,10 @@ public class BulletScript : MyTools
             {
                 bulletReactor.Use();
             }
+            if (MyGetComponent(hit.collider.gameObject, out SphereGravItem item))
+            {
+                item.InvokeOnBullet();
+            }
 
             if (hit.collider.tag.Equals("Grav"))
             {
@@ -88,6 +92,7 @@ public class BulletScript : MyTools
                 }
                 else
                 {
+                    player.planet = null;
                     player.gravObj = null;
                     player.transform.parent = null;
                     Physics.gravity = -hit.normal * power * 9.8f;

@@ -14,7 +14,7 @@ public class GravGanMode
 }
 
 [RequireComponent(typeof(LineRenderer))]
-public class GravityThrowerScript : MonoBehaviour
+public class GravityThrowerScript : MyTools
 {
     #region Публичные переменные (ссылки)
     [Tooltip("В маске указать, на ккие слои выстрел не должен реагировать")]
@@ -121,7 +121,7 @@ public class GravityThrowerScript : MonoBehaviour
     }
     private void GravShoot()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetKeyDown(player.inputSettingsManager.GetKey("Fire1")))
         {
             BulletScript bullet = Instantiate(currentBullet, ShootPoint.position, ShootPoint.rotation).GetComponent<BulletScript>();
             bullet.SetSettings(this);
@@ -129,7 +129,7 @@ public class GravityThrowerScript : MonoBehaviour
             anim.SetTrigger("Shoot");
             shootParticles.Play();
         }
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetKeyDown(player.inputSettingsManager.GetKey("Fire2")))
         {
             Toggle();
         }
@@ -138,7 +138,7 @@ public class GravityThrowerScript : MonoBehaviour
     {
         if(!manipKey)
         {
-            if(Input.GetMouseButtonDown(0))
+            if(Input.GetKeyDown(player.inputSettingsManager.GetKey("Fire1")))
             {
                 Vector3 dir = lookPoint.position - cam.position;
                 Debug.DrawRay(cam.position, dir, Color.red, 3);
@@ -178,10 +178,20 @@ public class GravityThrowerScript : MonoBehaviour
                 currentRB.velocity = Vector3.zero;
             }
 
-            if(Input.GetMouseButtonDown(0))
+            if(Input.GetKeyDown(player.inputSettingsManager.GetKey("Fire1")))
             {
                 ReturnManip();
             }
+            else if (Input.GetKeyDown(player.inputSettingsManager.GetKey("Using")))
+            {
+                if (MyGetComponent(currentManipObj, out ManipItem item))
+                {
+                    item.damaged = true;
+                }
+                ReturnManip();
+                currentRB.AddForce((transform.forward + transform.up * 0.5f) * 10, ForceMode.Impulse);
+            }
+
             //nearPoint = ShootPoint.position + ShootPoint.forward * Vector3.Distance(ShootPoint.position, currentManipObj.transform.position) / 2;
             //farPoint = Vector3.Lerp(currentManipObj.transform.position, nearPoint, Vector3.Distance(nearPoint, currentManipObj.transform.position) / 2);
 
@@ -197,14 +207,14 @@ public class GravityThrowerScript : MonoBehaviour
             //DrawCurves();
         }
 
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetKeyDown(player.inputSettingsManager.GetKey("Fire2")))
         {
             Toggle();
         }
     }
     private void AcidShoot()
     {
-        if (Input.GetMouseButtonDown(0) && player.gravFPSUI.StatusPack.acidCount > 0)
+        if (Input.GetKeyDown(player.inputSettingsManager.GetKey("Fire1")) && player.gravFPSUI.StatusPack.acidCount > 0)
         {
             BulletScript bullet = Instantiate(currentBullet, ShootPoint.position, ShootPoint.rotation).GetComponent<BulletScript>();
             bullet.SetSettings(this);
@@ -215,7 +225,7 @@ public class GravityThrowerScript : MonoBehaviour
             player.gravFPSUI.StatusPack.acidCount = Mathf.Clamp(player.gravFPSUI.StatusPack.acidCount,0, player.gravFPSUI.StatusPack.maxAcidCount);
             powerSlider.value = player.gravFPSUI.StatusPack.acidCount;
         }
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetKeyDown(player.inputSettingsManager.GetKey("Fire2")))
         {
             Toggle();
         }

@@ -9,8 +9,13 @@ public class SphereGravModule : UsingObject
     public GravFPS player;
     public float radius;
 
+    [Space(20)]
+    public bool setChilds;
+    public bool clearAllItems;
+
     private Rigidbody rb;
     private Vector3 gravVector;
+    [SerializeField]private List<SphereGravItem> gravItems;
     private int gravMultiplicator;
 
 
@@ -49,5 +54,89 @@ public class SphereGravModule : UsingObject
     public override void ToStart()
     {
 
+    }
+
+    private void SetChilds(Transform tr)
+    {
+        if(tr.childCount > 0)
+        {
+            for (int i = 0; i < tr.childCount; i++)
+            {
+                Transform newTr = tr.GetChild(i);
+                Collider col = newTr.GetComponentInChildren<Collider>();
+                if(col != null && !col.isTrigger)
+                {
+                    SphereGravItem item = col.GetComponent<SphereGravItem>();
+                    if (item == null)
+                    {
+                        item = col.gameObject.AddComponent<SphereGravItem>();
+                        gravItems.Add(item);
+                        item.sphere = this;
+                    }
+                    else
+                    {
+                        gravItems.Add(item);
+                    }
+                    if (col.GetComponent<SphereGravModule>() == null)
+                    {
+                        if (newTr.childCount > 0)
+                        {
+                            SetChilds(newTr);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    private void ClearAllItems()
+    {
+        if (gravItems != null)
+        {
+            for (int i = 0; i < gravItems.Count; i++)
+            {
+                if(gravItems[i] != null)
+                gravItems[i].DestroyMe();
+            }
+            gravItems.Clear();
+        }
+        else
+        {
+            gravItems = new List<SphereGravItem>();
+        }
+        ClearChild(transform);
+    }
+    private void ClearChild(Transform tr)
+    {
+        if (tr.childCount > 0)
+        {
+            for (int i = 0; i < tr.childCount; i++)
+            {
+                Transform newTr = tr.GetChild(i);
+                SphereGravItem item = newTr.gameObject.GetComponent<SphereGravItem>();
+                if (item != null)
+                {
+                    item.DestroyMe();
+                }
+                if (newTr.childCount > 0)
+                {
+                    ClearChild(newTr);
+                }
+            }
+        }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        if(setChilds)
+        {
+            ClearAllItems();
+            SetChilds(transform);
+            setChilds = false;
+        }
+        if(clearAllItems)
+        {
+            ClearAllItems();
+            clearAllItems = false;
+        }
     }
 }

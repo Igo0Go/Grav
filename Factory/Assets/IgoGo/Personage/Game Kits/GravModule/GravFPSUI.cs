@@ -21,6 +21,7 @@ public class GravFPSUI : MonoBehaviour
     public StatusPack StatusPack;
     public GameObject loadPanel;
     public Text tip;
+    [HideInInspector] public InputSettingsManager manager;
     [HideInInspector] public float returnTime;
     #endregion
 
@@ -65,6 +66,7 @@ public class GravFPSUI : MonoBehaviour
             Return();
         }
         SpendMoney();
+        StatisticInput();
     }
     #endregion
 
@@ -161,6 +163,17 @@ public class GravFPSUI : MonoBehaviour
                 Invoke("ReturnSpend", 0.1f);
             }
             spendMoney = false;
+        }
+    }
+    private void StatisticInput()
+    {
+        if(Input.GetKeyDown(manager.GetKey("Info")))
+        {
+            foreach (var item in panels)
+            {
+                item.anim.SetBool("Visible", true);
+            }
+            returnTime = 3;
         }
     }
     #endregion

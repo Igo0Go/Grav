@@ -94,6 +94,7 @@ public class GravFPS : MonoBehaviour
             SetGravObj(planet);
         }
         inMenu = false;
+        gravFPSUI.manager = inputSettingsManager;
     }
     void Update()
     {
@@ -324,6 +325,7 @@ public class GravFPS : MonoBehaviour
         }
         else
         {
+            savePlanet = null;
             saveGrav = Physics.gravity;
         }
         savePos = point.position + transform.up * 1.5f;
@@ -420,7 +422,7 @@ public class GravFPS : MonoBehaviour
     }
     private void ReturnToSavePoint()
     {
-        if (planet != null)
+        if (savePlanet != null)
         {
             planet = savePlanet;
             SetGravObj(planet);
