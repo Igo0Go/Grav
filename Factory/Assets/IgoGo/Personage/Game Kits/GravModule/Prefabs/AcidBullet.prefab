@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dca4a8b5a3c2d445844be2ebcee1106, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 100
+  speed: 300
   Particles:
   - {fileID: 3742643076597226574, guid: 96ee2699052208f42b46288373986d22, type: 3}
   - {fileID: 3821185242283810909, guid: b3f7fcc5d69585242b60b891d300adfe, type: 3}
@@ -60,10 +60,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 403577784336203887}
     m_Modifications:
-    - target: {fileID: 1000012909287652, guid: abb9f519b142e304d9c45b56afa768bc, type: 3}
-      propertyPath: m_Name
-      value: GoopSprayEffect
-      objectReference: {fileID: 0}
     - target: {fileID: 4000013488956786, guid: abb9f519b142e304d9c45b56afa768bc, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -107,6 +103,10 @@ PrefabInstance:
     - target: {fileID: 4000013488956786, guid: abb9f519b142e304d9c45b56afa768bc, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000012909287652, guid: abb9f519b142e304d9c45b56afa768bc, type: 3}
+      propertyPath: m_Name
+      value: GoopSprayEffect
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: abb9f519b142e304d9c45b56afa768bc, type: 3}
