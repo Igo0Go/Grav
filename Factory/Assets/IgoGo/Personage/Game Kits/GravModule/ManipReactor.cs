@@ -5,6 +5,7 @@ using UnityEngine;
 public class ManipReactor : UsingOrigin
 {
     public ManipItem manip;
+    public bool once;
 
     private void OnEnable()
     {
@@ -18,6 +19,10 @@ public class ManipReactor : UsingOrigin
             actionObjects[i].Use();
         }
         used = true;
+        if(once)
+        {
+            gameObject.SetActive(false);
+        }
     }
 
     public override void ToStart()

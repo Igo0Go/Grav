@@ -45,12 +45,14 @@ public class GravFPSUI : MonoBehaviour
         _health = 100;
         healtSlider.value = 0;
         StatusPack.saveSphere = StatusPack.lifeSphereCount;
+        panels[0].text.text = StatusPack.money.ToString();
+        panels[1].text.text = StatusPack.lifeSphereCount.ToString();
+        panels[2].text.text = StatusPack.acidCount.ToString();
         foreach (var item in panels)
         {
             item.anim.SetBool("Visible", true);
         }
-        panels[0].text.text = StatusPack.money.ToString();
-        panels[1].text.text = StatusPack.lifeSphereCount.ToString();
+        
         returnTime = 3;
     }
     void Update()

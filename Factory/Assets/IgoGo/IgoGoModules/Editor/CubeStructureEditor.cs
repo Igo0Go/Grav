@@ -12,7 +12,7 @@ public class CubeStructureEditor : Editor
     {
         acid = (AcidReactor)target;
     }
-
+#if UNITY_EDITOR
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
@@ -51,4 +51,5 @@ public class CubeStructureEditor : Editor
         EditorGUILayout.EndHorizontal();
         EditorGUILayout.EndVertical();
     }
+#endif
 }

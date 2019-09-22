@@ -95,6 +95,7 @@ public class BulletScript : MyTools
                     player.planet = null;
                     player.gravObj = null;
                     player.transform.parent = null;
+                    player.transform.localScale = Vector3.one;
                     Physics.gravity = -hit.normal * power * 9.8f;
                 }
                 player.RotateToGrav();

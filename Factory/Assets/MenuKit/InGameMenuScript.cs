@@ -8,6 +8,8 @@ public class InGameMenuScript : MyTools
     public InpustSettingsScript settingsScript;
     public AudioSettingsPanelScript audioSettings;
     public GameObject menuPanel;
+    public GravFPS player;
+
 
     private static bool inSettings;
 
@@ -21,6 +23,8 @@ public class InGameMenuScript : MyTools
         settingsScript.ReturnEvent += OnReturnEvent;
         audioSettings.ReturnEvent += OnReturnEvent;
         menuPanel.SetActive(false);
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
     private void Update()
     {
@@ -47,7 +51,14 @@ public class InGameMenuScript : MyTools
     }
     public void Exit()
     {
-        Debug.Log("Вышли в окно");
+        if(player.inHub)
+        {
+            Application.Quit();
+        }
+        else
+        {
+            player.LoadHubScene();
+        }
     }
 
     private void GetMenuPanel()
@@ -56,7 +67,8 @@ public class InGameMenuScript : MyTools
         {
             MyTime.Pause();
             menuPanel.SetActive(true);
-            Cursor.lockState = CursorLockMode.Confined;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
         else
         {
@@ -64,6 +76,7 @@ public class InGameMenuScript : MyTools
             menuPanel.SetActive(false);
             settingsScript.GetSettingsPanel(false);
             Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
     }
     private void OnReturnEvent()
