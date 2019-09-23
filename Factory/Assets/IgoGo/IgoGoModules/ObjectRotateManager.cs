@@ -24,7 +24,7 @@ public class ObjectRotateManager : UsingObject
     [Space(20)]
     [Header("Настройки дебага")]
     [Tooltip("Нужен для дебага. Создайте пустышку дочерним объектом.")] public Transform helper;
-    [Tooltip("Дальность линии от центра"), Range(1,10)] public float range = 1;
+    [Tooltip("Дальность линии от центра"), Range(1, 10)] public float range = 1;
 
     #region Служебные
     private Action rotHandler;
@@ -67,7 +67,7 @@ public class ObjectRotateManager : UsingObject
         else
         {
             axis = transform.right * rotVector.x + transform.up * rotVector.y + transform.forward * rotVector.z;
-            rotHandler = RotateAroundAxis; 
+            rotHandler = RotateAroundAxis;
         }
     }
     void Update()
@@ -121,9 +121,9 @@ public class ObjectRotateManager : UsingObject
     }
     private void RotateAroundAxis()
     {
-        if(active)
+        if (active)
         {
-            Quaternion rot = Quaternion.AngleAxis( Time.deltaTime * speed, axis);
+            Quaternion rot = Quaternion.AngleAxis(Time.deltaTime * speed, axis);
             transform.rotation = transform.rotation * rot;
         }
     }
@@ -153,8 +153,9 @@ public class ObjectRotateManager : UsingObject
         ChangeTarget();
         pause = false;
     }
-
-    private void OnDrawGizmos()
+}
+#if Unity_Editor
+private void OnDrawGizmos()
     {
         if(debug)
         {
@@ -199,5 +200,5 @@ public class ObjectRotateManager : UsingObject
             }
         }
     }
+#endif
 
-}

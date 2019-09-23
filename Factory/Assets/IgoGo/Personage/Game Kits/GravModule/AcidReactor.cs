@@ -8,7 +8,7 @@ public delegate void DamageHandler(int damage);
 public class AcidReactor : MonoBehaviour
 {
     public CubeStructureItem structureItem;
-    [Range(0.01f,5)]
+    [Range(0.01f, 5)]
     public float destroySpeed = 1;
 
     public event DamageHandler OnDamage;
@@ -24,22 +24,159 @@ public class AcidReactor : MonoBehaviour
     }
     private void Update()
     {
-        if(damage > 0)
+        if (damage > 0)
         {
             transform.localScale -= Vector3.one * Time.deltaTime * destroySpeed;
-            if(transform.lossyScale.x < 0.05f && transform.lossyScale.y < 0.05f && transform.lossyScale.z < 0.05f)
+            if (transform.lossyScale.x < 0.05f && transform.lossyScale.y < 0.05f && transform.lossyScale.z < 0.05f)
             {
                 OnDamage?.Invoke(damage - 1);
                 DestroyCompletely();
                 damage = -1;
             }
         }
-        else if(damage == 0)
+        else if (damage == 0)
         {
             InstanceDamaged();
         }
     }
+    public void GetDamage(int point)
+    {
+        damage = point;
+    }
 
+
+    private void CheckEvents()
+    {
+        if (up != null)
+        {
+            up.OnDamage += GetDamage;
+            OnDamage += up.GetDamage;
+        }
+        if (down != null)
+        {
+            down.OnDamage += GetDamage;
+            OnDamage += down.GetDamage;
+        }
+        if (forward != null)
+        {
+            forward.OnDamage += GetDamage;
+            OnDamage += forward.GetDamage;
+        }
+        if (backward != null)
+        {
+            backward.OnDamage += GetDamage;
+            OnDamage += backward.GetDamage;
+        }
+        if (right != null)
+        {
+            right.OnDamage += GetDamage;
+            OnDamage += right.GetDamage;
+        }
+        if (left != null)
+        {
+            left.OnDamage += GetDamage;
+            OnDamage += left.GetDamage;
+        }
+    }
+    private void InstanceDamaged()
+    {
+        if (structureItem != null)
+        {
+            GameObject bufer = Instantiate(structureItem.destroyed, transform.position, transform.rotation, transform.parent);
+            AcidReactor acidReactor = bufer.GetComponent<AcidReactor>();
+            if (up != null)
+            {
+                up.OnDamage -= GetDamage;
+                up.down = null;
+                up.down = acidReactor;
+                acidReactor.up = up;
+                up.OnDamage += acidReactor.OnDamage;
+            }
+            if (down != null)
+            {
+                down.OnDamage -= GetDamage;
+                down.up = null;
+                down.up = acidReactor;
+                acidReactor.down = down;
+                down.OnDamage += acidReactor.OnDamage;
+            }
+            if (forward != null)
+            {
+                forward.OnDamage -= GetDamage;
+                forward.backward = null;
+                forward.backward = acidReactor;
+                acidReactor.forward = forward;
+                forward.OnDamage += acidReactor.OnDamage;
+            }
+            if (backward != null)
+            {
+                backward.OnDamage -= GetDamage;
+                backward.forward = null;
+                backward.forward = acidReactor;
+                acidReactor.backward = backward;
+                backward.OnDamage += acidReactor.OnDamage;
+            }
+            if (right != null)
+            {
+                right.OnDamage -= GetDamage;
+                right.left = null;
+                right.left = acidReactor;
+                acidReactor.right = right;
+                right.OnDamage += acidReactor.OnDamage;
+            }
+            if (left != null)
+            {
+                left.OnDamage -= GetDamage;
+                left.right = null;
+                left.right = acidReactor;
+                acidReactor.left = left;
+                left.OnDamage += acidReactor.OnDamage;
+            }
+            OnDamage = null;
+            Destroy(gameObject);
+        }
+        else
+        {
+            Debug.LogError("Не заполнен параметр structureItem объекта " + gameObject.name + ". Действие невозможно.");
+        }
+    }
+    private void DestroyCompletely()
+    {
+        if (up != null)
+        {
+            up.OnDamage -= GetDamage;
+            up.down = null;
+        }
+        if (down != null)
+        {
+            down.OnDamage -= GetDamage;
+            down.up = null;
+        }
+        if (forward != null)
+        {
+            forward.OnDamage -= GetDamage;
+            forward.backward = null;
+        }
+        if (backward != null)
+        {
+            backward.OnDamage -= GetDamage;
+            backward.forward = null;
+        }
+        if (right != null)
+        {
+            right.OnDamage -= GetDamage;
+            right.left = null;
+        }
+        if (left != null)
+        {
+            left.OnDamage -= GetDamage;
+            left.right = null;
+        }
+        OnDamage = null;
+        Destroy(gameObject);
+    }
+
+#if UNITY_EDITOR
     public void CreateUp()
     {
         if(structureItem != null)
@@ -493,142 +630,6 @@ public class AcidReactor : MonoBehaviour
         }
 
     }
-    public void GetDamage(int point)
-    {
-        damage = point;
-    }
-
-
-    private void CheckEvents()
-    {
-        if (up != null)
-        {
-            up.OnDamage += GetDamage;
-            OnDamage += up.GetDamage;
-        }
-        if (down != null)
-        {
-            down.OnDamage += GetDamage;
-            OnDamage += down.GetDamage;
-        }
-        if (forward != null)
-        {
-            forward.OnDamage += GetDamage;
-            OnDamage += forward.GetDamage;
-        }
-        if (backward != null)
-        {
-            backward.OnDamage += GetDamage;
-            OnDamage += backward.GetDamage;
-        }
-        if (right != null)
-        {
-            right.OnDamage += GetDamage;
-            OnDamage += right.GetDamage;
-        }
-        if (left != null)
-        {
-            left.OnDamage += GetDamage;
-            OnDamage += left.GetDamage;
-        }
-    }
-    private void InstanceDamaged()
-    {
-        if (structureItem != null)
-        {
-            GameObject bufer = Instantiate(structureItem.destroyed, transform.position, transform.rotation, transform.parent);
-            AcidReactor acidReactor = bufer.GetComponent<AcidReactor>();
-            if (up != null)
-            {
-                up.OnDamage -= GetDamage;
-                up.down = null;
-                up.down = acidReactor;
-                acidReactor.up = up;
-                up.OnDamage += acidReactor.OnDamage;
-            }
-            if (down != null)
-            {
-                down.OnDamage -= GetDamage;
-                down.up = null;
-                down.up = acidReactor;
-                acidReactor.down = down;
-                down.OnDamage += acidReactor.OnDamage;
-            }
-            if (forward != null)
-            {
-                forward.OnDamage -= GetDamage;
-                forward.backward = null;
-                forward.backward = acidReactor;
-                acidReactor.forward = forward;
-                forward.OnDamage += acidReactor.OnDamage;
-            }
-            if (backward != null)
-            {
-                backward.OnDamage -= GetDamage;
-                backward.forward = null;
-                backward.forward = acidReactor;
-                acidReactor.backward = backward;
-                backward.OnDamage += acidReactor.OnDamage;
-            }
-            if (right != null)
-            {
-                right.OnDamage -= GetDamage;
-                right.left = null;
-                right.left = acidReactor;
-                acidReactor.right = right;
-                right.OnDamage += acidReactor.OnDamage;
-            }
-            if (left != null)
-            {
-                left.OnDamage -= GetDamage;
-                left.right = null;
-                left.right = acidReactor;
-                acidReactor.left = left;
-                left.OnDamage += acidReactor.OnDamage;
-            }
-            OnDamage = null;
-            Destroy(gameObject);
-        }
-        else
-        {
-            Debug.LogError("Не заполнен параметр structureItem объекта " + gameObject.name + ". Действие невозможно.");
-        }
-    }
-    private void DestroyCompletely()
-    {
-        if(up != null)
-        {
-            up.OnDamage -= GetDamage;
-            up.down = null;
-        }
-        if (down != null)
-        {
-            down.OnDamage -= GetDamage;
-            down.up = null;
-        }
-        if (forward != null)
-        {
-            forward.OnDamage -= GetDamage;
-            forward.backward = null;
-        }
-        if (backward != null)
-        {
-            backward.OnDamage -= GetDamage;
-            backward.forward = null;
-        }
-        if (right != null)
-        {
-            right.OnDamage -= GetDamage;
-            right.left = null;
-        }
-        if (left != null)
-        {
-            left.OnDamage -= GetDamage;
-            left.right = null;
-        }
-        OnDamage = null;
-        Destroy(gameObject);
-    }
 
     private void OnDrawGizmosSelected()
     {
@@ -659,4 +660,5 @@ public class AcidReactor : MonoBehaviour
             Gizmos.DrawLine(transform.position, left.transform.position);
         }
     }
+#endif
 }

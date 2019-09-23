@@ -13,7 +13,7 @@ public class BulletScript : MyTools
 {
 
     #region Публичные переменные
-    [Range(1, 100)]
+    [Range(1, 300)]
     [Tooltip("Скорость полёта снаряда")]
     public float speed;
     [Tooltip("Здесь должно быть 2 набора частиц - первый для попадания с эффектом, второй для попадания без эффекта")]
@@ -95,6 +95,7 @@ public class BulletScript : MyTools
                     player.planet = null;
                     player.gravObj = null;
                     player.transform.parent = null;
+                    player.transform.localScale = Vector3.one;
                     Physics.gravity = -hit.normal * power * 9.8f;
                 }
                 player.RotateToGrav();
