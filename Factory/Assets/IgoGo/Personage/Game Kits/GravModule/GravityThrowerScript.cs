@@ -13,6 +13,8 @@ public class GravGanMode
     [Tooltip("Снаряд")] public GameObject Bulleet;
 }
 
+public delegate void MoveToModuleHandler(DronModule module);
+
 [RequireComponent(typeof(LineRenderer))]
 public class GravityThrowerScript : MyTools
 {
@@ -34,6 +36,8 @@ public class GravityThrowerScript : MyTools
     public Slider powerSlider;
     [Tooltip("Часть слайдера - Fill")]
     public Image powerFillArea;
+    [Tooltip("Ссылка на сигнал отправки дрона")]
+    public GameObject dronLight;
     [Tooltip("Поместить объект, который должен менять цвет в зависимости от режима пушки")]
     public MeshRenderer modeIndicator;
     [Tooltip("Режимы для пушки. 0 - кислота, 1 - притяжение, 2 - манипуляция")]
@@ -78,6 +82,7 @@ public class GravityThrowerScript : MyTools
 
     #region Делегаты и События
 
+    public event MoveToModuleHandler secondUsing;
     private Action shoot;
 
     #endregion
@@ -101,6 +106,7 @@ public class GravityThrowerScript : MyTools
         Toggle();
         line = GetComponent<LineRenderer>();
         player.gravFPSUI.onGetLoot += CheckSlider;
+        dronLight.SetActive(false);
     }
     void Update()
     {
@@ -235,9 +241,22 @@ public class GravityThrowerScript : MyTools
         if (Physics.Raycast(cam.position, cam.forward, out RaycastHit hit, 500, ~ignoreMask))
         {
             lookPoint.position = hit.point;
+
+            if (hit.collider.tag.Equals("DronModule"))
+            {
+                dronLight.SetActive(true);
+                if (Input.GetKeyDown(player.inputSettingsManager.GetKey("SecondUsing")))
+                {
+                    if(MyGetComponent(hit.collider.gameObject, out DronModule module))
+                    {
+                        secondUsing?.Invoke(module);
+                    }
+                }
+            }
         }
         else
         {
+            dronLight.SetActive(false);
             lookPoint.position = cam.position + cam.forward * range;
         }
         ShootPoint.LookAt(lookPoint);
@@ -376,5 +395,4 @@ public class GravityThrowerScript : MyTools
         return p;
     }
     #endregion
-
 }
