@@ -56,7 +56,7 @@ public class BezierReactor : MyTools
         {
             if(Distance > 0.7f)
             {
-                transform.position = Vector3.Slerp(transform.position, targetPoint, speed * Time.deltaTime);
+                transform.position = Vector3.Slerp(transform.position, targetPoint, speed * Time.fixedDeltaTime);
             }
             else
             {
@@ -64,7 +64,7 @@ public class BezierReactor : MyTools
                 CheckTargetPoint();
             }
         }
-        if(Input.GetKeyDown(KeyCode.Space))
+        if(Input.GetKeyDown(gravFPS.inputSettingsManager.GetKey("Jump")))
         {
             StopMove();
             gravFPS.rb.AddForce(transform.up, ForceMode.Impulse);

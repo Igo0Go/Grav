@@ -87,16 +87,12 @@ public class BulletScript : MyTools
                 decal = Instantiate(Particles[0]);
                 if (MyGetComponent(hit.collider.gameObject, out SphereGravModule gravReactor))
                 {
-                    Physics.gravity = Vector3.zero;
                     player.SetGravObj(gravReactor);
                 }
                 else
                 {
-                    player.planet = null;
-                    player.gravObj = null;
-                    player.transform.parent = null;
+                    player.SetGravVector(-hit.normal * power * 9.8f);
                     player.transform.localScale = Vector3.one;
-                    Physics.gravity = -hit.normal * power * 9.8f;
                 }
                 player.RotateToGrav();
             }

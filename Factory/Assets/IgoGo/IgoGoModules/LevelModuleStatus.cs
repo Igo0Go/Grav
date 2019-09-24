@@ -10,10 +10,12 @@ public class PosPack
     public Quaternion rotation;
 }
 
+
 [CreateAssetMenu(menuName = "Config/LevelModuleStatus")]
 public class LevelModuleStatus : ScriptableObject
 {
     public List<PosPack> savedTransforms = new List<PosPack>();
     public List<bool> gameObjectActiveList = new List<bool>();
     public List<bool> moduleStatusList = new List<bool>();
+    public List<float> animValues = new List<float>();
 }

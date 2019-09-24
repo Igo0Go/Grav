@@ -6,7 +6,7 @@ public class SavePoint : MonoBehaviour
 {
     public GameObject sparks;
     public Transform playerPoint;
-    public ModuleConroller moduleController;
+    public ModuleController moduleController;
 
     private Animator anim;
     private Transform player;

@@ -2,12 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEditor;
 
 public class LoadSceneScript : UsingObject
 {
     public StatusPack pack;
+    public ModuleController moduleConroller;
     public int loadType;
     public string sceneName;
+    public bool setHubPos;
+    public int hubPos;
 
     public AsyncOperation loader;
     private void Start()
@@ -26,7 +30,15 @@ public class LoadSceneScript : UsingObject
 
     public override void Use()
     {
+        if (setHubPos)
+        {
+            pack.hubPoint = hubPos;
+        }
         used = true;
+        if(moduleConroller != null)
+        {
+            moduleConroller.Save();
+        }
         if(loadType==2)
         {
             pack.currentScene = sceneName;

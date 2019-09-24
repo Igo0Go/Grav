@@ -49,11 +49,11 @@ public class AudioSettingsPanelScript : MonoBehaviour
     {
         audioSettingsPanel.SetActive(false);
 
-        musicSlider.onValueChanged.AddListener(CallMusic);
-        otherAudioSlider.onValueChanged.AddListener(CallOther);
-
         musicSlider.value = MusicVolume;
         otherAudioSlider.value = OtherVolume;
+
+        musicSlider.onValueChanged.AddListener(CallMusic);
+        otherAudioSlider.onValueChanged.AddListener(CallOther);
 
         ChangeMusicVolume = ChangeOtherVolume = null;
 

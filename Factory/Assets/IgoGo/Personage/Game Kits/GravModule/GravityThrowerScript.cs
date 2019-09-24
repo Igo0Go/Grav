@@ -13,6 +13,9 @@ public class GravGanMode
     [Tooltip("Снаряд")] public GameObject Bulleet;
 }
 
+public delegate void ISeeDronModuleHandler(FriendModulePoint point);
+
+
 [RequireComponent(typeof(LineRenderer))]
 public class GravityThrowerScript : MyTools
 {
@@ -34,6 +37,8 @@ public class GravityThrowerScript : MyTools
     public Slider powerSlider;
     [Tooltip("Часть слайдера - Fill")]
     public Image powerFillArea;
+    [Tooltip("Показатель, что можно отправить дрона")]
+    public GameObject dronLight;
     [Tooltip("Поместить объект, который должен менять цвет в зависимости от режима пушки")]
     public MeshRenderer modeIndicator;
     [Tooltip("Режимы для пушки. 0 - кислота, 1 - притяжение, 2 - манипуляция")]
@@ -42,6 +47,8 @@ public class GravityThrowerScript : MyTools
     public ParticleSystem shootParticles;
     [Tooltip("Точка, из которой будут лететь снаряды")]
     public Transform ShootPoint;
+    [Tooltip("Дрон")]
+    public FriendScript friendDron;
     #endregion
 
     #region Свойства
@@ -74,10 +81,12 @@ public class GravityThrowerScript : MyTools
     private bool delay;
     private bool manipKey;
     private int toggle;
+    private bool dragDron;
     #endregion
 
     #region Делегаты и События
 
+    public event ISeeDronModuleHandler ISeeDronPointEvent;
     private Action shoot;
 
     #endregion
@@ -146,6 +155,7 @@ public class GravityThrowerScript : MyTools
                 {
                     if (hit.collider.tag.Equals("Manip"))
                     {
+                        friendDron = null;
                         currentManipObj = hit.collider.gameObject;
                         manipRenderer = currentManipObj.GetComponent<MeshRenderer>();
                         materialColor = manipRenderer.material.color;
@@ -154,6 +164,24 @@ public class GravityThrowerScript : MyTools
                         {
                             currentRB.useGravity = false;
                             manipKey = true;
+                        }
+                    }
+                    else if(hit.collider.tag.Equals("Dron"))
+                    {
+                        if(friendDron == null)
+                        {
+                            friendDron = hit.collider.GetComponent<FriendScript>();
+                        }
+                        currentManipObj = hit.collider.gameObject;
+                        currentRB = currentManipObj.GetComponent<Rigidbody>();
+                        manipRenderer = null;
+                        friendDron.ToManipItem();
+                        if (currentRB.mass <= 30)
+                        {
+                            currentRB.useGravity = false;
+                            currentRB.isKinematic = false;
+                            manipKey = true;
+                            dragDron = true;
                         }
                     }
                 }
@@ -197,7 +225,7 @@ public class GravityThrowerScript : MyTools
 
         }
 
-        if(manipKey)
+        if(manipKey && manipRenderer != null)
         {
             if(materialColor.a > 0.4f)
             {
@@ -235,10 +263,23 @@ public class GravityThrowerScript : MyTools
         if (Physics.Raycast(cam.position, cam.forward, out RaycastHit hit, 500, ~ignoreMask))
         {
             lookPoint.position = hit.point;
+            if(hit.collider.tag.Equals("DronModule"))
+            {
+                dronLight.SetActive(true);
+                if(Input.GetKeyDown(player.inputSettingsManager.GetKey("AltUsing")))
+                {
+                    ISeeDronPointEvent?.Invoke(hit.collider.GetComponent<FriendModulePoint>());
+                }
+            }
+            else
+            {
+                dronLight.SetActive(false);
+            }
         }
         else
         {
             lookPoint.position = cam.position + cam.forward * range;
+            dronLight.SetActive(false);
         }
         ShootPoint.LookAt(lookPoint);
     }
@@ -335,13 +376,22 @@ public class GravityThrowerScript : MyTools
     }
     private void ReturnManip()
     {
-        materialColor.a = 1;
-        if(currentManipObj != null)
+        if(dragDron)
         {
-            manipRenderer.material.color = materialColor;
-            currentRB.useGravity = true;
+            friendDron.ReturnToPoint();
+            currentRB.isKinematic = true;
+        }
+        else
+        {
+            materialColor.a = 1;
+            if (currentManipObj != null)
+            {
+                manipRenderer.material.color = materialColor;
+                currentRB.useGravity = true;
+            }
         }
         manipKey = false;
+        dragDron = false;
         //line.positionCount = 0;
     }
 

@@ -9,6 +9,7 @@ public class InGameMenuScript : MyTools
     public AudioSettingsPanelScript audioSettings;
     public GameObject menuPanel;
     public GravFPS player;
+    public ModuleController moduleConroller;
 
 
     private static bool inSettings;
@@ -53,6 +54,10 @@ public class InGameMenuScript : MyTools
     {
         if(player.inHub)
         {
+            if(moduleConroller != null)
+            {
+                moduleConroller.DefaultValues();
+            }
             Application.Quit();
         }
         else

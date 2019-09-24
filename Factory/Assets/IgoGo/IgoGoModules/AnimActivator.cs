@@ -12,7 +12,7 @@ public class AnimActivator : UsingObject {
     [Tooltip("Начальное состояние")] public bool active;
 
     private bool currentActive;
-    private float target;
+    [HideInInspector]public float target;
     private float currentValue;
     private bool change;
 
@@ -53,7 +53,7 @@ public class AnimActivator : UsingObject {
         used = false;
         if(useFloat)
         {
-            currentValue = target = 0;
+            currentValue = 0;
             SetActiveForAll(currentValue);
         }
         else

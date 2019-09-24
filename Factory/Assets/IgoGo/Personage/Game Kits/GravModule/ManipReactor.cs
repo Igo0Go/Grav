@@ -21,7 +21,7 @@ public class ManipReactor : UsingOrigin
         used = true;
         if(once)
         {
-            gameObject.SetActive(false);
+            Invoke("Inactive", Time.fixedDeltaTime);
         }
     }
 
@@ -29,4 +29,5 @@ public class ManipReactor : UsingOrigin
     {
         used = false;
     }
+    private void Inactive() => gameObject.SetActive(false);
 }

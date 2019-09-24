@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98def92ed5964e1499b6e3df9de93d3c, type: 3}
   m_Name: ShooterSettingsPack
   m_EditorClassIdentifier: 
+  sensivityMultiplicator: 1.5
   keys:
   - Name: Forward
     key: 119
@@ -33,6 +34,10 @@ MonoBehaviour:
     key: 101
   - Name: Info
     key: 9
+  - Name: AltUsing
+    key: 102
+  - Name: ChangeUsing
+    key: 113
   - Name: Cancel
     key: 27
   axis:

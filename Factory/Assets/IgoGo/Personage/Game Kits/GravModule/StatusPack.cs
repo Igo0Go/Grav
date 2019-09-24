@@ -18,4 +18,6 @@ public class StatusPack : ScriptableObject
     public int saveSphere;
     public float saveAcidCount;
     public float maxAcidCount;
+
+    public int hubPoint;
 }

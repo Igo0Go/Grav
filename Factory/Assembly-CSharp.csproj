@@ -68,7 +68,7 @@
     <Compile Include="Assets\IgoGo\IgoGoModules\GameObjectActivator.cs" />
     <Compile Include="Assets\IgoGo\IgoGoModules\LevelModuleStatus.cs" />
     <Compile Include="Assets\IgoGo\IgoGoModules\LocationReactor.cs" />
-    <Compile Include="Assets\IgoGo\IgoGoModules\ModuleConroller.cs" />
+    <Compile Include="Assets\IgoGo\IgoGoModules\ModuleController.cs" />
     <Compile Include="Assets\IgoGo\IgoGoModules\ModuleDebugContainer.cs" />
     <Compile Include="Assets\IgoGo\IgoGoModules\ModuleReactor.cs" />
     <Compile Include="Assets\IgoGo\IgoGoModules\MusicChanger.cs" />
@@ -98,6 +98,7 @@
     <Compile Include="Assets\IgoGo\Personage\Game Kits\GravModule\LootItem.cs" />
     <Compile Include="Assets\IgoGo\Personage\Game Kits\GravModule\ManipItem.cs" />
     <Compile Include="Assets\IgoGo\Personage\Game Kits\GravModule\ManipReactor.cs" />
+    <Compile Include="Assets\IgoGo\Personage\Game Kits\GravModule\PlayerStartSceneSettingsScript.cs" />
     <Compile Include="Assets\IgoGo\Personage\Game Kits\GravModule\SavePoint.cs" />
     <Compile Include="Assets\IgoGo\Personage\Game Kits\GravModule\SphereGravItem.cs" />
     <Compile Include="Assets\IgoGo\Personage\Game Kits\GravModule\SphereGravModule.cs" />

@@ -9,7 +9,7 @@ public class ModuleReactor : MyTools
         if(other.tag.Equals("Module"))
         {
             UsingObject usingObject;
-            if(MyGetComponent(other.gameObject, out usingObject))
+            if(MyGetComponent(other.gameObject, out usingObject) && usingObject is LocationReactor)
             {
                 usingObject.Use();
             }

@@ -10,6 +10,7 @@ public class InpustSettingsScript : MonoBehaviour
     public GameObject settingsPannel;
     public GameObject changePanel;
     public InputSettingsManager manager;
+    public Slider sensivitySlider;
 
     public List<Text> keyValuesTexts;
 
@@ -24,6 +25,8 @@ public class InpustSettingsScript : MonoBehaviour
 
     void Start()
     {
+        sensivitySlider.value = manager.inputKit.sensivityMultiplicator;
+        sensivitySlider.onValueChanged.AddListener(ChangeSensivity);
         changePanel.SetActive(false);
         settingsPannel.SetActive(false);
         GetHeaders();
@@ -145,6 +148,8 @@ public class InpustSettingsScript : MonoBehaviour
         changePanel.SetActive(true);
         input = true;
     }
+
+    private void ChangeSensivity(float value) => manager.inputKit.sensivityMultiplicator = sensivitySlider.value;
 
     private void OnDrawGizmosSelected()
     {

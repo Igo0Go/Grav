@@ -6,6 +6,7 @@ using UnityEditor;
 [CreateAssetMenu(menuName = "Config/InputKit")]
 public class InputKit : ScriptableObject
 {
+    public float sensivityMultiplicator;
     public List<KeyCodeContainer> keys;
     public List<AxisContainer> axis;
 
@@ -70,6 +71,10 @@ public class AxisContainer
         {
             _inputValue = Mathf.Lerp(_inputValue, 0, sensivity);
         }
+    }
+    public void SetSensivity(float value)
+    {
+        sensivity = value;
     }
 }
 

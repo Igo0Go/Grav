@@ -4,6 +4,8 @@ using UnityEngine;
 using System;
 using UnityEngine.SceneManagement;
 
+public delegate void RotateHandler(Quaternion rot);
+
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(CapsuleCollider))]
 public class GravFPS : MonoBehaviour
@@ -51,6 +53,7 @@ public class GravFPS : MonoBehaviour
     [HideInInspector] public Rigidbody rb;
     [HideInInspector]public Transform gravObj;
     [HideInInspector] public bool inMenu;
+    [SerializeField] private PlayerStartSceneSettingsScript playerStartSceneSettings;
 
     private Vector3 dir;
     private Vector3 savePos;
@@ -71,28 +74,41 @@ public class GravFPS : MonoBehaviour
     private float currentCamAngle;
     #endregion
 
-    #region Делегаты и Событие
+    #region Делегаты и Событиz
 
     public event Action OnDeadEvent;
     public event Action OnGroundEvent;
+    public event RotateHandler RotEvent;
 
     #endregion
 
     #region События Unity
     private void Start()
     {
-        gravObj = null;
-        gravVector = Physics.gravity = new Vector3(0,-9.81f,0);
-        sceneManager.pack = gravFPSUI.StatusPack;
         gravFPSUI.StatusPack.currentScene = SceneManager.GetActiveScene().name;
+
+        if(playerStartSceneSettings == null)
+        {
+            if (planet != null)
+            {
+                SetGravObj(planet);
+            }
+            else
+            {
+                SetGravVector(new Vector3(0, -9.81f, 0));
+            }
+        }
+        else
+        {
+            playerStartSceneSettings.SetSettings(this);
+        }
+        
+
+        sceneManager.pack = gravFPSUI.StatusPack;
         Save();
         rb = GetComponent<Rigidbody>();
         Cursor.lockState = CursorLockMode.Locked;
         currentCamAngle = cam.localRotation.eulerAngles.x;
-        if(planet != null)
-        {
-            SetGravObj(planet);
-        }
         inMenu = false;
         gravFPSUI.manager = inputSettingsManager;
     }
@@ -172,6 +188,7 @@ public class GravFPS : MonoBehaviour
                 gravVector = gravMultiplicator * (gravObj.position - transform.position);
                 rotBufer = Quaternion.FromToRotation(-transform.up, gravVector.normalized);
             }
+            RotEvent?.Invoke(rotBufer);
             rotBufer = rotBufer * transform.rotation;
             gravRotSpeed = 5;
             rotToGrav = true;
@@ -185,6 +202,13 @@ public class GravFPS : MonoBehaviour
         transform.parent = gravObj;
         gravRb = gravObj.GetComponent<Rigidbody>();
         gravMultiplicator = reactor.planetGravityType ? 1 : -1;
+    }
+    public void SetGravVector(Vector3 vector)
+    {
+        planet = null;
+        gravObj = null;
+        transform.parent = null;
+        Physics.gravity = vector;
     }
     #endregion
 
@@ -262,8 +286,8 @@ public class GravFPS : MonoBehaviour
 
         if (mx != 0 || my != 0)
         {
-            transform.Rotate(Vector3.up, mx * camRotateSpeed * Time.deltaTime);
-            currentCamAngle -= my * camRotateSpeed * Time.deltaTime;
+            transform.Rotate(Vector3.up, mx * camRotateSpeed * inputSettingsManager.inputKit.sensivityMultiplicator * Time.deltaTime);
+            currentCamAngle -= my * camRotateSpeed * inputSettingsManager.inputKit.sensivityMultiplicator * Time.deltaTime;
             currentCamAngle = Mathf.Clamp(currentCamAngle, minYAngle, maxYAngle);
             cam.localRotation = Quaternion.Euler(currentCamAngle, cam.localRotation.eulerAngles.y, 0);
         }
@@ -396,6 +420,7 @@ public class GravFPS : MonoBehaviour
                 if (gravFPSUI.StatusPack.lifeSphereCount > 0)
                 {
                     Cursor.lockState = CursorLockMode.None;
+                    Cursor.visible = true;
                     gravFPSUI.loadPanel.SetActive(true);
                     gravFPSUI.panels[1].anim.SetBool("Visible", true);
                 }
@@ -505,9 +530,9 @@ public class GravFPS : MonoBehaviour
         if (collision.collider.tag.Equals("Manip"))
         {
             Rigidbody rb = collision.gameObject.GetComponent<Rigidbody>();
-            if (rb.velocity.magnitude * rb.mass > 70 - rb.mass)
+            if (rb.velocity.magnitude * rb.mass > 100 - rb.mass)
             {
-                Death();
+                GetDamage(Mathf.RoundToInt(rb.velocity.magnitude));
             }
         }
     }
