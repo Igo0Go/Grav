@@ -172,17 +172,21 @@ public class GravityThrowerScript : MyTools
                         {
                             friendDron = hit.collider.GetComponent<FriendScript>();
                         }
-                        currentManipObj = hit.collider.gameObject;
-                        currentRB = currentManipObj.GetComponent<Rigidbody>();
-                        manipRenderer = null;
-                        friendDron.ToManipItem();
-                        if (currentRB.mass <= 30)
+                        if(!friendDron.activeState)
                         {
-                            currentRB.useGravity = false;
-                            currentRB.isKinematic = false;
-                            manipKey = true;
-                            dragDron = true;
+                            currentManipObj = hit.collider.gameObject;
+                            currentRB = currentManipObj.GetComponent<Rigidbody>();
+                            manipRenderer = null;
+                            friendDron.ToManipItem();
+                            if (currentRB.mass <= 30)
+                            {
+                                currentRB.useGravity = false;
+                                currentRB.isKinematic = false;
+                                manipKey = true;
+                                dragDron = true;
+                            }
                         }
+                        friendDron.StartReplicas();
                     }
                 }
             }

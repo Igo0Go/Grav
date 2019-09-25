@@ -1,17 +1,40 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
+[System.Serializable]
+public class DronReplicItem
+{
+    public string text;
+    public AudioClip audioClip;
+}
+
+[RequireComponent(typeof(AudioSource))]
 [RequireComponent(typeof(Rigidbody))]
 public class FriendScript : MonoBehaviour
 {
-    public GravityThrowerScript gravityThrower;
+    [Header("Основные ссылки")]
+    [Tooltip("Ссылка на скрипт пушки игрока")] public GravityThrowerScript gravityThrower;
     public Transform friendSystemBufer;
-    public Transform friendPoint;
+    [Tooltip("Точка, в которую должен возвращаться дрон")] public Transform friendPoint;
     [Range(1,10)] public float speed = 5;
-    public bool activeState;
+    [Tooltip("Если активно, работает ЗАЯ")] public bool activeState;
+
+    [Header("Для реплик")]
+    [SerializeField] private Color actionColor;
+    [SerializeField] private Color passinveColor;
+    [SerializeField] private GameObject subsPanel;
+    [SerializeField] private Text subs;
+    [SerializeField] private List<DronReplicItem> actionReplicas;
+    [SerializeField] private List<DronReplicItem> passiveReplicas;
+    [SerializeField] private List<DronReplicItem> actionUseReplicas;
+    [SerializeField] private List<DronReplicItem> passiveUseReplicas;
+
+
 
     private FriendModulePoint modulePoint;
+    private AudioSource source;
     private Transform target = null;
     private Rigidbody rb;
     private InputSettingsManager inputSettingsManager;
@@ -30,6 +53,8 @@ public class FriendScript : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.useGravity = false;
         rb.isKinematic = true;
+        source = GetComponent<AudioSource>();
+        subsPanel.SetActive(false);
         moveToTarget = 0;
     }
 
@@ -54,6 +79,7 @@ public class FriendScript : MonoBehaviour
             transform.parent = null;
             moveToTarget = 1;
         }
+        StartUseActionReplicas();
     }
     public void ToManipItem()
     {
@@ -63,6 +89,55 @@ public class FriendScript : MonoBehaviour
     {
         target = friendPoint;
         moveToTarget = -1;
+    }
+    public void StartReplicas()
+    {
+        if (!source.isPlaying)
+        {
+            int index = 0;
+            subsPanel.SetActive(true);
+            if (activeState)
+            {
+                index = Random.Range(0, actionReplicas.Count);
+                source.PlayOneShot(actionReplicas[index].audioClip);
+                subs.text = actionReplicas[index].text;
+                subs.color = actionColor;
+                Invoke("ReturnSubs", actionReplicas[index].audioClip.length);
+            }
+            else
+            {
+                index = Random.Range(0, passiveReplicas.Count);
+                source.PlayOneShot(passiveReplicas[index].audioClip);
+                subs.text = passiveReplicas[index].text;
+                subs.color = passinveColor;
+                Invoke("ReturnSubs", passiveReplicas[index].audioClip.length);
+            }
+        }
+    }
+
+    private void StartUseActionReplicas()
+    {
+        if (!source.isPlaying)
+        {
+            int index = 0;
+            subsPanel.SetActive(true);
+            if (activeState)
+            {
+                index = Random.Range(0, actionUseReplicas.Count);
+                source.PlayOneShot(actionUseReplicas[index].audioClip);
+                subs.text = actionUseReplicas[index].text;
+                subs.color = actionColor;
+                Invoke("ReturnSubs", actionUseReplicas[index].audioClip.length);
+            }
+            else
+            {
+                index = Random.Range(0, passiveUseReplicas.Count);
+                source.PlayOneShot(passiveUseReplicas[index].audioClip);
+                subs.text = passiveUseReplicas[index].text;
+                subs.color = passinveColor;
+                Invoke("ReturnSubs", passiveUseReplicas[index].audioClip.length);
+            }
+        }
     }
     private void MoveToTarget()
     {
@@ -91,7 +166,6 @@ public class FriendScript : MonoBehaviour
             }
         }
     }
-    
     private void ChangeState()
     {
         if(Input.GetKeyDown(inputSettingsManager.GetKey("ChangeUsing")) && moveToTarget == 0)
@@ -103,4 +177,5 @@ public class FriendScript : MonoBehaviour
     {
         friendSystemBufer.rotation = rot * friendSystemBufer.rotation;
     }
+    private void ReturnSubs() => subsPanel.SetActive(false);
 }
