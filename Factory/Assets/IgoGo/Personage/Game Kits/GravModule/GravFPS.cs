@@ -78,7 +78,6 @@ public class GravFPS : MonoBehaviour
 
     public event Action OnDeadEvent;
     public event Action OnGroundEvent;
-    public event RotateHandler RotEvent;
 
     #endregion
 
@@ -188,7 +187,6 @@ public class GravFPS : MonoBehaviour
                 gravVector = gravMultiplicator * (gravObj.position - transform.position);
                 rotBufer = Quaternion.FromToRotation(-transform.up, gravVector.normalized);
             }
-            RotEvent?.Invoke(rotBufer);
             rotBufer = rotBufer * transform.rotation;
             gravRotSpeed = 5;
             rotToGrav = true;
