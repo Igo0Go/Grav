@@ -47,6 +47,8 @@ public class FriendScript : MonoBehaviour
     void Start()
     {
         gravityThrower.ISeeDronPointEvent += SetTarget;
+        gravityThrower.player.OnDeadEvent += ToDead;
+        gravityThrower.player.OnRestartEvent += ToRestart;
         inputSettingsManager = gravityThrower.player.inputSettingsManager;
         rb = GetComponent<Rigidbody>();
         rb.useGravity = false;
@@ -101,6 +103,14 @@ public class FriendScript : MonoBehaviour
                 Invoke("ReturnSubs", altUseReplicas[index].audioClip.length);
             }
         }
+    }
+    public void ToDead()
+    {
+        anim.SetBool("Dead", true);
+    }
+    public void ToRestart()
+    {
+        anim.SetBool("Dead", false);
     }
 
     private void StartUseActionReplicas()

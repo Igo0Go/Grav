@@ -74,9 +74,10 @@ public class GravFPS : MonoBehaviour
     private float currentCamAngle;
     #endregion
 
-    #region Делегаты и Событиz
+    #region Делегаты и События
 
     public event Action OnDeadEvent;
+    public event Action OnRestartEvent;
     public event Action OnGroundEvent;
 
     #endregion
@@ -357,7 +358,6 @@ public class GravFPS : MonoBehaviour
     }
     private void RestartRun()
     {
-
         gravFPSUI.Health = 100;
 
         if (planet != null)
@@ -373,6 +373,7 @@ public class GravFPS : MonoBehaviour
         rb.velocity = Vector3.zero;
         transform.position = savePos;
         transform.rotation = saveRot;
+        OnRestartEvent?.Invoke();
         alive = true;
         gravFPSUI.deadPanel.SetActive(!alive);
     }
