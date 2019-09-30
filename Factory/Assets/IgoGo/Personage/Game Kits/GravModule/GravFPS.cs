@@ -79,6 +79,7 @@ public class GravFPS : MonoBehaviour
     public event Action OnDeadEvent;
     public event Action OnRestartEvent;
     public event Action OnGroundEvent;
+    public event Action OnGravChange;
 
     #endregion
 
@@ -182,6 +183,7 @@ public class GravFPS : MonoBehaviour
             if(gravObj == null)
             {
                 rotBufer = Quaternion.FromToRotation(-transform.up, Physics.gravity);
+                OnGravChange?.Invoke();
             }
             else
             {
@@ -495,6 +497,11 @@ public class GravFPS : MonoBehaviour
             currentMoveTransformCol = other;
             transform.parent = currentMoveTransformCol.transform;
         }
+        else if(other.tag.Equals("EnemyView"))
+        {
+            other.GetComponent<ITargetTracker>().SetTarget(transform);
+            return;
+        }
     }
     private void OnTriggerStay(Collider other)
     {
@@ -517,11 +524,18 @@ public class GravFPS : MonoBehaviour
         {
             currentLootPoint = null;
             gravFPSUI.ClearTip();
+            return;
         }
         else if (other.tag.Equals("MoveTransform") && other == currentMoveTransformCol)
         {
             currentMoveTransformCol = null;
             transform.parent = null;
+            return;
+        }
+        else if (other.tag.Equals("EnemyView"))
+        {
+            other.GetComponent<ITargetTracker>().ClearTarget();
+            return;
         }
     }
     private void OnCollisionEnter(Collision collision)
