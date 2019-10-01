@@ -17,13 +17,18 @@ public class TurretScript : MonoBehaviour, ITargetTracker
     public Transform body;
     public GameObject shootPoint;
     public LayerMask ignoreMask;
+    public GameObject disactiveObj;
+    public GameObject chackActiveObject;
     [Range(0.1f, 3)] public float reloadTime = 1;
     [Range(0.1f, 5)] public float rotSpeed = 1;
+    [Range(1, 30)] public float disactiveTime = 1;
+
 
     private Quaternion startRotation;
     private Transform _target;
     private bool reload;
     private bool rotToAngle;
+    private bool disactive;
     private float shootTime = 0.2f;
 
     private bool CorrectAngleForShoot => Vector3.Angle(transform.forward, (Target.position + Target.up) - transform.position) <= 15;
@@ -34,12 +39,13 @@ public class TurretScript : MonoBehaviour, ITargetTracker
 
     void Start()
     {
+        disactive = false;
         startRotation = body.transform.rotation;
         reload = false;
         shootPoint.SetActive(false);
         rotToAngle = false;
+        ReturnActive();
     }
-
     void Update()
     {
         RotUpdate();
@@ -47,7 +53,7 @@ public class TurretScript : MonoBehaviour, ITargetTracker
 
     private void RotUpdate()
     {
-        if(rotToAngle)
+        if(rotToAngle && !disactive)
         {
             if (Target != null)
             {
@@ -107,12 +113,29 @@ public class TurretScript : MonoBehaviour, ITargetTracker
         body.transform.rotation = Quaternion.Lerp(body.transform.rotation, targetRot, rotSpeed * Time.deltaTime);
     }
 
+    public void Disactive()
+    {
+        if(!disactive)
+        {
+            disactiveObj.SetActive(true);
+            chackActiveObject.SetActive(false);
+            disactive = true;
+            Invoke("ReturnActive", disactiveTime);
+        }
+    }
     public void SetTarget(Transform target)
     {
         _target = target;
         rotToAngle = true;
     }
     public void ClearTarget() => _target = null;
+    public void ReturnActive()
+    {
+        disactiveObj.SetActive(false);
+        chackActiveObject.SetActive(true);
+        disactive = false;
+        disactiveObj.SetActive(false);
+    }
 }
 
 

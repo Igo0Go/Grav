@@ -96,6 +96,14 @@ public class BulletScript : MyTools
                 }
                 player.RotateToGrav();
             }
+            else if (hit.collider.tag.Equals("Enemy"))
+            {
+                decal = Instantiate(Particles[0]);
+                if (MyGetComponent(hit.transform.parent.gameObject, out TurretScript turret))
+                {
+                    turret.Disactive();
+                }
+            }
             else
             {
                 decal = Instantiate(Particles[1]);
@@ -142,5 +150,4 @@ public class BulletScript : MyTools
         Destroy(gameObject);
     }
     #endregion
-
 }
