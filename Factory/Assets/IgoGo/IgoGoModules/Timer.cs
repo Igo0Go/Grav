@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class Timer : UsingOrigin
 {
-    [Space(20), Tooltip("Время, через которое будет вызван метод Use()"), Range(0,float.MaxValue)]
-    public float time;
+    [Space(20), Tooltip("Время, через которое будет вызван метод Use()"), Range(0,float.MaxValue)] public float time;
     [SerializeField] private bool active;
 
     private float currentTime;
@@ -17,7 +16,6 @@ public class Timer : UsingOrigin
             Use();
         }
     }
-
     private void Update()
     {
         if(used && active)
@@ -34,34 +32,6 @@ public class Timer : UsingOrigin
             }
         }
     }
-
-    public override void Use()
-    {
-        active = true;
-        used = true;
-        currentTime = 0;
-    }
-    public override void ToStart()
-    {
-        used = false;
-        currentTime = 0;
-    }
-
-    public void UseAll()
-    {
-        for (int i = 0; i < actionObjects.Count; i++)
-        {
-            if (actionObjects[i] != null)
-            {
-                actionObjects[i].Use();
-            }
-            else
-            {
-                Debug.LogError("Элемент " + i + " равен null. Вероятно, была утеряна ссылка. Источник :" + gameObject.name);
-            }
-        }
-    }
-
     private void OnDrawGizmos()
     {
         if (debug)
@@ -78,6 +48,32 @@ public class Timer : UsingOrigin
                 {
                     Debug.LogError("Элемент " + i + " равен null. Вероятно, была утеряна ссылка. Источник :" + gameObject.name);
                 }
+            }
+        }
+    }
+
+    public override void Use()
+    {
+        active = true;
+        used = true;
+        currentTime = 0;
+    }
+    public override void ToStart()
+    {
+        used = false;
+        currentTime = 0;
+    }
+    public void UseAll()
+    {
+        for (int i = 0; i < actionObjects.Count; i++)
+        {
+            if (actionObjects[i] != null)
+            {
+                actionObjects[i].Use();
+            }
+            else
+            {
+                Debug.LogError("Элемент " + i + " равен null. Вероятно, была утеряна ссылка. Источник :" + gameObject.name);
             }
         }
     }

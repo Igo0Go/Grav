@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(BoxCollider))]
-public class LootPointScript : UsingObject
+public class LootPointScript : UsingOrigin
 {
     [Tooltip("Предмет, который будет выпадывать")] public GameObject lootPrefab;
     [Tooltip("Монетка без скриптов")] public GameObject coinPrefab;
@@ -19,6 +19,7 @@ public class LootPointScript : UsingObject
     private GravFPSUI gravFPSUI;
     private List<Transform> coins;
     private bool spawn;
+    private bool usingOrigin;
 
     private void OnEnable()
     {
@@ -31,6 +32,7 @@ public class LootPointScript : UsingObject
     {
         coins = new List<Transform>();
         costText.text = cost.ToString();
+        usingOrigin = lootPrefab == null;
     }
     void Update()
     {
@@ -48,7 +50,14 @@ public class LootPointScript : UsingObject
     }
     public override void Use()
     {
-         Instantiate(lootPrefab, lootPoint.position, Quaternion.identity, transform);
+        if(usingOrigin)
+        {
+            UseAll();
+        }
+        else
+        {
+            Instantiate(lootPrefab, lootPoint.position, Quaternion.identity, transform);
+        }
     }
     public override void ToStart()
     {
@@ -67,8 +76,15 @@ public class LootPointScript : UsingObject
             }
             else
             {
-                Instantiate(lootPrefab, lootPoint.position, Quaternion.identity, transform);
-                useble = true;
+                if(usingOrigin)
+                {
+                    UseAll();
+                }
+                else
+                {
+                    Instantiate(lootPrefab, lootPoint.position, Quaternion.identity, transform);
+                    useble = true;
+                }
             }
         }
         spawn = false;
@@ -92,6 +108,12 @@ public class LootPointScript : UsingObject
             }
         }
     }
-
+    private void UseAll()
+    {
+        foreach (var item in actionObjects)
+        {
+            item.Use();
+        }
+    }
    
 }

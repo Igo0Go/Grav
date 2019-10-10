@@ -2,10 +2,11 @@
 
 public class QuinScript : UsingObject, ITargetTracker
 {
-    [SerializeField] private Transform body;
-    [SerializeField] private Transform falePoint;
-    [SerializeField] private LayerMask ignoreMask;
+    [SerializeField, Tooltip("Та часть, которая будет преследовать игрока")] private Transform body;
+    [SerializeField, Tooltip("Точка, в которую будет уходить ферзь, если его дразнит кролик")] private Transform falePoint;
+    [SerializeField, Tooltip("Сквозь какие слои видеит ферзь")] private LayerMask ignoreMask;
     [SerializeField, Range(0.1f, 20)] float speed = 8;
+    
     private Transform _target;
     private bool toTarget;
     private int attack;
@@ -19,7 +20,7 @@ public class QuinScript : UsingObject, ITargetTracker
         MoveToTarget();
     }
 
-    public void ClearTarget()
+    public void ClearTarget(Transform target)
     {
         _target = null;
         attack = -1;

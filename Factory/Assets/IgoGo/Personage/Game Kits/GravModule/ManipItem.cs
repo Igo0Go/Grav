@@ -30,6 +30,19 @@ public class ManipItem : MyTools
                 }
             }
         }
+        else if (other.tag.Equals("EnemyView"))
+        {
+            other.GetComponent<ITargetTracker>().SetTarget(transform);
+            return;
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag.Equals("EnemyView"))
+        {
+            other.GetComponent<ITargetTracker>().ClearTarget(transform);
+            return;
+        }
     }
     private void OnCollisionEnter(Collision collision)
     {

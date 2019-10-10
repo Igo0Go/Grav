@@ -21,6 +21,8 @@ public class GravFPSUI : MonoBehaviour
     public StatusPack StatusPack;
     public GameObject loadPanel;
     public Text tip;
+    public Image stunPanel;
+    [Range(0.1f,2)] public float stunSpeed;
     [HideInInspector] public InputSettingsManager manager;
     [HideInInspector] public float returnTime;
     #endregion
@@ -36,6 +38,7 @@ public class GravFPSUI : MonoBehaviour
 
     #region Делегаты и события
     public event Action onGetLoot;
+    public event Action onFinalStun;
     #endregion
 
     #region События Unity
@@ -69,6 +72,7 @@ public class GravFPSUI : MonoBehaviour
         }
         SpendMoney();
         StatisticInput();
+        ChangeStunPanel();
     }
     #endregion
 
@@ -101,6 +105,14 @@ public class GravFPSUI : MonoBehaviour
         CheckTexts();
         panels[1].anim.SetBool("Visible", true);
         returnTime = 3;
+    }
+    public void AddBankCard(int number)
+    {
+        StatusPack.cards[number] = true;
+    }
+    public void RemoveCard(int number)
+    {
+        StatusPack.cards[number] = false;
     }
     public void RemoveLifeSphere()
     {
@@ -138,6 +150,10 @@ public class GravFPSUI : MonoBehaviour
             tip.text = "Нажмите " + manager.GetKey("Using").ToString() + ", чтобы купить " + lootPoint.tipText;   
         }
     }
+    public void SetTip(string tipText)
+    {
+        tip.text = tipText;
+    }
     public void ClearTip()
     {
         tip.text = string.Empty;
@@ -146,6 +162,11 @@ public class GravFPSUI : MonoBehaviour
     {
         StatusPack.money -= count;
         spendMoney = true;
+    }
+    public void SetStun()
+    {
+        stunPanel.gameObject.SetActive(true);
+        stunPanel.color = new Color(stunPanel.color.r, stunPanel.color.g, stunPanel.color.b, 1);
     }
     #endregion
 
@@ -176,6 +197,22 @@ public class GravFPSUI : MonoBehaviour
                 item.anim.SetBool("Visible", true);
             }
             returnTime = 3;
+        }
+    }
+    private void ChangeStunPanel()
+    {
+        if(stunPanel.gameObject.activeSelf)
+        {
+            if(stunPanel.color.a - Time.deltaTime*stunSpeed> 0)
+            {
+                stunPanel.color = new Color(stunPanel.color.r, stunPanel.color.g, stunPanel.color.b, stunPanel.color.a - Time.deltaTime * stunSpeed); 
+            }
+            else
+            {
+                stunPanel.color = new Color(stunPanel.color.r, stunPanel.color.g, stunPanel.color.b, 0);
+                stunPanel.gameObject.SetActive(false);
+                onFinalStun?.Invoke();
+            }
         }
     }
     #endregion

@@ -21,7 +21,6 @@ public class GravChangeReactor : UsingOrigin
     public override void ToStart()
     {
     }
-
     public override void Use()
     {
         foreach (var item in actionObjects)

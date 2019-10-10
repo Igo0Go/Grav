@@ -4,17 +4,13 @@ using UnityEngine;
 
 public class FriendModulePoint : UsingOrigin
 {
-
     [Tooltip("Позиция дрона при взломе")]public Transform friendPoint;
     [Range(0.01f, 60), Tooltip("Время взлома")]public float workTime = 1;
-
-    
 
     public override void ToStart()
     {
         used = false;
     }
-
     public override void Use()
     {
         Invoke("UseAll", workTime);

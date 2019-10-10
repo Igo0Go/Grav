@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class RandomActionModule : UsingOrigin
 {
-    public bool once;
-
-    public List<UsingOrigin> actors;
+    [Tooltip("Одноразовый")] public bool once;
+    [Tooltip("Источники для модуля")] public List<UsingOrigin> actors;
 
     public override void ToStart()
     {

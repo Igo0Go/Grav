@@ -4,16 +4,20 @@ using UnityEngine;
 
 public class RookScript : UsingObject
 {
-    [SerializeField] private Transform posUp;
-    [SerializeField] private Transform posDown;
-    [SerializeField] private Transform body;
-    [SerializeField] private Animator anim;
-    [SerializeField] private bool toUp;
-    [SerializeField, Range(0.1f, 20)] private float changeSpeed = 1;
-    
+    #region Настраиваемые поля
+    [SerializeField, Tooltip("Верхняя точка остановки центральной части")] private Transform posUp;
+    [SerializeField, Tooltip("Нижняя точка остановки центральной части")] private Transform posDown;
+    [SerializeField, Tooltip("Центральная часть ладьи, которая будет перемещаться")] private Transform body;
+    [SerializeField, Tooltip("Аниматор центральной части")] private Animator anim;
+    [SerializeField, Tooltip("Начальное положение центральной части")] private bool toUp;
+    [SerializeField, Range(0.1f, 20), Tooltip("Скорость смены положения при изменении гравитации")] private float changeSpeed = 1;
+    #endregion
+
+    #region Служебные поля
     private Vector3 currentDirection;
     private Transform currentTarget;
     private bool move;
+    #endregion
 
     private bool NearWithTarget => Vector3.Distance(body.position, currentTarget.position) <= changeSpeed * Time.deltaTime * 2;
 

@@ -10,14 +10,13 @@ public class SphereGravModule : UsingObject
     public float radius;
 
     [Space(20)]
-    public bool setChilds;
-    public bool clearAllItems;
+    [Tooltip("Пометить все дочерние объекты как реагирующие на выстрел")] public bool setChilds;
+    [Tooltip("Очистить все метки")]public bool clearAllItems;
 
     private Rigidbody rb;
     private Vector3 gravVector;
     [SerializeField]private List<SphereGravItem> gravItems;
     private int gravMultiplicator;
-
 
     private void Start()
     {
@@ -29,8 +28,6 @@ public class SphereGravModule : UsingObject
             radius = GetComponent<SphereCollider>().radius; 
         }
     }
-
-
     private void FixedUpdate()
     {
         foreach (var item in rigidbodies)
@@ -42,6 +39,20 @@ public class SphereGravModule : UsingObject
             item.AddForce(gravVector.normalized * strength);
         }
     }
+    private void OnDrawGizmosSelected()
+    {
+        if (setChilds)
+        {
+            ClearAllItems();
+            SetChilds(transform);
+            setChilds = false;
+        }
+        if (clearAllItems)
+        {
+            ClearAllItems();
+            clearAllItems = false;
+        }
+    }
 
     public override void Use()
     {
@@ -50,7 +61,6 @@ public class SphereGravModule : UsingObject
             player.SetGravObj(this);
         }
     }
-
     public override void ToStart()
     {
 
@@ -125,18 +135,5 @@ public class SphereGravModule : UsingObject
         }
     }
 
-    private void OnDrawGizmosSelected()
-    {
-        if(setChilds)
-        {
-            ClearAllItems();
-            SetChilds(transform);
-            setChilds = false;
-        }
-        if(clearAllItems)
-        {
-            ClearAllItems();
-            clearAllItems = false;
-        }
-    }
+   
 }

@@ -22,7 +22,6 @@ public class LocationReactor : UsingOrigin
     {
         used = false;
     }
-
     public void UseAll()
     {
         for (int i = 0; i < actionObjects.Count; i++)

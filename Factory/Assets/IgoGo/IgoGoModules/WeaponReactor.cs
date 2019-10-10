@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class WeaponReactor : UsingOrigin, IAlive
 {
+    #region Настраиваемые поля
     [Range(0,300)]
     [Tooltip("Количетсо Hit Point у данной точки")] public float health;
     [Range(0, 10)]
@@ -14,6 +15,7 @@ public class WeaponReactor : UsingOrigin, IAlive
     [Space(10)]
     [Tooltip("Звук проигрывается при уничтожении (Audiosource должен быть на этом же объекте)")]
     public AudioClip clip;
+    #endregion
 
     private AudioSource source;
     private GameObject bufer;
@@ -40,12 +42,38 @@ public class WeaponReactor : UsingOrigin, IAlive
         MyGetComponent(gameObject, out source);
     }
 
+    public override void Use()
+    {
+        used = true;
+        if (model != null)
+        {
+            Destroy(model);
+        }
+        if (particle != null)
+        {
+            particle.Play();
+        }
+        if (source != null && clip != null)
+        {
+            source.PlayOneShot(clip);
+        }
+        UseAll();
+        Invoke("Remove", removeTime);
+    }
+    public override void ToStart()
+    {
+        if (bufer != null)
+        {
+            Destroy(bufer);
+        }
+        used = false;
+    }
     public void Dead()
     {
         Use();
     }
 
-    private void UseAl()
+    private void UseAll()
     {
         for (int i = 0; i < actionObjects.Count; i++)
         {
@@ -73,32 +101,5 @@ public class WeaponReactor : UsingOrigin, IAlive
         {
             Health -= damage;
         }
-    }
-
-    public override void Use()
-    {
-        used = true;
-        if(model != null)
-        {
-            Destroy(model);
-        }
-        if (particle != null)
-        {
-            particle.Play();
-        }
-        if(source != null && clip != null)
-        {
-            source.PlayOneShot(clip);
-        }
-        UseAl();
-        Invoke("Remove", removeTime);
-    }
-    public override void ToStart()
-    {
-        if(bufer != null)
-        {
-            Destroy(bufer);
-        }
-        used = false;
     }
 }

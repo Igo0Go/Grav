@@ -18,7 +18,6 @@ public class SizeChanger : UsingObject
     {
         
     }
-
     void Update()
     {
         if(resize)
@@ -40,7 +39,6 @@ public class SizeChanger : UsingObject
         step = maxSize / actors.Count;
         transform.localScale = Vector3.one * currentSize;
     }
-
     public override void Use()
     {
         currentTurget += step;

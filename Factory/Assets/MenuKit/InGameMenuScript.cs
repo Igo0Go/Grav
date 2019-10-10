@@ -24,8 +24,9 @@ public class InGameMenuScript : MyTools
         settingsScript.ReturnEvent += OnReturnEvent;
         audioSettings.ReturnEvent += OnReturnEvent;
         menuPanel.SetActive(false);
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        MyCursor.OpportunityToChange = true;
+        MyCursor.LockState = CursorLockMode.Locked;
+        MyCursor.Visible = false;
     }
     private void Update()
     {
@@ -72,16 +73,16 @@ public class InGameMenuScript : MyTools
         {
             MyTime.Pause();
             menuPanel.SetActive(true);
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
+            MyCursor.LockState = CursorLockMode.None;
+            MyCursor.Visible = true;
         }
         else
         {
             MyTime.Start();
             menuPanel.SetActive(false);
             settingsScript.GetSettingsPanel(false);
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+            MyCursor.LockState = CursorLockMode.Locked;
+            MyCursor.Visible = false;
         }
     }
     private void OnReturnEvent()

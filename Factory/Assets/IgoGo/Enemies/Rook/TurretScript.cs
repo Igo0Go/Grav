@@ -7,36 +7,42 @@ public interface ITargetTracker
     Transform Target { get; }
     
     void SetTarget(Transform target);
-    void ClearTarget();
+    void ClearTarget(Transform target);
 }
 
 [RequireComponent(typeof(BoxCollider))]
 public class TurretScript : MonoBehaviour, ITargetTracker
 {
+    #region Публичные поля
     [Header("Для зоны видимости нужен триггер слоя IgnoreRaycast и тэга EnemyView")]
-    public Transform body;
-    public GameObject shootPoint;
-    public LayerMask ignoreMask;
-    public GameObject disactiveObj;
-    public GameObject chackActiveObject;
+    [Tooltip("Часть, которая будет непосредственно вращаться")] public Transform body;
+    [Tooltip("Излучатель лазера")] public GameObject shootPoint;
+    [Tooltip("Слои, на которые не будет реагировтаь сенсор турели")] public LayerMask ignoreMask;
+    [Tooltip("Объект, который удет появляться во время отключения турели. К примеру, молнии")] public GameObject disactiveObj;
+    [Tooltip("Объект, который является индикатором активности турели")] public GameObject chackActiveObject;
     [Range(0.1f, 3)] public float reloadTime = 1;
     [Range(0.1f, 5)] public float rotSpeed = 1;
     [Range(1, 30)] public float disactiveTime = 1;
+    #endregion
 
-
+    #region Служебные поля
     private Quaternion startRotation;
     private Transform _target;
     private bool reload;
     private bool rotToAngle;
     private bool disactive;
     private float shootTime = 0.2f;
+    #endregion
+
+    #region Свойства
+    public Transform Target => _target;
 
     private bool CorrectAngleForShoot => Vector3.Angle(transform.forward, (Target.position + Target.up) - transform.position) <= 15;
     private bool CorrectAngleForDefault => Quaternion.Angle(transform.rotation, startRotation) <=1;
     private bool ISeeTarget => Physics.Raycast(transform.position, (Target.position + Target.up) - transform.position, ignoreMask);
+    #endregion
 
-    public Transform Target => _target;
-
+    #region Обработка событий Unity
     void Start()
     {
         disactive = false;
@@ -50,7 +56,9 @@ public class TurretScript : MonoBehaviour, ITargetTracker
     {
         RotUpdate();
     }
+    #endregion
 
+    #region Прицеливание и стрельа
     private void RotUpdate()
     {
         if(rotToAngle && !disactive)
@@ -92,7 +100,6 @@ public class TurretScript : MonoBehaviour, ITargetTracker
             }
         }
     }
-
     private void Shoot()
     {
         shootPoint.SetActive(true);
@@ -112,7 +119,9 @@ public class TurretScript : MonoBehaviour, ITargetTracker
         targetRot = body.transform.rotation * targetRot;
         body.transform.rotation = Quaternion.Lerp(body.transform.rotation, targetRot, rotSpeed * Time.deltaTime);
     }
+    #endregion
 
+    #region Реакция на действия игрока
     public void Disactive()
     {
         if(!disactive)
@@ -128,7 +137,7 @@ public class TurretScript : MonoBehaviour, ITargetTracker
         _target = target;
         rotToAngle = true;
     }
-    public void ClearTarget() => _target = null;
+    public void ClearTarget(Transform target) => _target = null;
     public void ReturnActive()
     {
         disactiveObj.SetActive(false);
@@ -136,6 +145,7 @@ public class TurretScript : MonoBehaviour, ITargetTracker
         disactive = false;
         disactiveObj.SetActive(false);
     }
+    #endregion
 }
 
 

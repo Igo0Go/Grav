@@ -13,6 +13,7 @@ public enum RotateType
 
 public class ObjectRotateManager : UsingObject
 {
+    #region Настраиваемые поля
     [Space(20)]
     [Tooltip("Смещение от стартового вращения")] public Vector3 rotVector;
     [Tooltip("Скорость движения")] public float speed;
@@ -25,6 +26,7 @@ public class ObjectRotateManager : UsingObject
     [Header("Настройки дебага")]
     [Tooltip("Нужен для дебага. Создайте пустышку дочерним объектом.")] public Transform helper;
     [Tooltip("Дальность линии от центра"), Range(1, 10)] public float range = 1;
+    #endregion
 
     #region Служебные
     private Action rotHandler;
@@ -66,7 +68,7 @@ public class ObjectRotateManager : UsingObject
         }
         else
         {
-            axis = transform.right * rotVector.x + transform.up * rotVector.y + transform.forward * rotVector.z;
+            axis = rotVector;
             rotHandler = RotateAroundAxis;
         }
     }
@@ -153,13 +155,13 @@ public class ObjectRotateManager : UsingObject
         ChangeTarget();
         pause = false;
     }
-}
-#if Unity_Editor
-private void OnDrawGizmos()
+
+#if UNITY_EDITOR
+    private void OnDrawGizmos()
     {
-        if(debug)
+        if (debug)
         {
-            if(type != RotateType.AroundAxis)
+            if (type != RotateType.AroundAxis)
             {
                 if (helper == null)
                 {
@@ -201,4 +203,5 @@ private void OnDrawGizmos()
         }
     }
 #endif
+}
 

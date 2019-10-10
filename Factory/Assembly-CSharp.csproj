@@ -63,6 +63,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\CodePanel\CodePanelScript.cs" />
+    <Compile Include="Assets\IgoGo\Enemies\Horse\HorseScript.cs" />
+    <Compile Include="Assets\IgoGo\Enemies\Oficer\OficerScript.cs" />
+    <Compile Include="Assets\IgoGo\Enemies\Pawn\Pawn.cs" />
     <Compile Include="Assets\IgoGo\Enemies\Quin\QuinScript.cs" />
     <Compile Include="Assets\IgoGo\Enemies\Rook\RookScript.cs" />
     <Compile Include="Assets\IgoGo\Enemies\Rook\TurretScript.cs" />
@@ -116,6 +120,9 @@
     <Compile Include="Assets\IgoGo\Personage\PlanetConstraint.cs" />
     <Compile Include="Assets\IgoGo\Personage\PlayerPlanetControl.cs" />
     <Compile Include="Assets\IgoGo\Prefabs\EffectExamples\Misc Effects\Scripts\SpawnEffect.cs" />
+    <Compile Include="Assets\IgoGo\Prefabs\Intaractive\BankSystem\BankCard.cs" />
+    <Compile Include="Assets\IgoGo\Prefabs\Intaractive\BankSystem\CardUserModule.cs" />
+    <Compile Include="Assets\IgoGo\Prefabs\Intaractive\BankSystem\ImageCodePanel.cs" />
     <Compile Include="Assets\IgoGo\Prefabs\Intaractive\LootPoint\LootPointScript.cs" />
     <Compile Include="Assets\IgoGo\Prefabs\WaySystem\BezierCurve.cs" />
     <Compile Include="Assets\IgoGo\Prefabs\WaySystem\BezierCurveEditor.cs" />

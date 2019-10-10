@@ -39,7 +39,6 @@ public class BulletScript : MyTools
     private Action moveBullet;
     #endregion
 
-
     #region События Unity
     void Update()
     {

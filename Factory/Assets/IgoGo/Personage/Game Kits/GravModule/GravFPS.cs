@@ -25,6 +25,7 @@ public class GravFPS : MonoBehaviour
     public float jumpForce;
     public GravFPSUI gravFPSUI;
     public SphereGravModule planet;
+    public GravityThrowerScript gun;
     public GravFPSSceneManager sceneManager;
     public bool inHub;
     #endregion
@@ -49,7 +50,7 @@ public class GravFPS : MonoBehaviour
     #endregion
 
     #region Служебные
-    [HideInInspector]public int status;
+    [HideInInspector]public PlayerState status;
     [HideInInspector] public Rigidbody rb;
     [HideInInspector]public Transform gravObj;
     [HideInInspector] public bool inMenu;
@@ -87,6 +88,7 @@ public class GravFPS : MonoBehaviour
     private void Start()
     {
         gravFPSUI.StatusPack.currentScene = SceneManager.GetActiveScene().name;
+        gravFPSUI.onFinalStun += ReturnActive;
 
         if(playerStartSceneSettings == null)
         {
@@ -103,8 +105,8 @@ public class GravFPS : MonoBehaviour
         {
             playerStartSceneSettings.SetSettings(this);
         }
-        
 
+        status = PlayerState.active;
         sceneManager.pack = gravFPSUI.StatusPack;
         Save();
         rb = GetComponent<Rigidbody>();
@@ -116,20 +118,23 @@ public class GravFPS : MonoBehaviour
     void Update()
     {
         Jump();
-        if (alive && status == 0 && gravObj == null)
+        if (alive && status == PlayerState.active && gravObj == null)
         {
             PlayerMoveStandard();
         }
     }
     private void LateUpdate()
     {
-        if(alive)
+        if(status > 0)
         {
-            PlayerRotate();
-        }
-        if (rotToGrav)
-        {
-            RotateToGravSmooth();
+            if (alive)
+            {
+                PlayerRotate();
+            }
+            if (rotToGrav)
+            {
+                RotateToGravSmooth();
+            }
         }
     }
     private void FixedUpdate()
@@ -211,6 +216,11 @@ public class GravFPS : MonoBehaviour
         transform.parent = null;
         Physics.gravity = vector;
     }
+    public void Stun()
+    {
+        gravFPSUI.SetStun();
+        status = PlayerState.disactive;
+    }
     #endregion
 
     #region Служебные
@@ -244,7 +254,7 @@ public class GravFPS : MonoBehaviour
     }
     private void PlayerMoveSphere()
     {
-        if(status == 0)
+        if(status == PlayerState.active)
         {
             gravVector = gravMultiplicator * (gravObj.position - transform.position);
 
@@ -303,11 +313,11 @@ public class GravFPS : MonoBehaviour
     }
     public bool OnGround()
     {
-        if (Physics.Raycast(transform.position, -transform.up, out RaycastHit hit, 2, ~jumpMask))
+        if (Physics.Raycast(transform.position + transform.up, -transform.up, out RaycastHit hit, 1.3f, ~jumpMask))
         {
             Vector3 bufer = hit.point - transform.position;
             Debug.DrawRay(transform.position, bufer, Color.red);
-            if(status==0)
+            if(status == PlayerState.active)
             {
                 OnGroundEvent?.Invoke();
             }
@@ -462,6 +472,7 @@ public class GravFPS : MonoBehaviour
         Invoke("RestartRun", 2);
         savePoint.OnRestart();
     }
+    private void ReturnActive() => status = PlayerState.active;
     #endregion
 
     private void OnTriggerEnter(Collider other)
@@ -472,7 +483,11 @@ public class GravFPS : MonoBehaviour
         }
         else if(other.tag.Equals("Loot"))
         {
-            other.GetComponent<LootItem>().SetTarget(this);
+            LootItem loot = other.GetComponent<LootItem>();
+            if(loot.opportunityToSuffice)
+            { 
+                loot.SetTarget(this);
+            }
         }
         else if (other.tag.Equals("CheckPoint"))
         {
@@ -500,6 +515,11 @@ public class GravFPS : MonoBehaviour
         else if(other.tag.Equals("EnemyView"))
         {
             other.GetComponent<ITargetTracker>().SetTarget(transform);
+            return;
+        }
+        else if (other.tag.Equals("Dron"))
+        {
+            gun.SetDangerPoin(other.transform);
             return;
         }
     }
@@ -534,7 +554,12 @@ public class GravFPS : MonoBehaviour
         }
         else if (other.tag.Equals("EnemyView"))
         {
-            other.GetComponent<ITargetTracker>().ClearTarget();
+            other.GetComponent<ITargetTracker>().ClearTarget(transform);
+            return;
+        }
+        else if (other.tag.Equals("Dron"))
+        {
+            gun.ClearDangerPoint();
             return;
         }
     }

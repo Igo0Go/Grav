@@ -5,6 +5,30 @@ using System;
 #region Вспомогательные классы
 public abstract class MyTools : MonoBehaviour
 {
+    public static bool NearColor(Color A, Color B, bool useA = false)
+    {
+        if(A.r - B.r > 0.1f)
+        {
+            return false;
+        }
+        if (A.g - B.g > 0.1f)
+        {
+            return false;
+        }
+        if (A.b - B.b > 0.1f)
+        {
+            return false;
+        }
+        if(useA)
+        {
+            if (A.a - B.a > 0.1f)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public bool MyGetComponent<T>(GameObject obj, out T component) where T: Component
     {
         component = obj.GetComponent<T>();
@@ -32,8 +56,6 @@ public abstract class MyTools : MonoBehaviour
     {
         Invoke(action.Method.Name, time);
     }
-
-
 }
 public static class MyTime
 {
@@ -68,11 +90,44 @@ public static class MyTime
     private static bool pauseKey;
     private static float defaultTime;
 }
+public static class MyCursor
+{
+    public static bool OpportunityToChange { get; set; }
+    public static bool Visible
+    {
+        get
+        {
+            return Cursor.visible;
+        }
+        set
+        {
+            if(OpportunityToChange)
+            {
+                Cursor.visible = value;
+            }
+        }
+    }
+    public static CursorLockMode LockState
+    {
+        get
+        {
+            return Cursor.lockState;
+        }
+        set
+        {
+            if(OpportunityToChange)
+            {
+                Cursor.lockState = value;
+            }
+        }
+    }
+}
 public enum PlayerState
 {
-    active,
-    disactive,
-    dead,
+    active = 1,
+    disactive = 0,
+    speceUse = 2,
+    dead = -1
 }
 public static class LoadManager
 {

@@ -5,19 +5,16 @@ using UnityEngine.SceneManagement;
 
 public class ModuleController : MonoBehaviour
 {
-    public LevelModuleStatus moduleStatus;
-
-    public List<GameObject> saveTransformObjects;
-    public List<GameObject> keyObjects;
-    public List<UsingObject> usingObjects;
-    public List<AnimActivator> floatAnimItems;
+    [Tooltip("Ссылка на ScriptableObject")] public LevelModuleStatus moduleStatus;
+    [Tooltip("Объекты, у которых нужно сохранить положение")] public List<GameObject> saveTransformObjects;
+    [Tooltip("Объекты, у которых нужно сохранить показатель активности на сцене")] public List<GameObject> activeSelfObjects;
+    [Tooltip("Объекты, у которых нужно сохранить показатель срабатывания модуля")] public List<UsingObject> usingObjects;
+    [Tooltip("Объекты, у которых нужно сохранить float-показатель animActivator")] public List<AnimActivator> floatAnimItems;
     public List<UsingObject> firstActionObjects;
-
-    [SerializeField, Space(20)] private bool clearSaveStates;
+    [SerializeField, Space(20), Tooltip("Стереть всё")] private bool clearSaveStates;
 
     private bool firstCycle;
     private string sceneName;
-
 
     public bool loadOnStart;
 
@@ -47,7 +44,7 @@ public class ModuleController : MonoBehaviour
     public void Save()
     {
         moduleStatus.gameObjectActiveList = new List<bool>();
-        foreach (var item in keyObjects)
+        foreach (var item in activeSelfObjects)
         {
             moduleStatus.gameObjectActiveList.Add(item.activeSelf);
         }
@@ -72,7 +69,6 @@ public class ModuleController : MonoBehaviour
 
         SaveSceneState();
     }
-
     public void Load()
     {
         if(firstCycle)
@@ -82,7 +78,7 @@ public class ModuleController : MonoBehaviour
 
         for (int i = 0; i < moduleStatus.gameObjectActiveList.Count; i++)
         {
-            keyObjects[i].SetActive(moduleStatus.gameObjectActiveList[i]);
+            activeSelfObjects[i].SetActive(moduleStatus.gameObjectActiveList[i]);
         }
 
         if(!firstCycle)
@@ -133,5 +129,4 @@ public class ModuleController : MonoBehaviour
             }
         }
     }
-
 }

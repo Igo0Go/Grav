@@ -23,31 +23,9 @@ public class RBActivator : UsingObject
             }
         }
     }
-
-    public override void Use()
-    {
-        foreach (var item in rigidbodies)
-        {
-            if(item != null)
-            {
-                item.isKinematic = false;
-                item.useGravity = true;
-                used = true;
-            }
-        }
-    }
-
-    public override void ToStart()
-    {
-        foreach (var item in rigidbodies)
-        {
-            item.useGravity = false;
-        }
-        used = false;
-    }
     private void OnDrawGizmos()
     {
-        if(debug)
+        if (debug)
         {
             Gizmos.color = Color.yellow;
             Gizmos.DrawSphere(transform.position, 0.3f);
@@ -64,4 +42,26 @@ public class RBActivator : UsingObject
             }
         }
     }
+
+    public override void Use()
+    {
+        foreach (var item in rigidbodies)
+        {
+            if(item != null)
+            {
+                item.isKinematic = false;
+                item.useGravity = true;
+                used = true;
+            }
+        }
+    }
+    public override void ToStart()
+    {
+        foreach (var item in rigidbodies)
+        {
+            item.useGravity = false;
+        }
+        used = false;
+    }
+
 }

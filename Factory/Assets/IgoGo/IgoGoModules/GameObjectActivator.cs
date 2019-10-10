@@ -6,6 +6,7 @@ public class GameObjectActivator : UsingObject
 {
     [Tooltip("Объекты, которые будут переключены")] public List<GameObject> gameObjects;
     [Tooltip("Значение свойсва SetActive у всех объектов после ктивции")] public bool state;
+   
     public override void Use()
     {
         UseAl(state);

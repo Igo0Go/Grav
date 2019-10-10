@@ -15,7 +15,7 @@ public class GravGanMode
 
 public delegate void ISeeDronModuleHandler(FriendModulePoint point);
 
-
+[RequireComponent(typeof(AudioSource))]
 [RequireComponent(typeof(LineRenderer))]
 public class GravityThrowerScript : MyTools
 {
@@ -47,12 +47,15 @@ public class GravityThrowerScript : MyTools
     public ParticleSystem shootParticles;
     [Tooltip("Точка, из которой будут лететь снаряды")]
     public Transform ShootPoint;
+    [Tooltip("Звук счётчика опасности")]
+    public AudioClip dangerClip;
     #endregion
 
     #region Свойства
-
+    
     private Vector3 ManipPosBufer => cam.transform.position + cam.forward + cam.forward * currentManipObj.transform.lossyScale.magnitude;
     private float ManipDistance => Vector3.Distance(ManipPosBufer, currentManipObj.transform.position);
+    private float DistanceToDanger => Vector3.Distance(dangerPoint.position, transform.position);
 
     #endregion
 
@@ -76,8 +79,11 @@ public class GravityThrowerScript : MyTools
     private Vector3 nearPoint = Vector3.zero;
     private Vector3 farPoint = Vector3.zero;
     private LineRenderer line;
+    private AudioSource dangerSoundSource;
+    private Transform dangerPoint;
     private bool delay;
     private bool manipKey;
+    private bool opportunityToPlayDangerSound;
     private int toggle;
     #endregion
 
@@ -86,6 +92,18 @@ public class GravityThrowerScript : MyTools
     public event ISeeDronModuleHandler ISeeDronPointEvent;
     private Action shoot;
 
+    #endregion
+
+    #region Публичные методы
+    public void SetDangerPoin(Transform point)
+    {
+        dangerPoint = point;
+        opportunityToPlayDangerSound = true;
+    }
+    public void ClearDangerPoint()
+    {
+        dangerPoint = null;
+    }
     #endregion
 
     #region События Unity
@@ -106,13 +124,14 @@ public class GravityThrowerScript : MyTools
         }
         Toggle();
         line = GetComponent<LineRenderer>();
+        dangerSoundSource = GetComponent<AudioSource>();
         player.gravFPSUI.onGetLoot += CheckSlider;
     }
     void Update()
     {
         TargetLook();
-
-        if (!delay)
+        CheckDanger();
+        if (!delay && player.status > 0)
         {
             shoot();
         }
@@ -159,6 +178,19 @@ public class GravityThrowerScript : MyTools
                         if(currentRB.mass <= 30)
                         {
                             currentRB.useGravity = false;
+                            currentRB.isKinematic = false;
+                            manipKey = true;
+                        }
+                    }
+                    else if(hit.collider.tag.Equals("ManipForEnemy"))
+                    {
+                        currentManipObj = hit.collider.transform.parent.parent.gameObject;
+                        manipRenderer = hit.collider.gameObject.GetComponent<MeshRenderer>();
+                        materialColor = manipRenderer.material.color;
+                        currentRB = currentManipObj.GetComponent<Rigidbody>();
+                        if(MyGetComponent(currentManipObj, out Pawn pawn))
+                        {
+                            pawn.ToManipState();
                             manipKey = true;
                         }
                     }
@@ -357,12 +389,33 @@ public class GravityThrowerScript : MyTools
         materialColor.a = 1;
         if (currentManipObj != null)
         {
+            if (MyGetComponent(currentManipObj, out Pawn pawn))
+            {
+                pawn.ToDefaultState();
+            }
             manipRenderer.material.color = materialColor;
             currentRB.useGravity = true;
         }
         manipKey = false;
         //line.positionCount = 0;
     }
+    private void CheckDanger()
+    {
+        if(dangerPoint != null)
+        {
+            if(opportunityToPlayDangerSound)
+            {
+                PlayDangerSound();
+                Invoke("ReturnDangerSound", (DistanceToDanger - 4) / 15);
+            }
+        }
+    }
+    private void PlayDangerSound()
+    {
+        dangerSoundSource.PlayOneShot(dangerClip);
+        opportunityToPlayDangerSound = false;
+    }
+    private void ReturnDangerSound() => opportunityToPlayDangerSound = true;
 
     public void DrawCurves() // создание кривой и визуализация
     {

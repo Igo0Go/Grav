@@ -25,5 +25,4 @@ public class MusicChanger : UsingObject
     {
         used = false;
     }
-
 }

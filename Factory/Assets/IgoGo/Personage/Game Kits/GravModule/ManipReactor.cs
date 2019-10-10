@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ManipReactor : UsingOrigin
 {
-    public ManipItem manip;
+    [Tooltip("На какой объект реагировать")] public ManipItem manip;
     public bool once;
 
     private void OnEnable()
@@ -24,10 +24,10 @@ public class ManipReactor : UsingOrigin
             Invoke("Inactive", Time.fixedDeltaTime);
         }
     }
-
     public override void ToStart()
     {
         used = false;
     }
+    
     private void Inactive() => gameObject.SetActive(false);
 }

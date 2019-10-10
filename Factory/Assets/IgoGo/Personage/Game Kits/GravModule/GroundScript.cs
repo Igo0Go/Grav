@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+
 [RequireComponent(typeof(Rigidbody))]
 public class GroundScript : MonoBehaviour
 {
@@ -27,7 +28,6 @@ public class GroundScript : MonoBehaviour
             helper?.Invoke();
         }
     }
-
     private void OnCollisionExit(Collision collision)
     {
         if (collision.gameObject != player)

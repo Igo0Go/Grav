@@ -9,13 +9,12 @@ public class DeadLineOrigin : MonoBehaviour
     [Tooltip("Пак частиц, которые появляются в месте, куда бъёт луч.")] public GameObject sparks;
     [Tooltip("Максимальная дальность луча"), Range(1, 1000)] public float maxRange = 10;
 
-
     private LineRenderer renderItem;
+    
     void Start()
     {
         renderItem = GetComponent<LineRenderer>();
     }
-
     void Update()
     {
         if(!MyTime.PauseStatus)
@@ -23,7 +22,12 @@ public class DeadLineOrigin : MonoBehaviour
             DeadRay();
         }
     }
-
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(transform.position, transform.position + transform.forward * maxRange);
+    }
+    
     private void DeadRay()
     {
         if(Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, maxRange, ~ignoreMask))
@@ -42,7 +46,6 @@ public class DeadLineOrigin : MonoBehaviour
             DrawDeadLine(transform.position + transform.forward * maxRange);
         }
     }
-
     private void DrawDeadLine(Vector3 point)
     {
         renderItem.positionCount = 2;
@@ -50,9 +53,4 @@ public class DeadLineOrigin : MonoBehaviour
         renderItem.SetPosition(1, point);
     }
 
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position, transform.position + transform.forward * maxRange);
-    }
 }

@@ -18,26 +18,9 @@ public class SavePoint : MonoBehaviour
     {
         anim = GetComponent<Animator>();
     }
-
     void Update()
     {
         SaveUpdate();
-    }
-
-    private void SaveUpdate()
-    {
-        if(moveSparks)
-        {
-            if (Vector3.Distance(bufer.transform.position, playerPoint.position) < 0.5f)
-            {
-                moveSparks = false;
-                Destroy(bufer, 3f);
-            }
-            else
-            {
-                bufer.transform.position = Vector3.Lerp(bufer.transform.position, playerPoint.position, Time.deltaTime);
-            }
-        }
     }
 
     public void Save(Transform target)
@@ -52,5 +35,20 @@ public class SavePoint : MonoBehaviour
         anim.SetTrigger("Restart");
         moduleController.Load();
     }
-
+    
+    private void SaveUpdate()
+    {
+        if (moveSparks)
+        {
+            if (Vector3.Distance(bufer.transform.position, playerPoint.position) < 0.5f)
+            {
+                moveSparks = false;
+                Destroy(bufer, 3f);
+            }
+            else
+            {
+                bufer.transform.position = Vector3.Lerp(bufer.transform.position, playerPoint.position, Time.deltaTime);
+            }
+        }
+    }
 }

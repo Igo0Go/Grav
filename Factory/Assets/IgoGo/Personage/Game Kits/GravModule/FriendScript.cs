@@ -14,24 +14,22 @@ public class DronReplicItem
 [RequireComponent(typeof(Rigidbody))]
 public class FriendScript : MonoBehaviour
 {
+    #region Настраиваемые поля
     [Header("Основные ссылки")]
     [Tooltip("Ссылка на скрипт пушки игрока")] public GravityThrowerScript gravityThrower;
     [Tooltip("Точка, в которую должен возвращаться дрон")] public Transform friendPoint;
-    [SerializeField] private GameObject shield;
+    [SerializeField, Tooltip("Объект щита")] private GameObject shield;
     [Range(1,10)] public float speed = 5;
     [Range(1, 10)] public float maxShieldTime = 3;
-
-
     [Header("Для реплик"), Space(20)]
     [SerializeField] private Color replicasCollor;
     [SerializeField] private GameObject subsPanel;
     [SerializeField] private Text subs;
     [SerializeField] private List<DronReplicItem> actionReplicas;
     [SerializeField] private List<DronReplicItem> altUseReplicas;
-    
+    #endregion
 
-
-
+    #region Служебные поля
     private FriendModulePoint modulePoint;
     private AudioSource source;
     private Transform target = null;
@@ -40,10 +38,10 @@ public class FriendScript : MonoBehaviour
     private Animator anim;
     private int moveToTarget;
     private float shieldForce;
+    #endregion
 
     public bool NearWithTarget => Vector3.Distance(transform.position, target.position) <= 0.3f;
-
-
+    
     void Start()
     {
         gravityThrower.ISeeDronPointEvent += SetTarget;
@@ -60,7 +58,6 @@ public class FriendScript : MonoBehaviour
         shieldForce = maxShieldTime;
         anim = GetComponent<Animator>();
     }
-
     void Update()
     {
         MoveToTarget();
