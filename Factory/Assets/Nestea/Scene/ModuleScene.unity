@@ -1095,6 +1095,36 @@ PrefabInstance:
       propertyPath: m_Name
       value: Personage (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 9044560230969631351, guid: 36132e4bdd1a2a4449a062f85ace73cb,
+        type: 3}
+      propertyPath: musicBoxes.Array.data[0].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: d9a3058c5a945964eac692a1ea075182, type: 3}
+    - target: {fileID: 9044560230969631351, guid: 36132e4bdd1a2a4449a062f85ace73cb,
+        type: 3}
+      propertyPath: musicBoxes.Array.data[2].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: a73cfd1fd8623644a8eb7a44a29b7e6b, type: 3}
+    - target: {fileID: 9044560230969631351, guid: 36132e4bdd1a2a4449a062f85ace73cb,
+        type: 3}
+      propertyPath: musicBoxes.Array.data[0].loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9044560230969631351, guid: 36132e4bdd1a2a4449a062f85ace73cb,
+        type: 3}
+      propertyPath: musicBoxes.Array.data[0].hide
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9044560230969631351, guid: 36132e4bdd1a2a4449a062f85ace73cb,
+        type: 3}
+      propertyPath: musicBoxes.Array.data[1].loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9044560230969631351, guid: 36132e4bdd1a2a4449a062f85ace73cb,
+        type: 3}
+      propertyPath: musicBoxes.Array.data[1].hide
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9044560230640899427, guid: 36132e4bdd1a2a4449a062f85ace73cb,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -1158,7 +1188,7 @@ PrefabInstance:
     - target: {fileID: 9044560231715343034, guid: 36132e4bdd1a2a4449a062f85ace73cb,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.000005238874
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9044560232014752363, guid: 36132e4bdd1a2a4449a062f85ace73cb,
         type: 3}
@@ -1313,47 +1343,17 @@ PrefabInstance:
     - target: {fileID: 8717507408165995344, guid: 36132e4bdd1a2a4449a062f85ace73cb,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.49999952
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3057750197575672873, guid: 36132e4bdd1a2a4449a062f85ace73cb,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.49999952
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 9044560230969631348, guid: 36132e4bdd1a2a4449a062f85ace73cb,
         type: 3}
       propertyPath: m_IsActive
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9044560230969631351, guid: 36132e4bdd1a2a4449a062f85ace73cb,
-        type: 3}
-      propertyPath: musicBoxes.Array.data[0].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: d9a3058c5a945964eac692a1ea075182, type: 3}
-    - target: {fileID: 9044560230969631351, guid: 36132e4bdd1a2a4449a062f85ace73cb,
-        type: 3}
-      propertyPath: musicBoxes.Array.data[2].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: a73cfd1fd8623644a8eb7a44a29b7e6b, type: 3}
-    - target: {fileID: 9044560230969631351, guid: 36132e4bdd1a2a4449a062f85ace73cb,
-        type: 3}
-      propertyPath: musicBoxes.Array.data[0].loop
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9044560230969631351, guid: 36132e4bdd1a2a4449a062f85ace73cb,
-        type: 3}
-      propertyPath: musicBoxes.Array.data[0].hide
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9044560230969631351, guid: 36132e4bdd1a2a4449a062f85ace73cb,
-        type: 3}
-      propertyPath: musicBoxes.Array.data[1].loop
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9044560230969631351, guid: 36132e4bdd1a2a4449a062f85ace73cb,
-        type: 3}
-      propertyPath: musicBoxes.Array.data[1].hide
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 36132e4bdd1a2a4449a062f85ace73cb, type: 3}

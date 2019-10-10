@@ -17,6 +17,8 @@ TagManager:
   - MoveTransform
   - DronModule
   - Dron
+  - EnemyView
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -28,8 +30,8 @@ TagManager:
   - 
   - PostProcessing
   - Player
-  - 
-  - 
+  - Enemy
+  - EnemyHelper
   - 
   - 
   - 
