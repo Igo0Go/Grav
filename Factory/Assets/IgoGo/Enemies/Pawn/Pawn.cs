@@ -114,21 +114,24 @@ public class Pawn : UsingObject, ITargetTracker
     }
     private void GetRandomDestination()
     {
-        Vector3 origin = GetRandomOrigin();
-        origin += transform.up * 5;
-
-        RaycastHit hit;
-        if(Physics.Raycast(origin, -transform.up, out hit, 100, ~ignoreMask))
+        if(agent.enabled)
         {
-            agent.destination = hit.point;
-            if(agent.hasPath)
+            Vector3 origin = GetRandomOrigin();
+            origin += transform.up * 5;
+
+            RaycastHit hit;
+            if (Physics.Raycast(origin, -transform.up, out hit, 100, ~ignoreMask))
             {
-                agent.isStopped = false;
-                state = 1;
-            }
-            else
-            {
-                agent.isStopped = true;
+                agent.destination = hit.point;
+                if (agent.hasPath)
+                {
+                    agent.isStopped = false;
+                    state = 1;
+                }
+                else
+                {
+                    agent.isStopped = true;
+                }
             }
         }
     }
@@ -157,7 +160,7 @@ public class Pawn : UsingObject, ITargetTracker
     }
     private void GetMony()
     {
-        gravFPS.gravFPSUI.SpendMoney(1);
+        gravFPS.gravFPSUI.Spend(1);
         rbBufer = Instantiate(coinWithRb, manipPoint.position, Quaternion.identity).GetComponent<Rigidbody>();
         Vector3 direction = Vector3.ProjectOnPlane(_target.position - manipPoint.position, transform.up) + transform.up;
         rbBufer.AddForce(direction.normalized * manipShootForce * 2, ForceMode.Impulse);

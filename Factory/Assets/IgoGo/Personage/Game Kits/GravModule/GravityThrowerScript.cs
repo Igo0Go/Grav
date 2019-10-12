@@ -131,7 +131,7 @@ public class GravityThrowerScript : MyTools
     {
         TargetLook();
         CheckDanger();
-        if (!delay && player.status > 0)
+        if (!delay && player.Status > 0)
         {
             shoot();
         }

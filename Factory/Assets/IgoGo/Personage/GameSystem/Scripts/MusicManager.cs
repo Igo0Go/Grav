@@ -30,8 +30,9 @@ public class MusicManager : MyTools {
             if(_currentBox != value)
             {
                 _currentBox = value;
-                targetVolume = 0;
-                change = true;
+                ChangeClip(_currentBox);
+                //targetVolume = 0;
+                //change = true;
             }
         }
     }

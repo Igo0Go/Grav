@@ -158,7 +158,7 @@ public class GravFPSUI : MonoBehaviour
     {
         tip.text = string.Empty;
     }
-    public void SpendMoney(int count)
+    public void Spend(int count)
     {
         StatusPack.money -= count;
         spendMoney = true;

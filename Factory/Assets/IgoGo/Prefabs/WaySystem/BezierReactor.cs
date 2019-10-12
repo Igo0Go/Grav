@@ -22,7 +22,7 @@ public class BezierReactor : MyTools
     }
     private void Update()
     {
-        if(gravFPS.status == PlayerState.speceUse)
+        if(gravFPS.Status == PlayerState.speceUse)
         {
             MoveToTarget();
         }
@@ -47,12 +47,12 @@ public class BezierReactor : MyTools
                 }
 
             }
-            gravFPS.status = PlayerState.speceUse;
+            gravFPS.Status = PlayerState.speceUse;
         }
     }
     private void MoveToTarget()
     {
-        if(gravFPS.status == PlayerState.speceUse)
+        if(gravFPS.Status == PlayerState.speceUse)
         {
             if(Distance > 0.7f)
             {
@@ -86,7 +86,7 @@ public class BezierReactor : MyTools
     {
         gravFPS.rb.useGravity = true;
         gravFPS.rb.AddForce(transform.forward * 5 + transform.up * 2, ForceMode.Impulse);
-        gravFPS.status = PlayerState.active;
+        gravFPS.Status = PlayerState.active;
         gravFPS.RotateToGrav();
     }
     private void ClearCurve()
@@ -96,7 +96,7 @@ public class BezierReactor : MyTools
 
     private void OnTriggerStay(Collider other)
     {
-        if(!gravFPS.OnGround() && gravFPS.status == PlayerState.active && other.tag.Equals("WayStarter"))
+        if(!gravFPS.OnGround() && gravFPS.Status == PlayerState.active && other.tag.Equals("WayStarter"))
         {
             BezierCurve bufer = null;
             if (curve != null)
