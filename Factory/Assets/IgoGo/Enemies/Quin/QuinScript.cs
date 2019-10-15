@@ -5,7 +5,8 @@ public class QuinScript : UsingObject, ITargetTracker
     [SerializeField, Tooltip("Та часть, которая будет преследовать игрока")] private Transform body;
     [SerializeField, Tooltip("Точка, в которую будет уходить ферзь, если его дразнит кролик")] private Transform falePoint;
     [SerializeField, Tooltip("Сквозь какие слои видеит ферзь")] private LayerMask ignoreMask;
-    [SerializeField, Range(0.1f, 20)] float speed = 8;
+    [SerializeField, Range(0.1f, 20)] private float speed = 8;
+    [SerializeField] private Animator anim;
     
     private Transform _target;
     private bool toTarget;
@@ -43,6 +44,7 @@ public class QuinScript : UsingObject, ITargetTracker
                 {
                     if(attack == 1)
                     {
+                        anim.SetTrigger("Attack");
                         attack = 2;
                     }
                     toTarget = true;
@@ -59,7 +61,8 @@ public class QuinScript : UsingObject, ITargetTracker
     {
         if (attack != 0)
         {
-            Vector3 currentDirection = Target.position - body.position;
+            Vector3 currentDirection = (Target.position + Target.up) - body.position;
+            body.forward = currentDirection;
             if (NearWithTarget)
             {
                 body.position = Target.position;

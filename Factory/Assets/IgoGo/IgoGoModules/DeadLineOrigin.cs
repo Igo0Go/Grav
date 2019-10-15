@@ -8,6 +8,7 @@ public class DeadLineOrigin : MonoBehaviour
     [Tooltip("На какие слои не будет реагировать луч")]public LayerMask ignoreMask;
     [Tooltip("Пак частиц, которые появляются в месте, куда бъёт луч.")] public GameObject sparks;
     [Tooltip("Максимальная дальность луча"), Range(1, 1000)] public float maxRange = 10;
+    [Tooltip("Урон"), Range(1, 10)] public int damage = 1; 
 
     private LineRenderer renderItem;
     
@@ -15,7 +16,7 @@ public class DeadLineOrigin : MonoBehaviour
     {
         renderItem = GetComponent<LineRenderer>();
     }
-    void Update()
+    void FixedUpdate()
     {
         if(!MyTime.PauseStatus)
         {
@@ -34,7 +35,7 @@ public class DeadLineOrigin : MonoBehaviour
         {
             if(hit.collider.tag.Equals("Player"))
             {
-                hit.collider.GetComponent<GravFPS>().GetDamage(5);
+                hit.collider.GetComponent<GravFPS>().GetDamage(damage);
             }
             DrawDeadLine(hit.point);
             GameObject bufer = Instantiate(sparks, hit.point + hit.normal * 0.01f, Quaternion.identity, hit.transform);
@@ -52,5 +53,4 @@ public class DeadLineOrigin : MonoBehaviour
         renderItem.SetPosition(0, transform.position);
         renderItem.SetPosition(1, point);
     }
-
 }
