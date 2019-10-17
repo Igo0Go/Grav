@@ -13,6 +13,7 @@ public class LootPointScript : UsingOrigin
     [Tooltip("Цена предмета")] public int cost;
     [Tooltip("Подсказка - название предемета")] public string tipText;
     public bool coinsType;
+    [HideInInspector] public byte cardContains;
 
     [HideInInspector] public bool useble;
     private GameObject bufer;
@@ -22,7 +23,6 @@ public class LootPointScript : UsingOrigin
     private bool spawn;
     private bool usingOrigin;
     private byte currentSpendIndex;
-    private byte cardContains;
 
     private void OnEnable()
     {

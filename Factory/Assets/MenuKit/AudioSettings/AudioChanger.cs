@@ -5,16 +5,10 @@ using UnityEngine;
 [RequireComponent(typeof (AudioSource))]
 public class AudioChanger : MonoBehaviour
 {
-    private AudioSource source;
-
-    private void Start()
-    {
-        source = GetComponent<AudioSource>();
-    }
+    public AudioSource source;
 
     public void VolumeUpdate(float value)
     {
-
         source.volume = value;
     }
 }

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 [System.Serializable]
@@ -30,9 +28,7 @@ public class MusicManager : MyTools {
             if(_currentBox != value)
             {
                 _currentBox = value;
-                ChangeClip(_currentBox);
-                //targetVolume = 0;
-                //change = true;
+                change = -1;
             }
         }
     }
@@ -43,26 +39,21 @@ public class MusicManager : MyTools {
 
     #region Служебные
     private int _currentBox;
-    private bool change;
+    private sbyte change;
     private float targetVolume;
-    private float maxVolume;
-    private float firstMaxVolume;
-    private float currentVolume;
     private float currentMultiplicator;
+
+
     #endregion
 
     private void Start()
     {
         currentMultiplicator = audioSettings.musicMultiplicator;
-        currentVolume = firstMaxVolume = source.volume;
-        maxVolume = firstMaxVolume * currentMultiplicator;
-        source.volume = currentVolume * currentMultiplicator;
+        source.volume = targetVolume = currentMultiplicator;
         ChangeClip(0);
     }
     private void Update()
     {
-        maxVolume = firstMaxVolume * currentMultiplicator;
-        source.volume = currentVolume * currentMultiplicator;
         if (debug)
         {
             CurrentBox = number;
@@ -74,22 +65,31 @@ public class MusicManager : MyTools {
     public void AudioUpdate(float value)
     {
         currentMultiplicator = value;
-        maxVolume = firstMaxVolume * currentMultiplicator;
-        source.volume = currentVolume * currentMultiplicator;
+        if(change == 0)
+        {
+            if(source.volume != currentMultiplicator)
+            {
+                source.volume = currentMultiplicator;
+            }
+        }
     }
 
     private void SetMusicBox()
     {
-        if (change)
+        if (change > 0)
         {
-            currentVolume = Mathf.Lerp(currentVolume, targetVolume, Time.deltaTime * 10);
-            if (source.volume < 0.05f)
+            source.volume = Mathf.Lerp(source.volume, currentMultiplicator, Time.deltaTime * 10);
+            if (Mathf.Abs(currentMultiplicator - source.volume) < 0.05)
+            {
+                change = 0;
+            }
+        }
+        else if(change < 0)
+        {
+            source.volume = Mathf.Lerp(source.volume, 0, Time.deltaTime * 10);
+            if (Mathf.Abs(0 - source.volume) < 0.05)
             {
                 ChangeClip(_currentBox);
-            }
-            else if (Mathf.Abs(maxVolume - source.volume) < 0.05)
-            {
-                change = false;
             }
         }
     }
@@ -125,8 +125,8 @@ public class MusicManager : MyTools {
             anim.SetTrigger("ChangeMusic");
         }
         source.loop = musicBoxes[number].loop;
-        targetVolume = maxVolume;
+        targetVolume = currentMultiplicator;
+        change = 1;
         source.Play();
     }
-
 }

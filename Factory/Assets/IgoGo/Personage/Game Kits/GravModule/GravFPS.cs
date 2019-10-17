@@ -108,6 +108,11 @@ public class GravFPS : MonoBehaviour
     private void Start()
     {
         gravFPSUI.StatusPack.currentScene = SceneManager.GetActiveScene().name;
+        if (inHub)
+        {
+            gravFPSUI.StatusPack.hubScene = gravFPSUI.StatusPack.currentScene;
+        }
+
         gravFPSUI.onFinalStun += ReturnActive;
 
         if(playerStartSceneSettings == null)
@@ -184,9 +189,12 @@ public class GravFPS : MonoBehaviour
     }
     public void Death()
     {
-        alive = false;
-        gravFPSUI.deadPanel.SetActive(!alive);
-        CheckLoad();
+        if(alive)
+        {
+            alive = false;
+            gravFPSUI.deadPanel.SetActive(!alive);
+            CheckLoad();
+        }
     }
     public void RestartSceneWithLoadSphere()
     {

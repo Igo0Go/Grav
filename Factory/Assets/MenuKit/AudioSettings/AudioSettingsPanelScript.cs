@@ -47,8 +47,6 @@ public class AudioSettingsPanelScript : MonoBehaviour
 
     void Start()
     {
-        audioSettingsPanel.SetActive(false);
-
         musicSlider.value = MusicVolume;
         otherAudioSlider.value = OtherVolume;
 
@@ -67,6 +65,8 @@ public class AudioSettingsPanelScript : MonoBehaviour
         }
         ChangeOtherVolume?.Invoke(audioSettings.otherAudioMultiplicator);
         ChangeMusicVolume?.Invoke(audioSettings.musicMultiplicator);
+
+        audioSettingsPanel.SetActive(false);
     }
     void Update()
     {

@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Config/StatusPack")]
 public class StatusPack : ScriptableObject
 {
+    [Tooltip("Номер сохранения")] public int loadSlot;
     [Tooltip("Название текущей сцены")] public string currentScene;
     [Tooltip("Название сцены-хаба")] public string hubScene;
 
@@ -22,4 +23,5 @@ public class StatusPack : ScriptableObject
     [Tooltip("Номер позиции старта в хабе после загрузки")] public int hubPoint;
 
     [Tooltip("Собранные карты")] public List<bool> cards;
+    [Tooltip("Собранные карты")] public List<bool> saveCards;
 }

@@ -5,6 +5,15 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
+  - enabled: 1
+    path: Assets/IgoGo/Scenes/IgoGoRooms/SaveTestHub.unity
+    guid: 157e589eb2ad1574ea816ddb9513ffbe
+  - enabled: 1
+    path: Assets/IgoGo/Scenes/Load.unity
+    guid: 24aff585d44d4824c9d95ef55cdc3767
+  - enabled: 1
+    path: Assets/IgoGo/Scenes/IgoGoRooms/SaveTestMission.unity
+    guid: e15721bfa8fbda143bab237060f3e2e4
   - enabled: 0
     path: Assets/Nestea/Scene/StartHub.unity
     guid: 8b6c29e16670da44ebb9c79588c1726f
@@ -14,12 +23,9 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/IgoGo/Scenes/IgoGoRooms/Angar.unity
     guid: 1760dd267b3bb5047ae1ee0518871664
-  - enabled: 1
+  - enabled: 0
     path: Assets/IgoGo/Scenes/IgoGoRooms/EdenAndHell.unity
     guid: 7d865c714035a884bb6c039e94931dd9
-  - enabled: 1
-    path: Assets/IgoGo/Scenes/Load.unity
-    guid: 24aff585d44d4824c9d95ef55cdc3767
   - enabled: 0
     path: Assets/IgoGo/Scenes/IgoGoRooms/PlanetScene.unity
     guid: 19e2ffc253e7ce6468ad451cef2829b3
@@ -38,7 +44,4 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/IgoGo/Scenes/IgoGoRooms/Test.unity
     guid: 3052371f98d1a7149ab893a81a47d558
-  - enabled: 0
-    path: Assets/IgoGo/Scenes/IgoGoRooms/SaveTest.unity
-    guid: e15721bfa8fbda143bab237060f3e2e4
   m_configObjects: {}

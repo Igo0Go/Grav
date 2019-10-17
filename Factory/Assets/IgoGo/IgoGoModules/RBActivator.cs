@@ -10,16 +10,19 @@ public class RBActivator : UsingObject
 
     private void Start()
     {
-        for (int i = 0; i < rigidbodies.Count; i++)
+        if(!used)
         {
-            if (rigidbodies[i] != null)
+            for (int i = 0; i < rigidbodies.Count; i++)
             {
-                rigidbodies[i].isKinematic = true;
-                rigidbodies[i].useGravity = false;
-            }
-            else
-            {
-                Debug.LogError("Элемент " + i + " равен null. Вероятно, была утеряна ссылка. Источник :" + gameObject.name);
+                if (rigidbodies[i] != null)
+                {
+                    rigidbodies[i].isKinematic = true;
+                    rigidbodies[i].useGravity = false;
+                }
+                else
+                {
+                    Debug.LogError("Элемент " + i + " равен null. Вероятно, была утеряна ссылка. Источник :" + gameObject.name);
+                }
             }
         }
     }
