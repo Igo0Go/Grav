@@ -27,6 +27,8 @@ public class FriendScript : MonoBehaviour
     [SerializeField] private Text subs;
     [SerializeField] private List<DronReplicItem> actionReplicas;
     [SerializeField] private List<DronReplicItem> altUseReplicas;
+    [SerializeField, Tooltip("Источник звука - щит")] private AudioSource shieldAudio;
+    [SerializeField, Tooltip("Звук турбинок кролезаи")] private AudioClip crolSound;
     #endregion
 
     #region Служебные поля
@@ -57,6 +59,9 @@ public class FriendScript : MonoBehaviour
         shield.SetActive(false);
         shieldForce = maxShieldTime;
         anim = GetComponent<Animator>();
+        shieldAudio.loop = shieldAudio.playOnAwake = false;
+        ReturnSubs();
+
     }
     void Update()
     {
@@ -94,6 +99,7 @@ public class FriendScript : MonoBehaviour
             if(index < altUseReplicas.Count)
             {
                 subsPanel.SetActive(true);
+                source.loop = false;
                 source.PlayOneShot(altUseReplicas[index].audioClip);
                 subs.text = altUseReplicas[index].text;
                 subs.color = replicasCollor;
@@ -173,6 +179,7 @@ public class FriendScript : MonoBehaviour
             if (shieldForce > 0.5f)
             {
                 shield.SetActive(true);
+                shieldAudio.Play();
                 StartReplicas();
             }
         }
@@ -207,5 +214,15 @@ public class FriendScript : MonoBehaviour
             }
         }
     }
-    private void ReturnSubs() => subsPanel.SetActive(false);
+    private void ReturnSubs()
+    {
+        subsPanel.SetActive(false);
+        source.loop = true;
+        if(source.isPlaying)
+        {
+            source.Stop();
+        }
+        source.clip = crolSound;
+        source.Play();
+    }
 }

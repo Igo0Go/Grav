@@ -8,7 +8,7 @@ public class BezierPoint : MonoBehaviour
     [Tooltip("это трансформ родителя")] public Transform endPoint;
     [Tooltip("дочерний объект Mirror")] public Transform adjustMirror;
     public Color color = Color.white;
-    public float scale = 1;
+    [Range(0,1)]public float scale = 1;
 
     void OnDrawGizmos()
     {

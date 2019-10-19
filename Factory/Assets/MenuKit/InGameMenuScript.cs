@@ -9,7 +9,6 @@ public class InGameMenuScript : MyTools
     public AudioSettingsPanelScript audioSettings;
     public GameObject menuPanel;
     public GravFPS player;
-    public ModuleController moduleConroller;
 
 
     private static bool inSettings;
@@ -23,6 +22,8 @@ public class InGameMenuScript : MyTools
         audioSettings.gameObject.SetActive(true);
         settingsScript.ReturnEvent += OnReturnEvent;
         audioSettings.ReturnEvent += OnReturnEvent;
+        audioSettings.Initialize();
+        settingsScript.Initialize();
         menuPanel.SetActive(false);
         MyCursor.OpportunityToChange = true;
         MyCursor.LockState = CursorLockMode.Locked;
@@ -55,11 +56,9 @@ public class InGameMenuScript : MyTools
     {
         if(player.inHub)
         {
-            if(moduleConroller != null)
-            {
-                moduleConroller.DefaultValues();
-            }
-            Application.Quit();
+            DataLoader.SaveXML(player.gravFPSUI.StatusPack);
+            player.gravFPSUI.StatusPack.currentScene = "MainMenu";
+            player.sceneManager.LoadNextScene();
         }
         else
         {

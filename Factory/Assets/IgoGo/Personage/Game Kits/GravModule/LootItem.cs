@@ -22,6 +22,7 @@ public class LootItem : MonoBehaviour
     [SerializeField] private Collider physicalCollider;
     [SerializeField] private Rigidbody rb;
     [SerializeField, Range(0.1f, 5)] private float activationTime = 1;
+    public AudioSource source;
 
     private int status;
     private Transform target;
@@ -49,7 +50,9 @@ public class LootItem : MonoBehaviour
                         player.gravFPSUI.AddBankCard(count);
                         break;
                 }
-                Destroy(gameObject);
+                source.Play();
+                Destroy(gameObject, source.clip.length);
+                status = 0;
             }
         }
     }

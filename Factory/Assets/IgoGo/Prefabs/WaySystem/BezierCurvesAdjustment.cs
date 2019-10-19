@@ -8,7 +8,7 @@ public class BezierCurvesAdjustment : MonoBehaviour
     public Transform mirror;
     public Transform parent;
     public Color color = Color.white;
-    public float scale = 1;
+    [Range(0,1)]public float scale = 1;
 
     void OnDrawGizmos()
     {
@@ -21,7 +21,7 @@ public class BezierCurvesAdjustment : MonoBehaviour
     #if UNITY_EDITOR
     void LateUpdate()
     {
-        mirror.position = parent.position + (transform.localPosition * -1);
+        mirror.localPosition = transform.localPosition * -1;
     }
     #endif
 }

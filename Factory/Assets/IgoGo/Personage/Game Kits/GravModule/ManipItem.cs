@@ -20,7 +20,7 @@ public class ManipItem : MyTools
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag.Equals("Module"))
+        if(other.tag.Equals("ManipReactor"))
         {
             if(MyGetComponent(other.gameObject, out ManipReactor manip))
             {

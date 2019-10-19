@@ -5,15 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class ModuleController : MonoBehaviour
 {
-    [Tooltip("Ссылка на ScriptableObject")] public LevelModuleStatus moduleStatus;
+    
     [Tooltip("Объекты, у которых нужно сохранить положение")] public List<GameObject> saveTransformObjects;
     [Tooltip("Объекты, у которых нужно сохранить показатель активности на сцене")] public List<GameObject> activeSelfObjects;
     [Tooltip("Объекты, у которых нужно сохранить показатель срабатывания модуля")] public List<UsingObject> usingObjects;
-    [Tooltip("Объекты, у которых нужно сохранить float-показатель animActivator")] public List<AnimActivator> floatAnimItems;
-    public List<UsingObject> firstActionObjects;
+    [Tooltip("Все собираемые предметы будут удаляться, если уж были собраны при предыдущем посещении сцены")] public List<GameObject> lootObjects;
+    [Tooltip("Статистики игрока")] public LootPointScript cardPoint;
     [SerializeField, Space(20), Tooltip("Стереть всё")] private bool clearSaveStates;
 
-    private bool firstCycle;
+    [HideInInspector] public LevelModuleStatus moduleStatus;
+    [HideInInspector] public List<UsingObject> firstActionObjects;
+
     private string sceneName;
 
     public bool loadOnStart;
@@ -21,7 +23,7 @@ public class ModuleController : MonoBehaviour
     private void Start()
     {
         sceneName = SceneManager.GetActiveScene().name;
-        firstCycle = true;
+        moduleStatus = LevelModuleStatusSettings.Find(sceneName);
         if(loadOnStart)
         {
             Load();
@@ -30,12 +32,13 @@ public class ModuleController : MonoBehaviour
         {
             Save();
         }
-        firstCycle = false;
     }
     private void OnDrawGizmosSelected()
     {
         if(clearSaveStates)
         {
+            sceneName = SceneManager.GetActiveScene().name;
+            moduleStatus = LevelModuleStatusSettings.Find(sceneName);
             DefaultValues();
             clearSaveStates = false;
         }
@@ -52,7 +55,7 @@ public class ModuleController : MonoBehaviour
         moduleStatus.savedTransforms = new List<PosPack>();
         foreach (var item in saveTransformObjects)
         {
-            moduleStatus.savedTransforms.Add(new PosPack() { position = item.transform.position, rotation = item.transform.rotation});
+            moduleStatus.savedTransforms.Add(new PosPack() { position = item.transform.position, rotation = item.transform.rotation.eulerAngles});
         }
 
         moduleStatus.moduleStatusList = new List<bool>();
@@ -61,46 +64,52 @@ public class ModuleController : MonoBehaviour
             moduleStatus.moduleStatusList.Add(item.used);
         }
 
-        moduleStatus.animValues = new List<float>();
-        foreach (var item in floatAnimItems)
+        moduleStatus.lootState = new List<bool>();
+        foreach (var item in lootObjects)
         {
-            moduleStatus.animValues.Add(item.target);
+            moduleStatus.lootState.Add(item == null);
         }
 
-        SaveSceneState();
+        if(cardPoint != null)
+        {
+            moduleStatus.bankCardStatus = cardPoint.cardContains;
+        }
     }
     public void Load()
     {
-        if(firstCycle)
-        {
-            LoadSceneState();
-        }
-
         for (int i = 0; i < moduleStatus.gameObjectActiveList.Count; i++)
         {
             activeSelfObjects[i].SetActive(moduleStatus.gameObjectActiveList[i]);
         }
 
-        if(!firstCycle)
+        for (int i = 0; i < moduleStatus.moduleStatusList.Count; i++)
         {
-            for (int i = 0; i < moduleStatus.moduleStatusList.Count; i++)
+            if (moduleStatus.moduleStatusList[i])
             {
-                if (!moduleStatus.moduleStatusList[i] && usingObjects[i].used)
-                {
-                    usingObjects[i].ToStart();
-                }
+                usingObjects[i].Use();
+            }
+            else
+            {
+                usingObjects[i].ToStart();
             }
         }
 
         for (int i = 0; i < moduleStatus.savedTransforms.Count; i++)
         {
             saveTransformObjects[i].transform.position = moduleStatus.savedTransforms[i].position;
-            saveTransformObjects[i].transform.rotation = moduleStatus.savedTransforms[i].rotation;
+            saveTransformObjects[i].transform.rotation = Quaternion.Euler(moduleStatus.savedTransforms[i].rotation);
         }
 
-        for (int i = 0; i < moduleStatus.animValues.Count; i++)
+        for (int i = 0; i < moduleStatus.lootState.Count; i++)
         {
-            floatAnimItems[i].SetActiveForAll(moduleStatus.animValues[i]);
+            if (moduleStatus.lootState[i])
+            {
+                Destroy(lootObjects[i]);
+            }
+        }
+        if(cardPoint != null)
+        {
+            cardPoint.cardContains = moduleStatus.bankCardStatus;
         }
     }
     public void DefaultValues()
@@ -110,23 +119,10 @@ public class ModuleController : MonoBehaviour
         {
             PlayerPrefs.SetInt(sceneName + "UsOb" + i, 0);
         }
-    }
 
-    private void SaveSceneState()
-    {
-        for (int i = 0; i < firstActionObjects.Count; i++)
-        {
-            PlayerPrefs.SetInt(sceneName + "UsOb" + i, firstActionObjects[i].used ? 1 : 0);
-        }
-    }
-    private void LoadSceneState()
-    {
-        for (int i = 0; i < firstActionObjects.Count; i++)
-        {
-            if(PlayerPrefs.GetInt(sceneName + "UsOb" + i) == 1)
-            {
-                firstActionObjects[i].Use();
-            }
-        }
+        moduleStatus.gameObjectActiveList.Clear();
+        moduleStatus.moduleStatusList.Clear();
+        moduleStatus.savedTransforms.Clear();
+        moduleStatus.lootState.Clear();
     }
 }

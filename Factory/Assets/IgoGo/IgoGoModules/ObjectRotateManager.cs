@@ -79,7 +79,7 @@ public class ObjectRotateManager : UsingObject
 
     public override void Use()
     {
-        used = true;
+        used = !used;
         Invoke("Action", delay);
     }
     public override void ToStart()

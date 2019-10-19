@@ -14,8 +14,9 @@ public class ImageCodePanel : UsingOrigin
     [SerializeField] private GameObject activeToggle;
 
     [SerializeField, Space(10), Range(1, 10)] private int attemptsCount;
-    [SerializeField] private int code;
+    [SerializeField] private string code;
     [SerializeField] private bool active;
+    [SerializeField] private int coinsCount;
 
     [SerializeField, Space(10)] private AudioClip messageClip;
     [SerializeField] private string messageText;
@@ -29,7 +30,7 @@ public class ImageCodePanel : UsingOrigin
     private AudioSource source;
     private int currentAttempt;
     private bool move;
-    private string currentCode;
+    [SerializeField, Space(20)]private string currentCode;
 
     private bool PlayerNearWithTarget => Vector3.Distance(player.position, playerPos.position) < moveSpeed * Time.deltaTime * 2;
     private bool PlayerSeeOnTarget => Vector3.Angle(Vector3.ProjectOnPlane(playerCam.forward, transform.up), Vector3.ProjectOnPlane(playerPos.forward, transform.up)) < 2;
@@ -55,18 +56,45 @@ public class ImageCodePanel : UsingOrigin
         gravFPS = target;
         player = gravFPS.transform;
         playerCam = player.GetChild(0);
-        gravFPS.status = PlayerState.disactive;
+        gravFPS.Status = PlayerState.disactive;
         move = true;
     }
     public void AddSymbol(int value)
     {
         currentCodeImages.Add(Instantiate(prefabs[value], pointsForInput[currentCode.Length]));
-        currentCode += (value+1).ToString();
+        if(value <10)
+        {
+            currentCode += value.ToString();
+        }
+        else
+        {
+            switch (value)
+            {
+                case 10:
+                    currentCode += "G";
+                    break;
+                case 11:
+                    currentCode += "Y";
+                    break;
+                case 12:
+                    currentCode += "O";
+                    break;
+                case 13:
+                    currentCode += "P";
+                    break;
+                case 14:
+                    currentCode += "B";
+                    break;
+                case 15:
+                    currentCode += "R";
+                    break;
+            }
+        }
         CheckCode();
     }
     public void Escape()
     {
-        gravFPS.status = PlayerState.active;
+        gravFPS.Status = PlayerState.active;
         MyCursor.OpportunityToChange = true;
         MyCursor.LockState = CursorLockMode.Locked;
         MyCursor.Visible = false;
@@ -117,16 +145,13 @@ public class ImageCodePanel : UsingOrigin
     }
     private int ValidCode()
     {
-        if (int.TryParse(currentCode, out int codeValue))
+        if (currentCode.Equals(code))
         {
-            if (codeValue == code)
-            {
-                return 1;
-            }
-            else if (currentCode.Length >= code.ToString().Length)
-            {
-                return -1;
-            }
+            return 1;
+        }
+        else if (currentCode.Length >= code.ToString().Length)
+        {
+            return -1;
         }
         return 0;
     }
@@ -151,6 +176,7 @@ public class ImageCodePanel : UsingOrigin
             Escape();
             UseAll();
             Destroy(triger);
+            GiveCoins();
             StartMessage();
         }
     }
@@ -159,6 +185,19 @@ public class ImageCodePanel : UsingOrigin
         foreach (var item in actionObjects)
         {
             item.Use();
+        }
+    }
+    private void GiveCoins() 
+    {
+        if(coinsCount > 0)
+        {
+            coinsCount--;
+            gravFPS.gravFPSUI.AddCoin();
+            Invoke("GiveCoins", Time.deltaTime);
+        }
+        else
+        {
+            Destroy(this);
         }
     }
 
@@ -206,6 +245,6 @@ public class ImageCodePanel : UsingOrigin
     private void StopMessage()
     {
         subsPanel.SetActive(false);
-        Destroy(this);
+        
     }
 }

@@ -4,11 +4,19 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEditor;
 
+public enum LoadType
+{
+    loadProcessing,
+    loadMission,
+    loadHub
+}
+
 public class LoadSceneScript : UsingObject
 {
+    public GravFPS gravFPS;
     public StatusPack pack;
     public ModuleController moduleConroller;
-    public int loadType;
+    public LoadType loadType;
     public string sceneName;
     public bool setHubPos;
     public int hubPos;
@@ -16,14 +24,9 @@ public class LoadSceneScript : UsingObject
     public AsyncOperation loader;
     private void Start()
     {
-        if(loadType == 0)
+        if(loadType == LoadType.loadProcessing)
         {
             loader = SceneManager.LoadSceneAsync(pack.currentScene);
-            loader.allowSceneActivation = true;
-        }
-        else if (loadType == 1)
-        {
-            loader = SceneManager.LoadSceneAsync(pack.hubScene);
             loader.allowSceneActivation = true;
         }
     }
@@ -39,14 +42,17 @@ public class LoadSceneScript : UsingObject
         {
             moduleConroller.Save();
         }
-        if(loadType==2)
+        
+        if(loadType==LoadType.loadMission)
         {
             pack.currentScene = sceneName;
         }
-        else
+        else if(loadType == LoadType.loadHub)
         {
             pack.currentScene = pack.hubScene = sceneName;
         }
+        gravFPS.gravFPSUI.SaveStats();
+        gravFPS.sceneManager.LoadNextScene();
     }
     public override void ToStart()
     {

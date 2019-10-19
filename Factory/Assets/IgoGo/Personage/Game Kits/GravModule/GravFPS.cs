@@ -6,6 +6,13 @@ using UnityEngine.SceneManagement;
 
 public delegate void RotateHandler(Quaternion rot);
 
+[Serializable]
+public class PlayerAudioPack
+{
+    
+}
+
+
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(CapsuleCollider))]
 public class GravFPS : MonoBehaviour
@@ -30,6 +37,10 @@ public class GravFPS : MonoBehaviour
     public bool inHub;
     #endregion
     #region Публичные поля (служебное)
+    [Tooltip("Источник всех звуков игрока")]
+    public AudioSource source;
+    [Tooltip("0 - земля, 1 - металл, 3 - трава")] public List<AudioClip> stepPack;
+    [Tooltip("0 - земля, 1 - металл, 3 - трава")] public List<AudioClip> fallPack;
     [Space(20)]
     [Tooltip("Transform камеры игрока")]
     public Transform cam;
@@ -50,7 +61,6 @@ public class GravFPS : MonoBehaviour
     #endregion
 
     #region Служебные
-    [HideInInspector]public PlayerState status;
     [HideInInspector] public Rigidbody rb;
     [HideInInspector]public Transform gravObj;
     [HideInInspector] public bool inMenu;
@@ -67,12 +77,37 @@ public class GravFPS : MonoBehaviour
     private SphereGravModule savePlanet;
     private LootPointScript currentLootPoint;
     private Collider currentMoveTransformCol;
+    private PhysicMaterial floorMaterial;
     private int gravMultiplicator;
     private int gravRotSpeed;
     private bool onGround;
     private bool rotToGrav;
     private bool alive;
+    private sbyte jump;
     private float currentCamAngle;
+    private float stepTyme;
+    private float currentStepTime;
+
+    public PlayerState Status
+    {
+        get
+        {
+            return _state;
+        }
+        set
+        {
+            _state = value;
+            if(_state <= 0)
+            {
+                Ready(false);
+            }
+            else
+            {
+                Ready(true);
+            }
+        }
+    }
+    private PlayerState _state;
     #endregion
 
     #region Делегаты и События
@@ -88,6 +123,11 @@ public class GravFPS : MonoBehaviour
     private void Start()
     {
         gravFPSUI.StatusPack.currentScene = SceneManager.GetActiveScene().name;
+        if (inHub)
+        {
+            gravFPSUI.StatusPack.hubScene = gravFPSUI.StatusPack.currentScene;
+        }
+
         gravFPSUI.onFinalStun += ReturnActive;
 
         if(playerStartSceneSettings == null)
@@ -106,7 +146,7 @@ public class GravFPS : MonoBehaviour
             playerStartSceneSettings.SetSettings(this);
         }
 
-        status = PlayerState.active;
+        Status = PlayerState.active;
         sceneManager.pack = gravFPSUI.StatusPack;
         Save();
         rb = GetComponent<Rigidbody>();
@@ -114,18 +154,21 @@ public class GravFPS : MonoBehaviour
         currentCamAngle = cam.localRotation.eulerAngles.x;
         inMenu = false;
         gravFPSUI.manager = inputSettingsManager;
+        currentStepTime = 0;
+        stepTyme = speed/2;
     }
     void Update()
     {
         Jump();
-        if (alive && status == PlayerState.active && gravObj == null)
+        if (alive && Status == PlayerState.active && gravObj == null)
         {
             PlayerMoveStandard();
         }
+        CheckStep();
     }
     private void LateUpdate()
     {
-        if(status > 0)
+        if(Status > 0)
         {
             if (alive)
             {
@@ -143,6 +186,7 @@ public class GravFPS : MonoBehaviour
         {
             PlayerMoveSphere();
         }
+        OnGround();
     }
     #endregion
 
@@ -164,9 +208,12 @@ public class GravFPS : MonoBehaviour
     }
     public void Death()
     {
-        alive = false;
-        gravFPSUI.deadPanel.SetActive(!alive);
-        CheckLoad();
+        if(alive)
+        {
+            alive = false;
+            gravFPSUI.deadPanel.SetActive(!alive);
+            CheckLoad();
+        }
     }
     public void RestartSceneWithLoadSphere()
     {
@@ -219,7 +266,11 @@ public class GravFPS : MonoBehaviour
     public void Stun()
     {
         gravFPSUI.SetStun();
-        status = PlayerState.disactive;
+        Status = PlayerState.disactive;
+    }
+    public void Ready(bool value)
+    {
+        gun.anim.SetBool("Ready", value);
     }
     #endregion
 
@@ -236,25 +287,28 @@ public class GravFPS : MonoBehaviour
             h = inputSettingsManager.GetAxis("Horizontal");
         }
 
-        Vector3 camForward = transform.forward;
-
         if (h != 0 || v != 0)
         {
-            dir = transform.right * h + camForward * v;
+            dir = transform.right * h + transform.forward * v;
             dir *= Sprint();
         }
         else
         {
             dir = Vector3.zero;
+            currentStepTime = 0;
         }
         if (dir != Vector3.zero)
         {
             transform.position += (dir * speed * Time.deltaTime);
+            if(jump == 0)
+            {
+                currentStepTime += dir.magnitude * speed * Time.deltaTime;
+            }
         }
     }
     private void PlayerMoveSphere()
     {
-        if(status == PlayerState.active)
+        if(Status == PlayerState.active)
         {
             gravVector = gravMultiplicator * (gravObj.position - transform.position);
 
@@ -281,6 +335,15 @@ public class GravFPS : MonoBehaviour
 
             Vector3 forward = transform.forward * v * speed * Sprint();
             Vector3 right = transform.right * h * speed * Sprint(); ;
+
+            if((h != 0 || v != 0) && jump==0)
+            {
+                currentStepTime += dir.magnitude * speed * Time.deltaTime;
+            }
+            else
+            {
+                currentStepTime = 0;
+            }
 
             rb.velocity = down + right + forward;
         }
@@ -315,13 +378,54 @@ public class GravFPS : MonoBehaviour
     {
         if (Physics.Raycast(transform.position + transform.up, -transform.up, out RaycastHit hit, 1.3f, ~jumpMask))
         {
+            floorMaterial = hit.collider.material;
             Vector3 bufer = hit.point - transform.position;
-            Debug.DrawRay(transform.position, bufer, Color.red);
-            if(status == PlayerState.active)
+            if(Status == PlayerState.active)
             {
                 OnGroundEvent?.Invoke();
             }
+            if(jump == -1)
+            {
+                jump = 0;
+                source.Stop();
+                if(floorMaterial != null)
+                {
+                    switch (floorMaterial.name)
+                    {
+                        case "Ground (Instance)":
+                            source.Stop();
+                            source.PlayOneShot(fallPack[0]);
+                            break;
+                        case "Metal (Instance)":
+                            source.Stop();
+                            source.PlayOneShot(fallPack[1]);
+                            break;
+                        case "Grass (Instance)":
+                            source.Stop();
+                            source.PlayOneShot(fallPack[2]);
+                            break;
+                        default:
+                            source.Stop();
+                            source.PlayOneShot(fallPack[0]);
+                            break;
+                    }
+                }
+                else
+                {
+                    source.Stop();
+                    source.PlayOneShot(fallPack[0]);
+                }
+            }
             return true;
+        }
+        else
+        {
+            if(jump == 0)
+            {
+                jump = 1;
+                Invoke("SetJump", 0.4f);
+                currentStepTime = 0;
+            }
         }
         return false;
     }
@@ -444,10 +548,12 @@ public class GravFPS : MonoBehaviour
     }
     private void Jump()
     {
-        if (Input.GetKeyDown(inputSettingsManager.GetKey("Jump")))
+        if (Input.GetKeyDown(inputSettingsManager.GetKey("Jump")) && Status == PlayerState.active)
         {
             if (OnGround() && !inMenu)
+            {
                 rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+            }
         }
     }
 
@@ -472,7 +578,43 @@ public class GravFPS : MonoBehaviour
         Invoke("RestartRun", 2);
         savePoint.OnRestart();
     }
-    private void ReturnActive() => status = PlayerState.active;
+    private void ReturnActive() => Status = PlayerState.active;
+    private void SetJump() => jump = -1;
+    private void CheckStep()
+    {
+        if(currentStepTime >= stepTyme)
+        {
+            source.Stop();
+            if (floorMaterial != null)
+            {
+                switch (floorMaterial.name)
+                {
+                    case "Ground (Instance)":
+                        source.Stop();
+                        source.PlayOneShot(stepPack[0]);
+                        break;
+                    case "Metal (Instance)":
+                        source.Stop();
+                        source.PlayOneShot(stepPack[1]);
+                        break;
+                    case "Grass (Instance)":
+                        source.Stop();
+                        source.PlayOneShot(stepPack[2]);
+                        break;
+                    default:
+                        source.Stop();
+                        source.PlayOneShot(stepPack[0]);
+                        break;
+                }
+            }
+            else
+            {
+                source.Stop();
+                source.PlayOneShot(stepPack[0]);
+            }
+            currentStepTime = 0;
+        }
+    }
     #endregion
 
     private void OnTriggerEnter(Collider other)
@@ -531,7 +673,10 @@ public class GravFPS : MonoBehaviour
             {
                 if(currentLootPoint.useble && gravFPSUI.StatusPack.money >= currentLootPoint.cost)
                 {
-                    gravFPSUI.SpendMoney(currentLootPoint.cost);
+                    if(currentLootPoint.coinsType)
+                    {
+                        gravFPSUI.Spend(currentLootPoint.cost);
+                    }
                     gravFPSUI.ClearTip();
                     currentLootPoint.SetPlayer(gravFPSUI);
                 }

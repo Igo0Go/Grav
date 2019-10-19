@@ -7,11 +7,6 @@ public class ManipReactor : UsingOrigin
     [Tooltip("На какой объект реагировать")] public ManipItem manip;
     public bool once;
 
-    private void OnEnable()
-    {
-        tag = "Module";
-    }
-
     public override void Use()
     {
         for (int i = 0; i < actionObjects.Count; i++)
