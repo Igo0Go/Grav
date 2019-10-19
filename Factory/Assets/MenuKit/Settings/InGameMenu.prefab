@@ -2949,7 +2949,6 @@ MonoBehaviour:
   audioSettings: {fileID: 7745773842975661163}
   menuPanel: {fileID: 7745773841895385582}
   player: {fileID: 0}
-  moduleConroller: {fileID: 0}
 --- !u!1 &7745773841274019506
 GameObject:
   m_ObjectHideFlags: 0
@@ -5674,7 +5673,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 7745773842988904123}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.59238505
+  m_Size: 0.5920993
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -7583,6 +7582,7 @@ MonoBehaviour:
   - {fileID: 320795620523980312}
   - {fileID: 8843839767582401836}
   checkButtons: 0
+  mainMenuMode: 0
 --- !u!1 &7745773842271894404
 GameObject:
   m_ObjectHideFlags: 0
@@ -11010,6 +11010,7 @@ MonoBehaviour:
   - {fileID: 0}
   musicManagers:
   - {fileID: 0}
+  mainMenuMode: 0
 --- !u!1 &7745773842982986941
 GameObject:
   m_ObjectHideFlags: 0

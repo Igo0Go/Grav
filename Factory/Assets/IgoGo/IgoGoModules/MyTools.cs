@@ -59,6 +59,7 @@ public abstract class MyTools : MonoBehaviour
 }
 public static class MyTime
 {
+    public static float FixedDeltaTime => pauseKey ? 0 : Time.fixedDeltaTime;
     public static float PauseTime { get; set; } = 0;
     public static bool PauseStatus => pauseKey;
     public static void Pause()

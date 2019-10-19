@@ -16,21 +16,13 @@ public class InpustSettingsScript : MonoBehaviour
 
     [Space(20)]
     public bool checkButtons;
+    public bool mainMenuMode;
 
     private KeyCodeContainer container;
     private int fieldNumber;
     private bool input;
 
     public event Action ReturnEvent;
-
-    void Start()
-    {
-        sensivitySlider.value = manager.inputKit.sensivityMultiplicator;
-        sensivitySlider.onValueChanged.AddListener(ChangeSensivity);
-        changePanel.SetActive(false);
-        settingsPannel.SetActive(false);
-        GetHeaders();
-    }
 
     void Update()
     {
@@ -48,6 +40,14 @@ public class InpustSettingsScript : MonoBehaviour
         }
     }
 
+    public void Initialize()
+    {
+        sensivitySlider.value = manager.inputKit.sensivityMultiplicator;
+        sensivitySlider.onValueChanged.AddListener(ChangeSensivity);
+        changePanel.SetActive(false);
+        settingsPannel.SetActive(mainMenuMode);
+        GetHeaders();
+    }
     private bool CheckHeaders()
     {//сравнивает количество текстов, куда нужно будет вывести значения кнопок с количеством самих кнопок
         if(manager.inputKit.keys.Count < keyValuesTexts.Count)

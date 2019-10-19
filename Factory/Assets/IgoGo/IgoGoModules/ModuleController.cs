@@ -16,7 +16,6 @@ public class ModuleController : MonoBehaviour
     [HideInInspector] public LevelModuleStatus moduleStatus;
     [HideInInspector] public List<UsingObject> firstActionObjects;
 
-    private bool firstCycle;
     private string sceneName;
 
     public bool loadOnStart;
@@ -25,7 +24,6 @@ public class ModuleController : MonoBehaviour
     {
         sceneName = SceneManager.GetActiveScene().name;
         moduleStatus = LevelModuleStatusSettings.Find(sceneName);
-        firstCycle = true;
         if(loadOnStart)
         {
             Load();
@@ -34,7 +32,6 @@ public class ModuleController : MonoBehaviour
         {
             Save();
         }
-        firstCycle = false;
     }
     private void OnDrawGizmosSelected()
     {
@@ -77,16 +74,9 @@ public class ModuleController : MonoBehaviour
         {
             moduleStatus.bankCardStatus = cardPoint.cardContains;
         }
-
-        SaveSceneState();
     }
     public void Load()
     {
-        if(firstCycle)
-        {
-            LoadSceneState();
-        }
-
         for (int i = 0; i < moduleStatus.gameObjectActiveList.Count; i++)
         {
             activeSelfObjects[i].SetActive(moduleStatus.gameObjectActiveList[i]);
@@ -134,23 +124,5 @@ public class ModuleController : MonoBehaviour
         moduleStatus.moduleStatusList.Clear();
         moduleStatus.savedTransforms.Clear();
         moduleStatus.lootState.Clear();
-    }
-
-    private void SaveSceneState()
-    {
-        for (int i = 0; i < firstActionObjects.Count; i++)
-        {
-            PlayerPrefs.SetInt(sceneName + "UsOb" + i, firstActionObjects[i].used ? 1 : 0);
-        }
-    }
-    private void LoadSceneState()
-    {
-        for (int i = 0; i < firstActionObjects.Count; i++)
-        {
-            if(PlayerPrefs.GetInt(sceneName + "UsOb" + i) == 1)
-            {
-                firstActionObjects[i].Use();
-            }
-        }
     }
 }

@@ -21,6 +21,12 @@ public class QuinScript : UsingObject, ITargetTracker
         MoveToTarget();
     }
 
+    public void ClearTarget()
+    {
+        _target = null;
+        attack = -1;
+        toTarget = false;
+    }
     public void ClearTarget(Transform target)
     {
         _target = null;

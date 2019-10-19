@@ -135,6 +135,7 @@ public class GravFPSUI : MonoBehaviour
         {
             StatusPack.saveCards.Add(item);
         }
+        DataLoader.SaveXML(StatusPack);
     }
     public void Return()
     {

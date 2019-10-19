@@ -19,6 +19,8 @@ public class AudioSettingsPanelScript : MonoBehaviour
     public event Action<float> ChangeMusicVolume;
     public event Action<float> ChangeOtherVolume;
 
+    public bool mainMenuMode = false;
+
 
     private float MusicVolume
     {
@@ -47,6 +49,19 @@ public class AudioSettingsPanelScript : MonoBehaviour
 
     void Start()
     {
+        Initialize();
+    }
+    void Update()
+    {
+        if (Input.GetKeyDown(manager.GetKey("Cancel")) && audioSettingsPanel.activeSelf)
+        {
+            GetAudioPanel();
+        }
+    }
+
+
+    public void Initialize()
+    {
         musicSlider.value = MusicVolume;
         otherAudioSlider.value = OtherVolume;
 
@@ -66,16 +81,8 @@ public class AudioSettingsPanelScript : MonoBehaviour
         ChangeOtherVolume?.Invoke(audioSettings.otherAudioMultiplicator);
         ChangeMusicVolume?.Invoke(audioSettings.musicMultiplicator);
 
-        audioSettingsPanel.SetActive(false);
+        audioSettingsPanel.SetActive(mainMenuMode);
     }
-    void Update()
-    {
-        if (Input.GetKeyDown(manager.GetKey("Cancel")) && audioSettingsPanel.activeSelf)
-        {
-            GetAudioPanel();
-        }
-    }
-
     public void GetAudioPanel()
     {
         if (!audioSettingsPanel.activeSelf)
