@@ -16,10 +16,7 @@ public class CardUserModule : MonoBehaviour
         settingsManager = GetComponent<InputSettingsManager>();
         gravFPSUI = GetComponent<GravFPSUI>();
     }
-    void Update()
-    {
-        CheckItem();
-    }
+    
 
     private void CheckItem()
     {

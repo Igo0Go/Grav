@@ -12,6 +12,7 @@ public class BezierCurve : MonoBehaviour
     [Tooltip("количество точек, между соседними А и Б (чем больше, тем сильнее сглаживание и выше нагрузка на систему)"), Range(6,100)] public int segmentCount = 25;
     public LineRenderer line;
     public bool iCanMove;
+   
 
     private BezierPoint last;
     private Vector3 lastPos;

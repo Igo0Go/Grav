@@ -49,7 +49,7 @@ public class CodePanelScript : UsingOrigin
         gravFPS = target;
         player = gravFPS.transform;
         playerCam = player.GetChild(0);
-        gravFPS.status = PlayerState.disactive;
+        gravFPS.Status = PlayerState.disactive;
         move = true;
     }
     public void AddSymbol(int value)
@@ -59,7 +59,7 @@ public class CodePanelScript : UsingOrigin
     }
     public void Escape()
     {
-        gravFPS.status = PlayerState.active;
+        gravFPS.Status = PlayerState.active;
         MyCursor.OpportunityToChange = true;
         MyCursor.LockState = CursorLockMode.Locked;
         MyCursor.Visible = false;

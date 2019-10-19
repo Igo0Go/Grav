@@ -45,7 +45,7 @@ public class ObjectTranslateManager : UsingObject {
         }
     }
 
-    void Start()
+    void Awake()
     {
         pause = false;
         startPos = transform.position;
@@ -138,7 +138,7 @@ public class ObjectTranslateManager : UsingObject {
     public override void Use()
     {
         Invoke("Action", delay);
-        used = true;
+        used = !used;
     }
     public override void ToStart()
     {

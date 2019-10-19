@@ -37,7 +37,7 @@ public class TurretScript : MonoBehaviour, ITargetTracker
     #region Свойства
     public Transform Target => _target;
 
-    private bool CorrectAngleForShoot => Vector3.Angle(transform.forward, (Target.position + Target.up) - transform.position) <= 15;
+    private bool CorrectAngleForShoot => Vector3.Angle(body.forward, (Target.position + Target.up) - transform.position) <= 10;
     private bool CorrectAngleForDefault => Quaternion.Angle(transform.rotation, startRotation) <=1;
     private bool ISeeTarget => Physics.Raycast(transform.position, (Target.position + Target.up) - transform.position, ignoreMask);
     #endregion
@@ -58,7 +58,7 @@ public class TurretScript : MonoBehaviour, ITargetTracker
     }
     #endregion
 
-    #region Прицеливание и стрельа
+    #region Прицеливание и стрельба
     private void RotUpdate()
     {
         if(rotToAngle && !disactive)
@@ -76,14 +76,6 @@ public class TurretScript : MonoBehaviour, ITargetTracker
                 else
                 {
                     RotToTarget();
-                }
-
-                if (Physics.Raycast(transform.position, (Target.position + Target.up) - transform.position, out RaycastHit hit, 100, ~ignoreMask))
-                {
-                    if(hit.transform == Target)
-                    {
-                        
-                    }
                 }
             }
             else
@@ -111,12 +103,11 @@ public class TurretScript : MonoBehaviour, ITargetTracker
     private void Reload() => reload = false;
     private void RotToTarget()
     {
-        Quaternion targetRot = Quaternion.FromToRotation(body.transform.forward, (Target.position) - transform.position);
+        Quaternion targetRot = Quaternion.LookRotation(Target.position - transform.position);
         SmoothRot(targetRot);
     }
     private void SmoothRot(Quaternion targetRot)
     {
-        targetRot = body.transform.rotation * targetRot;
         body.transform.rotation = Quaternion.Lerp(body.transform.rotation, targetRot, rotSpeed * Time.deltaTime);
     }
     #endregion

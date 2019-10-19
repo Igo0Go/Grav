@@ -49,10 +49,16 @@ public class GravityThrowerScript : MyTools
     public Transform ShootPoint;
     [Tooltip("Звук счётчика опасности")]
     public AudioClip dangerClip;
+    [Tooltip("Источник звука - счтчик опасности")]
+    public AudioSource dangerSoundSource;
+    [Tooltip("Источник звука - выстрел")]
+    public AudioSource shootSource;
+    [Tooltip("0 - грав, 1 - манипулятор, 2 - кислота, 3 - смена")]
+    public List<AudioClip> shootSounds;
     #endregion
 
     #region Свойства
-    
+
     private Vector3 ManipPosBufer => cam.transform.position + cam.forward + cam.forward * currentManipObj.transform.lossyScale.magnitude;
     private float ManipDistance => Vector3.Distance(ManipPosBufer, currentManipObj.transform.position);
     private float DistanceToDanger => Vector3.Distance(dangerPoint.position, transform.position);
@@ -79,7 +85,6 @@ public class GravityThrowerScript : MyTools
     private Vector3 nearPoint = Vector3.zero;
     private Vector3 farPoint = Vector3.zero;
     private LineRenderer line;
-    private AudioSource dangerSoundSource;
     private Transform dangerPoint;
     private bool delay;
     private bool manipKey;
@@ -131,7 +136,7 @@ public class GravityThrowerScript : MyTools
     {
         TargetLook();
         CheckDanger();
-        if (!delay && player.status > 0)
+        if (!delay && player.Status > 0)
         {
             shoot();
         }
@@ -152,6 +157,7 @@ public class GravityThrowerScript : MyTools
             bullet.SetSettings(this);
             delay = true;
             anim.SetTrigger("Shoot");
+            shootSource.PlayOneShot(shootSounds[0]);
             shootParticles.Play();
         }
         if (Input.GetKeyDown(player.inputSettingsManager.GetKey("Fire2")))
@@ -180,6 +186,9 @@ public class GravityThrowerScript : MyTools
                             currentRB.useGravity = false;
                             currentRB.isKinematic = false;
                             manipKey = true;
+                            shootSource.clip = shootSounds[2];
+                            shootSource.loop = true;
+                            shootSource.Play();
                         }
                     }
                     else if(hit.collider.tag.Equals("ManipForEnemy"))
@@ -258,6 +267,7 @@ public class GravityThrowerScript : MyTools
             bullet.SetSettings(this);
             delay = true;
             anim.SetTrigger("Shoot");
+            shootSource.PlayOneShot(shootSounds[1]);
             shootParticles.Play();
             player.gravFPSUI.StatusPack.acidCount--;
             player.gravFPSUI.StatusPack.acidCount = Mathf.Clamp(player.gravFPSUI.StatusPack.acidCount,0, player.gravFPSUI.StatusPack.maxAcidCount);
@@ -367,6 +377,7 @@ public class GravityThrowerScript : MyTools
         {
             ReturnManip();
         }
+        shootSource.PlayOneShot(shootSounds[3]);
         CheckSlider();
         modeIndicator.material = modes[modeNumber].modeMaterialForGun;
         powerFillArea.color = modes[modeNumber].modeColorForSlider;
@@ -397,6 +408,8 @@ public class GravityThrowerScript : MyTools
             currentRB.useGravity = true;
         }
         manipKey = false;
+        shootSource.loop = false;
+        shootSource.Stop();
         //line.positionCount = 0;
     }
     private void CheckDanger()
@@ -448,5 +461,4 @@ public class GravityThrowerScript : MyTools
         return p;
     }
     #endregion
-
 }

@@ -130,6 +130,12 @@ public class GravFPSUI : MonoBehaviour
         StatusPack.saveMoney = StatusPack.money;
         StatusPack.saveAcidCount = StatusPack.acidCount;
         StatusPack.saveSphere = StatusPack.lifeSphereCount;
+        StatusPack.saveCards = new List<bool>();
+        foreach (var item in StatusPack.cards)
+        {
+            StatusPack.saveCards.Add(item);
+        }
+        DataLoader.SaveXML(StatusPack);
     }
     public void Return()
     {
@@ -158,7 +164,7 @@ public class GravFPSUI : MonoBehaviour
     {
         tip.text = string.Empty;
     }
-    public void SpendMoney(int count)
+    public void Spend(int count)
     {
         StatusPack.money -= count;
         spendMoney = true;

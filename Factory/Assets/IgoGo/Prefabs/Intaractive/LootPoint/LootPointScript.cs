@@ -7,32 +7,33 @@ using UnityEngine.UI;
 public class LootPointScript : UsingOrigin
 {
     [Tooltip("Предмет, который будет выпадывать")] public GameObject lootPrefab;
-    [Tooltip("Монетка без скриптов")] public GameObject coinPrefab;
+    [Tooltip("Монетка без скриптов")] public List<GameObject> spendPrefab;
     [Tooltip("Куда будет выпадывать предмет")] public Transform lootPoint;
     [Tooltip("Куда выводить цену")] public Text costText;
     [Tooltip("Цена предмета")] public int cost;
     [Tooltip("Подсказка - название предемета")] public string tipText;
+    public bool coinsType;
+    [HideInInspector] public byte cardContains;
 
     [HideInInspector] public bool useble;
     private GameObject bufer;
     private Transform player;
     private GravFPSUI gravFPSUI;
-    private List<Transform> coins;
+    private List<Transform> spendObjects;
     private bool spawn;
     private bool usingOrigin;
+    private byte currentSpendIndex;
 
     private void OnEnable()
     {
         useble = true;
-        coins = new List<Transform>();
+        spendObjects = new List<Transform>();
         gameObject.tag = "LootPoint";
     }
 
     void Start()
     {
-        coins = new List<Transform>();
-        costText.text = cost.ToString();
-        usingOrigin = lootPrefab == null;
+        ToStart();
     }
     void Update()
     {
@@ -42,11 +43,11 @@ public class LootPointScript : UsingOrigin
 
     public void SetPlayer(GravFPSUI fPS)
     {
-        coins = new List<Transform>();
+        spendObjects = new List<Transform>();
+        currentSpendIndex = 0;
         gravFPSUI = fPS;
         player = gravFPSUI.transform;
         spawn = true;
-        useble = false;
     }
     public override void Use()
     {
@@ -61,28 +62,66 @@ public class LootPointScript : UsingOrigin
     }
     public override void ToStart()
     {
-
+        spendObjects = new List<Transform>();
+        costText.text = cost.ToString();
+        usingOrigin = lootPrefab == null;
+        if(coinsType)
+        {
+            cardContains = 0;
+        }
     }
 
     private void CheckSpawn()
     {
         if (spawn)
         {
-            if (coins.Count < cost)
-
+            if(coinsType)
             {
-                coins.Add(Instantiate(coinPrefab, player.position, Quaternion.identity, transform).transform);
-                Invoke("ReturnSpawn", 0.1f);
-            }
-            else
-            {
-                if(usingOrigin)
+                if (spendObjects.Count < cost)
                 {
-                    UseAll();
+                    spendObjects.Add(Instantiate(spendPrefab[0], player.position, Quaternion.identity, transform).transform);
+                    Invoke("ReturnSpawn", 0.1f);
                 }
                 else
                 {
-                    Instantiate(lootPrefab, lootPoint.position, Quaternion.identity, transform);
+                    if (usingOrigin)
+                    {
+                        UseAll();
+                    }
+                    else
+                    {
+                        Instantiate(lootPrefab, lootPoint.position, Quaternion.identity, transform);
+                        useble = true;
+                    }
+                }
+            }
+            else
+            {
+                if (currentSpendIndex < 4)
+                {
+                    if(gravFPSUI.StatusPack.cards[currentSpendIndex])
+                    {
+                        gravFPSUI.StatusPack.cards[currentSpendIndex] = false;
+                        spendObjects.Add(Instantiate(spendPrefab[currentSpendIndex], player.position, Quaternion.identity, transform).transform);
+                        cardContains++;
+                    }
+                    currentSpendIndex++;
+                    Invoke("ReturnSpawn", 0.1f);
+                }
+                else if(cardContains > 3)
+                {
+                    if (usingOrigin)
+                    {
+                        UseAll();
+                    }
+                    else
+                    {
+                        Instantiate(lootPrefab, lootPoint.position, Quaternion.identity, transform);
+                        useble = true;
+                    }
+                }
+                else
+                {
                     useble = true;
                 }
             }
@@ -92,9 +131,9 @@ public class LootPointScript : UsingOrigin
     private void ReturnSpawn() => spawn = true;
     private void MoveCoins()
     {
-        for (int i = 0; i < coins.Count; i++)
+        for (int i = 0; i < spendObjects.Count; i++)
         {
-            Transform coin = coins[i];
+            Transform coin = spendObjects[i];
             if(coin != null)
             {
                 if (Vector3.Distance(coin.position, transform.position) > 0.3f)

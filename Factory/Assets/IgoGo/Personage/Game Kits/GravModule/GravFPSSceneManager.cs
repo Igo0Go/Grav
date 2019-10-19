@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GravFPSSceneManager : MonoBehaviour
 {
-    public AsyncOperation loader;
+    private AsyncOperation loader;
 
     [HideInInspector] public StatusPack pack;
     void Start()
