@@ -136,7 +136,7 @@ public class GravityThrowerScript : MyTools
     {
         TargetLook();
         CheckDanger();
-        if (!delay && player.Status > 0)
+        if (!delay && player.Status > 0 && !player.inMenu)
         {
             shoot();
         }
@@ -271,6 +271,7 @@ public class GravityThrowerScript : MyTools
             shootParticles.Play();
             player.gravFPSUI.StatusPack.acidCount--;
             player.gravFPSUI.StatusPack.acidCount = Mathf.Clamp(player.gravFPSUI.StatusPack.acidCount,0, player.gravFPSUI.StatusPack.maxAcidCount);
+            player.gravFPSUI.CheckTexts();
             powerSlider.value = player.gravFPSUI.StatusPack.acidCount;
         }
         if (Input.GetKeyDown(player.inputSettingsManager.GetKey("Fire2")))

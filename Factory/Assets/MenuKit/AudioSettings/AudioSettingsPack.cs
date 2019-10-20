@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Config/AudioSettingsPack")]
-public class AudioSettingsPack : ScriptableObject
+public static class AudioSettingsPack 
 {
-    [Tooltip("множитель для громкости музыки"), Range(0,1)] public float musicMultiplicator;
-    [Tooltip("множитель для громкости музыки"), Range(0, 1)] public float otherAudioMultiplicator;
+    public static float musicMultiplicator;
+    public static float otherAudioMultiplicator;
 }

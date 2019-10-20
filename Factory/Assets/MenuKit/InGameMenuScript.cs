@@ -56,7 +56,7 @@ public class InGameMenuScript : MyTools
     {
         if(player.inHub)
         {
-            DataLoader.SaveXML(player.gravFPSUI.StatusPack);
+            player.gravFPSUI.SaveStats();
             player.gravFPSUI.StatusPack.currentScene = "MainMenu";
             player.sceneManager.LoadNextScene();
         }
@@ -74,6 +74,7 @@ public class InGameMenuScript : MyTools
             menuPanel.SetActive(true);
             MyCursor.LockState = CursorLockMode.None;
             MyCursor.Visible = true;
+            player.inMenu = true;
         }
         else
         {
@@ -82,6 +83,7 @@ public class InGameMenuScript : MyTools
             settingsScript.GetSettingsPanel(false);
             MyCursor.LockState = CursorLockMode.Locked;
             MyCursor.Visible = false;
+            player.inMenu = false;
         }
     }
     private void OnReturnEvent()

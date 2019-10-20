@@ -7,7 +7,6 @@ using System;
 public class AudioSettingsPanelScript : MonoBehaviour
 {
     public InputSettingsManager manager;
-    public AudioSettingsPack audioSettings;
     [Space(10)] public Slider musicSlider;
     public Slider otherAudioSlider;
     public GameObject audioSettingsPanel;
@@ -26,11 +25,11 @@ public class AudioSettingsPanelScript : MonoBehaviour
     {
         get
         {
-            return audioSettings.musicMultiplicator;
+            return AudioSettingsPack.musicMultiplicator;
         }
         set
         {
-            audioSettings.musicMultiplicator = value;
+            AudioSettingsPack.musicMultiplicator = value;
             ChangeMusicVolume?.Invoke(value);
         }
     }
@@ -38,11 +37,11 @@ public class AudioSettingsPanelScript : MonoBehaviour
     {
         get
         {
-            return audioSettings.otherAudioMultiplicator;
+            return AudioSettingsPack.otherAudioMultiplicator;
         }
         set
         {
-            audioSettings.otherAudioMultiplicator = value;
+            AudioSettingsPack.otherAudioMultiplicator = value;
             ChangeOtherVolume?.Invoke(value);
         }
     }
@@ -78,8 +77,8 @@ public class AudioSettingsPanelScript : MonoBehaviour
         {
             ChangeOtherVolume += item.VolumeUpdate;
         }
-        ChangeOtherVolume?.Invoke(audioSettings.otherAudioMultiplicator);
-        ChangeMusicVolume?.Invoke(audioSettings.musicMultiplicator);
+        ChangeOtherVolume?.Invoke(AudioSettingsPack.otherAudioMultiplicator);
+        ChangeMusicVolume?.Invoke(AudioSettingsPack.musicMultiplicator);
 
         audioSettingsPanel.SetActive(mainMenuMode);
     }

@@ -5,28 +5,98 @@ using UnityEngine.SceneManagement;
 using System.Xml.Serialization;
 using System.IO;
 
+[XmlType("StatusPcakContainer")]
+public class StatusPackContainer
+{
+    public int loadSlot;
+    public string currentScene;
+    public string hubScene;
+
+    public int loadStatus;
+
+    public int money;
+    public int lifeSphereCount;
+    public float acidCount;
+
+    public int saveMoney;
+    public int saveSphere;
+    public float saveAcidCount;
+    public float maxAcidCount;
+
+    public int hubPoint;
+
+    public List<bool> cards;
+    public List<bool> saveCards;
+
+    public StatusPackContainer() { }
+    public StatusPackContainer(StatusPack pack)
+    {
+        loadSlot = pack.loadSlot;
+        currentScene = pack.currentScene;
+        hubScene = pack.hubScene;
+        loadStatus = pack.loadStatus;
+        money = pack.money;
+        lifeSphereCount = pack.lifeSphereCount;
+        acidCount = pack.acidCount;
+        saveMoney = pack.saveMoney;
+        saveSphere = pack.saveSphere;
+        saveAcidCount = pack.saveAcidCount;
+        maxAcidCount = pack.maxAcidCount;
+        hubPoint = pack.hubPoint;
+
+        cards = new List<bool>();
+        foreach (var item in pack.cards)
+        {
+            cards.Add(item);
+        }
+        saveCards = new List<bool>();
+        foreach (var item in pack.saveCards)
+        {
+            saveCards.Add(item);
+        }
+    }
+}
+
+[XmlType("AudioSettingsPackContainer")]
+public class AudioSettingsPackContainer
+{
+    [Tooltip("множитель для громкости музыки"), Range(0, 1)] public float musicMultiplicator;
+    [Tooltip("множитель для громкости музыки"), Range(0, 1)] public float otherAudioMultiplicator;
+
+    public AudioSettingsPackContainer() { }
+    public AudioSettingsPackContainer(bool useSettings)
+    {
+        musicMultiplicator = AudioSettingsPack.musicMultiplicator;
+        otherAudioMultiplicator = AudioSettingsPack.otherAudioMultiplicator;
+    }
+}
+
 [XmlRoot("GameLoadData")]
 public class LoadData
 {
-    public StatusPack statusPack;
+    public StatusPackContainer statusPack;
+    public AudioSettingsPackContainer audioSettings;
 
     [XmlArray("LevelModuleStatusKit")]
     [XmlArrayItem("LevelModuleStatusItem")]
     public List<LevelModuleStatus> levelModuleStatusKit;
+    public InputKit inputKit;
 
     public LoadData() { }
 }
 
 public static class DataLoader
 {
-    public static void SaveXML(StatusPack statusPack)
+    public static void SaveXML(StatusPack statusPack, InputKit inputKit)
     {
         LoadData data = new LoadData();
-        data.statusPack = statusPack;
+        data.statusPack = new StatusPackContainer(statusPack);
         data.levelModuleStatusKit = LevelModuleStatusSettings.levelModuleStatusList;
+        data.audioSettings = new AudioSettingsPackContainer(true);
+        data.inputKit = inputKit;
 
-        
-        System.Type[] extraTypes = { typeof(LevelModuleStatus), typeof(PosPack) };
+        System.Type[] extraTypes = { typeof(StatusPackContainer), typeof(LevelModuleStatus), typeof(PosPack), typeof(KeyCodeContainer),
+            typeof(KeyCode), typeof(AxisContainer), typeof(AudioSettingsPackContainer)};
         XmlSerializer serializer = new XmlSerializer(typeof(LoadData), extraTypes);
 
         string datapath = Application.dataPath + "/Saves";
@@ -44,7 +114,8 @@ public static class DataLoader
     public static bool LoadXML(int slot, out LoadData data)
     {
         data = null;
-        System.Type[] extraTypes = { typeof(LevelModuleStatus), typeof(PosPack) };
+        System.Type[] extraTypes = { typeof(StatusPackContainer), typeof(LevelModuleStatus), typeof(PosPack), typeof(KeyCodeContainer),
+            typeof(KeyCode), typeof(AxisContainer), typeof(AudioSettingsPackContainer)};
         XmlSerializer serializer = new XmlSerializer(typeof(LoadData), extraTypes);
         string datapath = Application.dataPath + "/Saves";
         if (!Directory.Exists(datapath))
@@ -80,6 +151,7 @@ public class MainMenuScript : MonoBehaviour
     public List<GameObject> panels;
     public GameObject mainMenuPanel;
     public StatusPack playerStatusPack;
+    public InputKit inputKit;
     public string startScene;
 
     private AsyncOperation loader;
@@ -119,7 +191,7 @@ public class MainMenuScript : MonoBehaviour
         playerStatusPack.currentScene = playerStatusPack.hubScene = startScene;
         playerStatusPack.hubPoint = 0;
         LevelModuleStatusSettings.levelModuleStatusList.Clear();
-        DataLoader.SaveXML(playerStatusPack);
+        DataLoader.SaveXML(playerStatusPack, inputKit);
         loader.allowSceneActivation = true;
     }
     public void Exit()

@@ -29,7 +29,10 @@ public class LoadSlot : MonoBehaviour
     {
         if(DataLoader.LoadXML(slotIndex, out LoadData data))
         {
-            CopyStatus(mainMenu.playerStatusPack,data.statusPack);
+            CopyStatus(data.statusPack);
+            CopySettings(data.audioSettings);
+            CopySettings(data.inputKit);
+
             LevelModuleStatusSettings.levelModuleStatusList = data.levelModuleStatusKit;
             mainMenu.LoadScene();
         }
@@ -40,32 +43,53 @@ public class LoadSlot : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    private void CopyStatus(StatusPack left, StatusPack right)
+    private void CopyStatus(StatusPackContainer right)
     {
-        left.saveAcidCount = right.saveAcidCount;
-        left.saveMoney = right.saveMoney;
-        left.saveSphere = right.saveSphere;
+        mainMenu.playerStatusPack.saveAcidCount = right.saveAcidCount;
+        mainMenu.playerStatusPack.saveMoney = right.saveMoney;
+        mainMenu.playerStatusPack.saveSphere = right.saveSphere;
 
-        left.money = right.money;
-        left.lifeSphereCount = right.lifeSphereCount;
-        left.acidCount = right.acidCount;
-        left.maxAcidCount = right.maxAcidCount;
+        mainMenu.playerStatusPack.money = right.money;
+        mainMenu.playerStatusPack.lifeSphereCount = right.lifeSphereCount;
+        mainMenu.playerStatusPack.acidCount = right.acidCount;
+        mainMenu.playerStatusPack.maxAcidCount = right.maxAcidCount;
 
-        left.loadSlot = right.loadSlot;
-        left.currentScene = right.currentScene;
-        left.hubScene = right.hubScene;
-        left.hubPoint = right.hubPoint;
+        mainMenu.playerStatusPack.loadSlot = right.loadSlot;
+        mainMenu.playerStatusPack.currentScene = right.currentScene;
+        mainMenu.playerStatusPack.hubScene = right.hubScene;
+        mainMenu.playerStatusPack.hubPoint = right.hubPoint;
 
-        left.cards = new List<bool>();
-        left.saveCards = new List<bool>();
+        mainMenu.playerStatusPack.cards = new List<bool>();
+        mainMenu.playerStatusPack.saveCards = new List<bool>();
 
         foreach (var item in right.cards)
         {
-            left.cards.Add(item);
+            mainMenu.playerStatusPack.cards.Add(item);
         }
         foreach (var item in right.saveCards)
         {
-            left.saveCards.Add(item);
+            mainMenu.playerStatusPack.saveCards.Add(item);
         }
+    }
+    private void CopySettings(InputKit right)
+    {
+        mainMenu.inputKit.sensivityMultiplicator = right.sensivityMultiplicator;
+
+        mainMenu.inputKit.keys.Clear();
+        for (int i = 0; i < right.keys.Count; i++)
+        {
+            mainMenu.inputKit.keys.Add(new KeyCodeContainer(right.keys[i]));
+        }
+
+        mainMenu.inputKit.axis.Clear();
+        for (int i = 0; i < right.axis.Count; i++)
+        {
+            mainMenu.inputKit.axis.Add(new AxisContainer(right.axis[i]));
+        }
+    }
+    private void CopySettings(AudioSettingsPackContainer right)
+    {
+        AudioSettingsPack.musicMultiplicator = right.musicMultiplicator;
+        AudioSettingsPack.otherAudioMultiplicator = right.otherAudioMultiplicator;
     }
 }

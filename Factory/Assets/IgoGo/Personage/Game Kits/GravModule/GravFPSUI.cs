@@ -25,6 +25,7 @@ public class GravFPSUI : MonoBehaviour
     [Range(0.1f,2)] public float stunSpeed;
     [HideInInspector] public InputSettingsManager manager;
     [HideInInspector] public float returnTime;
+    public InputKit inputKit;
     #endregion
 
     #region Приватные поля
@@ -135,7 +136,7 @@ public class GravFPSUI : MonoBehaviour
         {
             StatusPack.saveCards.Add(item);
         }
-        DataLoader.SaveXML(StatusPack);
+        DataLoader.SaveXML(StatusPack, inputKit);
     }
     public void Return()
     {

@@ -1762,6 +1762,8 @@ MonoBehaviour:
     audioClip: {fileID: 8300000, guid: efcc39d8c7627b94bb97ef86dd0a8ce6, type: 3}
   - text: "\u0422\u044B \u0443\u0432\u0435\u0440\u0435\u043D?"
     audioClip: {fileID: 8300000, guid: e033deda6123b3643964fc62d5f094dc, type: 3}
+  shieldAudio: {fileID: 6770608243115020072}
+  crolSound: {fileID: 8300000, guid: 32f390cbcb625c44c99a615010acc06a, type: 3}
 --- !u!54 &5594301093378156175
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2737,6 +2739,8 @@ MonoBehaviour:
   stunSpeed: 0.5
   manager: {fileID: 0}
   returnTime: 0
+  audioSettings: {fileID: 11400000, guid: cf1c4dd2ed35f514091905a307e3b797, type: 2}
+  inputKit: {fileID: 11400000, guid: afe6e1ae2c6f92c4a8fa026f3f5ffb54, type: 2}
 --- !u!114 &2289395655168458227
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12022,6 +12026,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -0.000008748286
+      objectReference: {fileID: 0}
+    - target: {fileID: 7745773841847810756, guid: 31e35d0ef9ef63046a3cb8efafafc28d,
+        type: 3}
+      propertyPath: m_Size
+      value: 0.59238505
       objectReference: {fileID: 0}
     - target: {fileID: 7745773842496426772, guid: 31e35d0ef9ef63046a3cb8efafafc28d,
         type: 3}
