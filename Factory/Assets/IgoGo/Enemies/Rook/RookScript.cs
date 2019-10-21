@@ -5,12 +5,12 @@ using UnityEngine;
 public class RookScript : UsingObject
 {
     #region Настраиваемые поля
-    [SerializeField, Tooltip("Верхняя точка остановки центральной части")] private Transform posUp;
-    [SerializeField, Tooltip("Нижняя точка остановки центральной части")] private Transform posDown;
-    [SerializeField, Tooltip("Центральная часть ладьи, которая будет перемещаться")] private Transform body;
-    [SerializeField, Tooltip("Аниматор центральной части")] private Animator anim;
-    [SerializeField, Tooltip("Начальное положение центральной части")] private bool toUp;
-    [SerializeField, Range(0.1f, 20), Tooltip("Скорость смены положения при изменении гравитации")] private float changeSpeed = 1;
+    [Tooltip("Верхняя точка остановки центральной части")] public Transform posUp;
+    [Tooltip("Нижняя точка остановки центральной части")] public Transform posDown;
+    [Tooltip("Центральная часть ладьи, которая будет перемещаться")] public Transform body;
+    [Tooltip("Аниматор центральной части")] public Animator anim;
+    [Tooltip("Начальное положение центральной части")] public bool toUp;
+    [Range(0.1f, 20), Tooltip("Скорость смены положения при изменении гравитации")] public float changeSpeed = 1;
     #endregion
 
     #region Служебные поля

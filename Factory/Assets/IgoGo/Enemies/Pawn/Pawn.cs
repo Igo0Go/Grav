@@ -9,11 +9,11 @@ using UnityEngine.AI;
 public class Pawn : UsingObject, ITargetTracker 
 {
     #region Настраиваемые поля
-    [SerializeField, Tooltip("Префаб манеты, которая падает")] private GameObject coinWithRb;
-    [SerializeField, Range(1, 15), Tooltip("Радиус определения новой точки для перемещения")] private float destinationRange = 1;
-    [SerializeField, Range(1, 5), Tooltip("Сила бросания предметов")] private float manipShootForce = 1;
-    [SerializeField, Tooltip("Сквозь какие слои видит пешка")] private LayerMask ignoreMask;
-    [SerializeField, Tooltip("К какой части притягиваются предметы")] private Transform manipPoint;
+    [Tooltip("Префаб манеты, которая падает")] public GameObject coinWithRb;
+    [Range(1, 15), Tooltip("Радиус определения новой точки для перемещения")] public float destinationRange = 1;
+    [Range(1, 5), Tooltip("Сила бросания предметов")] public float manipShootForce = 1;
+    [Tooltip("Сквозь какие слои видит пешка")] public LayerMask ignoreMask;
+    [Tooltip("К какой части притягиваются предметы")] public Transform manipPoint;
     #endregion
 
     #region Служебные поля

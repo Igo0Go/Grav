@@ -71,6 +71,32 @@ public class AudioSettingsPackContainer
     }
 }
 
+[XmlType("InputKitContainer")]
+public class InputKitContainer
+{
+    public float sensivityMultiplicator;
+    public List<KeyCodeContainer> keys;
+    public List<AxisContainer> axis;
+
+    public InputKitContainer() { }
+    public InputKitContainer(InputKit kit)
+    {
+        sensivityMultiplicator = kit.sensivityMultiplicator;
+
+        keys = new List<KeyCodeContainer>();
+        foreach (var item in kit.keys)
+        {
+            keys.Add(new KeyCodeContainer(item));
+        }
+
+        axis = new List<AxisContainer>();
+        foreach (var item in kit.axis)
+        {
+            axis.Add(new AxisContainer(item));
+        }
+    }
+}
+
 [XmlRoot("GameLoadData")]
 public class LoadData
 {
@@ -80,7 +106,7 @@ public class LoadData
     [XmlArray("LevelModuleStatusKit")]
     [XmlArrayItem("LevelModuleStatusItem")]
     public List<LevelModuleStatus> levelModuleStatusKit;
-    public InputKit inputKit;
+    public InputKitContainer inputKit;
 
     public LoadData() { }
 }
@@ -93,7 +119,7 @@ public static class DataLoader
         data.statusPack = new StatusPackContainer(statusPack);
         data.levelModuleStatusKit = LevelModuleStatusSettings.levelModuleStatusList;
         data.audioSettings = new AudioSettingsPackContainer(true);
-        data.inputKit = inputKit;
+        data.inputKit = new InputKitContainer(inputKit);
 
         System.Type[] extraTypes = { typeof(StatusPackContainer), typeof(LevelModuleStatus), typeof(PosPack), typeof(KeyCodeContainer),
             typeof(KeyCode), typeof(AxisContainer), typeof(AudioSettingsPackContainer)};

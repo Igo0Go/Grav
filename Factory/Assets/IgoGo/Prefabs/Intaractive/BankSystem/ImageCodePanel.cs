@@ -5,23 +5,24 @@ using UnityEngine.UI;
 
 public class ImageCodePanel : UsingOrigin
 {
-    [SerializeField] private Transform playerPos;
-    [SerializeField] private Collider triger;
-    [SerializeField, Range(1, 3)] float moveSpeed;
+    public Transform playerPos;
+    public Collider triger;
+    [Range(1, 3)] public float moveSpeed;
 
-    [SerializeField, Space(10)] private List<Transform> pointsForInput;
-    [SerializeField] private List<GameObject> prefabs;
-    [SerializeField] private GameObject activeToggle;
+    [Space(10)] public List<Transform> pointsForInput;
+    public List<GameObject> prefabs;
+    public GameObject activeToggle;
 
-    [SerializeField, Space(10), Range(1, 10)] private int attemptsCount;
-    [SerializeField] private string code;
-    [SerializeField] private bool active;
-    [SerializeField] private int coinsCount;
+    [Space(10), Range(1, 10)] public int attemptsCount;
+    public string code;
+    public bool active;
+    public int coinsCount;
 
-    [SerializeField, Space(10)] private AudioClip messageClip;
-    [SerializeField] private string messageText;
-    [SerializeField] private GameObject subsPanel;
-    [SerializeField] private Text subsText;
+    [Space(10)] public AudioClip messageClip;
+    public string messageText;
+    public GameObject subsPanel;
+    public Text subsText;
+    [Space(20)] public string currentCode;
 
     private List<GameObject> currentCodeImages;
     private GravFPS gravFPS;
@@ -30,7 +31,7 @@ public class ImageCodePanel : UsingOrigin
     private AudioSource source;
     private int currentAttempt;
     private bool move;
-    [SerializeField, Space(20)]private string currentCode;
+    
 
     private bool PlayerNearWithTarget => Vector3.Distance(player.position, playerPos.position) < moveSpeed * Time.deltaTime * 2;
     private bool PlayerSeeOnTarget => Vector3.Angle(Vector3.ProjectOnPlane(playerCam.forward, transform.up), Vector3.ProjectOnPlane(playerPos.forward, transform.up)) < 2;

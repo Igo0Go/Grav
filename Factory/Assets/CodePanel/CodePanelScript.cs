@@ -5,18 +5,18 @@ using UnityEngine.UI;
 
 public class CodePanelScript : UsingOrigin
 {
-    [SerializeField] private Transform playerPos;
-    [SerializeField] private Collider triger;
-    [SerializeField, Range(1, 3)] float moveSpeed; 
+    public Transform playerPos = null;
+    public Collider triger;
+    [Range(1, 3)] public float moveSpeed; 
 
-    [SerializeField, Space(10)] private Text codeText;
-    [SerializeField] private Text attemptsText;
-    [SerializeField] private Text messageText;
+    [Space(10)] public Text codeText;
+    public Text attemptsText;
+    public Text messageText;
 
-    [SerializeField, Space(10), Range(1,10)] private int attemptsCount;
-    [SerializeField] private int code;
-    [SerializeField] private string message;
-    [SerializeField] private string blockText;
+    [Space(10), Range(1,10)] public int attemptsCount;
+    public int code;
+    public string message;
+    public string blockText;
 
     private GravFPS gravFPS;
     private Transform player;
@@ -78,6 +78,7 @@ public class CodePanelScript : UsingOrigin
     }
     public override void ToStart()
     {
+
         codeText.text = string.Empty;
         messageText.text = string.Empty;
         currentAttempt = attemptsCount;

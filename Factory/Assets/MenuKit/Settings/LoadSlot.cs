@@ -71,7 +71,7 @@ public class LoadSlot : MonoBehaviour
             mainMenu.playerStatusPack.saveCards.Add(item);
         }
     }
-    private void CopySettings(InputKit right)
+    private void CopySettings(InputKitContainer right)
     {
         mainMenu.inputKit.sensivityMultiplicator = right.sensivityMultiplicator;
 

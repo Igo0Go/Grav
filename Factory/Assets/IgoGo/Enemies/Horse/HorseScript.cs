@@ -5,16 +5,16 @@ using UnityEngine;
 public class HorseScript : UsingObject, ITargetTracker
 {
     #region Настраиваемые поля
-    [SerializeField, Tooltip("Голова коня, из которой происходит бросание лучей")] private Transform head;
-    [SerializeField, Tooltip("Сквозь какие слои видит конь")] private LayerMask ignoreMask;
-    [SerializeField, Tooltip("Аниматоры индикаторов заряда перед ударом")] private List<Animator> indicators;
-    [Space(10), SerializeField, Range(1, 20), Tooltip("Скорость движения при ударе")] private float moveSpeed = 10;
-    [SerializeField, Range(1, 20), Tooltip("Скорость поворота на игрока")] private float rotationSpeed = 1;
-    [SerializeField, Range(1, 5), Tooltip("Как быстро происходит заряд")] private float reactionSpeed = 1;
-    [SerializeField, Range(1, 30), Tooltip("Как сильно отбрасывать игрока")] private float force = 8;
-    [SerializeField, Range(1, 30), Tooltip("Урон игроку")] private int damage = 15;
-    [Space(10), SerializeField, Range(1, 5), Tooltip("Количество ударов до смерти")] private int health = 2;
-    [SerializeField, Tooltip("Части, которые должны развалиться после смерти")] List<Rigidbody> physicalParts;
+    [Tooltip("Голова коня, из которой происходит бросание лучей")] public Transform head;
+    [Tooltip("Сквозь какие слои видит конь")] public LayerMask ignoreMask;
+    [Tooltip("Аниматоры индикаторов заряда перед ударом")] public List<Animator> indicators;
+    [Space(10), Range(1, 20), Tooltip("Скорость движения при ударе")] public float moveSpeed = 10;
+    [Range(1, 20), Tooltip("Скорость поворота на игрока")] public float rotationSpeed = 1;
+    [Range(1, 5), Tooltip("Как быстро происходит заряд")] public float reactionSpeed = 1;
+    [Range(1, 30), Tooltip("Как сильно отбрасывать игрока")] public float force = 8;
+    [Range(1, 30), Tooltip("Урон игроку")] public int damage = 15;
+    [Space(10), Range(1, 5), Tooltip("Количество ударов до смерти")] public int health = 2;
+    [Tooltip("Части, которые должны развалиться после смерти")] public List<Rigidbody> physicalParts;
     #endregion
 
     #region Служебные подля
