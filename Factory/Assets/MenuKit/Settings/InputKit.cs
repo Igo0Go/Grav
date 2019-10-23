@@ -2,7 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using System.Xml.Serialization;
+using System;
 
+[XmlType("InputKit")]
+[XmlInclude(typeof(KeyCodeContainer))]
+[XmlInclude(typeof(AxisContainer))]
 [CreateAssetMenu(menuName = "Config/InputKit")]
 public class InputKit : ScriptableObject
 {
@@ -29,15 +34,24 @@ public class InputKit : ScriptableObject
     }
 }
 
-
-[System.Serializable]
+[XmlType("KeyCodeContainer")]
+[Serializable]
 public class KeyCodeContainer
 {
     public string Name;
     public KeyCode key;
+
+    public KeyCodeContainer() { }
+    public KeyCodeContainer(KeyCodeContainer blueprint)
+    {
+        Name = blueprint.Name;
+        key = blueprint.key;
+    }
 }
 
-[System.Serializable]
+[XmlType("AxisContainer")]
+[XmlInclude(typeof(KeyCodeContainer))]
+[Serializable]
 public class AxisContainer
 {
     public int positiveButtonKeyIndex;
@@ -75,6 +89,17 @@ public class AxisContainer
     public void SetSensivity(float value)
     {
         sensivity = value;
+    }
+
+    public AxisContainer() { }
+    public AxisContainer(AxisContainer blueprint)
+    {
+        positiveButtonKeyIndex = blueprint.positiveButtonKeyIndex;
+        negativeButtonKeyIndex = blueprint.negativeButtonKeyIndex;
+        name = blueprint.name;
+        positiveButton = new KeyCodeContainer(blueprint.positiveButton);
+        negativeButton = new KeyCodeContainer(blueprint.negativeButton);
+        SetSensivity(blueprint.sensivity);
     }
 }
 

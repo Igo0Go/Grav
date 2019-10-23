@@ -7,6 +7,7 @@ public delegate void DamageHandler(int damage);
 
 public class AcidReactor : MonoBehaviour
 {
+    public AudioSource source;
     public CubeStructureItem structureItem;
     [Range(0.01f, 5)]
     public float destroySpeed = 1;
@@ -43,7 +44,6 @@ public class AcidReactor : MonoBehaviour
     {
         damage = point;
     }
-
 
     private void CheckEvents()
     {
@@ -84,6 +84,7 @@ public class AcidReactor : MonoBehaviour
         {
             GameObject bufer = Instantiate(structureItem.destroyed, transform.position, transform.rotation, transform.parent);
             AcidReactor acidReactor = bufer.GetComponent<AcidReactor>();
+            acidReactor.source = source;
             if (up != null)
             {
                 up.OnDamage -= GetDamage;

@@ -73,12 +73,14 @@
     <Compile Include="Assets\IgoGo\IgoGoModules\ActionNode.cs" />
     <Compile Include="Assets\IgoGo\IgoGoModules\ActionObject.cs" />
     <Compile Include="Assets\IgoGo\IgoGoModules\AnimActivator.cs" />
+    <Compile Include="Assets\IgoGo\IgoGoModules\AudioStarter.cs" />
     <Compile Include="Assets\IgoGo\IgoGoModules\CubeStructureItem.cs" />
     <Compile Include="Assets\IgoGo\IgoGoModules\DeadLineOrigin.cs" />
     <Compile Include="Assets\IgoGo\IgoGoModules\GameObjectActivator.cs" />
     <Compile Include="Assets\IgoGo\IgoGoModules\GravChangeReactor.cs" />
     <Compile Include="Assets\IgoGo\IgoGoModules\LevelModuleStatus.cs" />
     <Compile Include="Assets\IgoGo\IgoGoModules\LocationReactor.cs" />
+    <Compile Include="Assets\IgoGo\IgoGoModules\ModuleActivatorBetweenScene.cs" />
     <Compile Include="Assets\IgoGo\IgoGoModules\ModuleController.cs" />
     <Compile Include="Assets\IgoGo\IgoGoModules\ModuleDebugContainer.cs" />
     <Compile Include="Assets\IgoGo\IgoGoModules\ModuleReactor.cs" />

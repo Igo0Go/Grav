@@ -127,11 +127,23 @@ public class BulletScript : MyTools
 
             if (hit.collider.tag.Equals("AcidReactor"))
             {
-                decal = Instantiate(Particles[0]);
-                hit.collider.GetComponent<AcidReactor>().GetDamage(acidity);
-                decal.transform.position = hit.collider.transform.position +
-                new Vector3(Physics.gravity.normalized.x * hit.collider.transform.lossyScale.x / 2, Physics.gravity.normalized.y * hit.collider.transform.lossyScale.y / 2,
-                Physics.gravity.normalized.z * hit.collider.transform.lossyScale.z / 2);
+                
+                AcidReactor acidReactor;
+                if(MyGetComponent(hit.collider.gameObject, out acidReactor))
+                {
+                    decal = Instantiate(Particles[0]);
+                    acidReactor.source.Play();
+                    acidReactor.GetDamage(acidity);
+                    decal.transform.position = hit.collider.transform.position +
+                    new Vector3(Physics.gravity.normalized.x * hit.collider.transform.lossyScale.x / 2, Physics.gravity.normalized.y * hit.collider.transform.lossyScale.y / 2,
+                    Physics.gravity.normalized.z * hit.collider.transform.lossyScale.z / 2);
+                }
+                else
+                {
+                    decal = Instantiate(Particles[1]);
+                    decal.transform.position = hit.point + hit.normal * 0.1f;
+                }
+                
             }
             else
             {

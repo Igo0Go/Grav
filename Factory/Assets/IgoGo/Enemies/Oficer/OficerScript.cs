@@ -5,13 +5,13 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 public class OficerScript : MyTools, ITargetTracker
 {
-    [SerializeField, Tooltip("Та чать, которая будет бить по игроку")] private Transform body;
-    [SerializeField, Tooltip("Точка, в которую нужно возвращаться body после удара")] private Transform defaultBodyPoint;
-    [SerializeField, Tooltip("Сквозь какие слои видит слон")] private LayerMask ignoreMask;
-    [SerializeField, Range(1, 40), Tooltip("Скорость удара")] private float speed = 8;
-    [SerializeField, Range(1, 30), Tooltip("Время между ударами")] private float reloadTime = 3;
-    [SerializeField, Range(1, 30), Tooltip("Сила отбрасывания при появлении")] private float force = 8;
-    [SerializeField, Range(1, 30), Tooltip("Урон при ударе")] private int damage = 15;
+    [Tooltip("Та чать, которая будет бить по игроку")] public Transform body;
+    [Tooltip("Точка, в которую нужно возвращаться body после удара")] public Transform defaultBodyPoint;
+    [Tooltip("Сквозь какие слои видит слон")] public LayerMask ignoreMask;
+    [Range(1, 40), Tooltip("Скорость удара")] public float speed = 8;
+    [Range(1, 30), Tooltip("Время между ударами")] public float reloadTime = 3;
+    [Range(1, 30), Tooltip("Сила отбрасывания при появлении")] public float force = 8;
+    [Range(1, 30), Tooltip("Урон при ударе")] public int damage = 15;
 
     private Animator anim;
     private Transform _target;

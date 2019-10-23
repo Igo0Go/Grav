@@ -19,9 +19,9 @@ public class LootItem : MonoBehaviour
     public float speed;
     public int count;
     public bool opportunityToSuffice;
-    [SerializeField] private Collider physicalCollider;
-    [SerializeField] private Rigidbody rb;
-    [SerializeField, Range(0.1f, 5)] private float activationTime = 1;
+    public Collider physicalCollider;
+    public Rigidbody rb;
+    [Range(0.1f, 5)] public float activationTime = 1;
     public AudioSource source;
 
     private int status;
@@ -68,7 +68,7 @@ public class LootItem : MonoBehaviour
     public void SetTarget(GravFPS fps)
     {
         target = fps.transform;
-        transform.parent = target;
+        //transform.parent = target;
         player = fps;
         status = 1;
         if(physicalCollider != null)

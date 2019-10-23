@@ -6,13 +6,6 @@ using UnityEngine.SceneManagement;
 
 public delegate void RotateHandler(Quaternion rot);
 
-[Serializable]
-public class PlayerAudioPack
-{
-    
-}
-
-
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(CapsuleCollider))]
 public class GravFPS : MonoBehaviour
@@ -64,7 +57,7 @@ public class GravFPS : MonoBehaviour
     [HideInInspector] public Rigidbody rb;
     [HideInInspector]public Transform gravObj;
     [HideInInspector] public bool inMenu;
-    [SerializeField] private PlayerStartSceneSettingsScript playerStartSceneSettings;
+    public PlayerStartSceneSettingsScript playerStartSceneSettings;
 
     private Vector3 dir;
     private Vector3 savePos;
@@ -80,7 +73,6 @@ public class GravFPS : MonoBehaviour
     private PhysicMaterial floorMaterial;
     private int gravMultiplicator;
     private int gravRotSpeed;
-    private bool onGround;
     private bool rotToGrav;
     private bool alive;
     private sbyte jump;
@@ -128,7 +120,7 @@ public class GravFPS : MonoBehaviour
             gravFPSUI.StatusPack.hubScene = gravFPSUI.StatusPack.currentScene;
         }
 
-        gravFPSUI.onFinalStun += ReturnActive;
+        gravFPSUI.OnFinalStun += ReturnActive;
 
         if(playerStartSceneSettings == null)
         {
@@ -156,6 +148,8 @@ public class GravFPS : MonoBehaviour
         gravFPSUI.manager = inputSettingsManager;
         currentStepTime = 0;
         stepTyme = speed/2;
+
+        SetInput();
     }
     void Update()
     {
@@ -585,25 +579,25 @@ public class GravFPS : MonoBehaviour
         if(currentStepTime >= stepTyme)
         {
             source.Stop();
-            if (floorMaterial != null)
+            if (OnGround() && floorMaterial != null)
             {
                 switch (floorMaterial.name)
                 {
                     case "Ground (Instance)":
                         source.Stop();
-                        source.PlayOneShot(stepPack[0]);
+                        source.PlayOneShot(stepPack[0], UnityEngine.Random.Range(0.4f, 1));
                         break;
                     case "Metal (Instance)":
                         source.Stop();
-                        source.PlayOneShot(stepPack[1]);
+                        source.PlayOneShot(stepPack[1], UnityEngine.Random.Range(0.4f, 1));
                         break;
                     case "Grass (Instance)":
                         source.Stop();
-                        source.PlayOneShot(stepPack[2]);
+                        source.PlayOneShot(stepPack[2], UnityEngine.Random.Range(0.4f, 1));
                         break;
                     default:
                         source.Stop();
-                        source.PlayOneShot(stepPack[0]);
+                        source.PlayOneShot(stepPack[0], UnityEngine.Random.Range(0.4f, 1));
                         break;
                 }
             }
@@ -613,6 +607,13 @@ public class GravFPS : MonoBehaviour
                 source.PlayOneShot(stepPack[0]);
             }
             currentStepTime = 0;
+        }
+    }
+    private void SetInput()
+    {
+        if(DataLoader.LoadXML(gravFPSUI.StatusPack.loadSlot, out LoadData data))
+        {
+            inputSettingsManager.CopySettings(data.inputKit);
         }
     }
     #endregion

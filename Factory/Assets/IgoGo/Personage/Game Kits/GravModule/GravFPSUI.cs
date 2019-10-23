@@ -25,6 +25,7 @@ public class GravFPSUI : MonoBehaviour
     [Range(0.1f,2)] public float stunSpeed;
     [HideInInspector] public InputSettingsManager manager;
     [HideInInspector] public float returnTime;
+    public InputKit inputKit;
     #endregion
 
     #region Приватные поля
@@ -37,8 +38,8 @@ public class GravFPSUI : MonoBehaviour
     #endregion
 
     #region Делегаты и события
-    public event Action onGetLoot;
-    public event Action onFinalStun;
+    public event Action OnGetLoot;
+    public event Action OnFinalStun;
     #endregion
 
     #region События Unity
@@ -97,7 +98,7 @@ public class GravFPSUI : MonoBehaviour
         CheckTexts();
         panels[2].anim.SetBool("Visible", true);
         returnTime = 3;
-        onGetLoot?.Invoke();
+        OnGetLoot?.Invoke();
     }
     public void AddLifeSphere()
     {
@@ -135,7 +136,7 @@ public class GravFPSUI : MonoBehaviour
         {
             StatusPack.saveCards.Add(item);
         }
-        DataLoader.SaveXML(StatusPack);
+        DataLoader.SaveXML(StatusPack, inputKit);
     }
     public void Return()
     {
@@ -146,14 +147,13 @@ public class GravFPSUI : MonoBehaviour
     }
     public void SetTip(LootPointScript lootPoint, InputSettingsManager manager)
     {
-        string result = string.Empty;
         if(lootPoint.cost > StatusPack.money)
         {
             tip.text = "Не хватает монет для покупки " + lootPoint.tipText;
         }
         else
         {
-            tip.text = "Нажмите " + manager.GetKey("Using").ToString() + ", чтобы купить " + lootPoint.tipText;   
+            tip.text = "Нажмите " + manager.GetKey("Using").ToString() + " - " + lootPoint.tipText;   
         }
     }
     public void SetTip(string tipText)
@@ -217,7 +217,7 @@ public class GravFPSUI : MonoBehaviour
             {
                 stunPanel.color = new Color(stunPanel.color.r, stunPanel.color.g, stunPanel.color.b, 0);
                 stunPanel.gameObject.SetActive(false);
-                onFinalStun?.Invoke();
+                OnFinalStun?.Invoke();
             }
         }
     }

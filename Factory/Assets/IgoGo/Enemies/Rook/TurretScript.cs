@@ -10,6 +10,7 @@ public interface ITargetTracker
     void ClearTarget(Transform target);
 }
 
+[RequireComponent(typeof(AudioSource))]
 [RequireComponent(typeof(BoxCollider))]
 public class TurretScript : MonoBehaviour, ITargetTracker
 {
@@ -28,6 +29,7 @@ public class TurretScript : MonoBehaviour, ITargetTracker
     #region Служебные поля
     private Quaternion startRotation;
     private Transform _target;
+    private AudioSource source;
     private bool reload;
     private bool rotToAngle;
     private bool disactive;
@@ -51,6 +53,7 @@ public class TurretScript : MonoBehaviour, ITargetTracker
         shootPoint.SetActive(false);
         rotToAngle = false;
         ReturnActive();
+        source = GetComponent<AudioSource>();
     }
     void Update()
     {
@@ -96,6 +99,8 @@ public class TurretScript : MonoBehaviour, ITargetTracker
     {
         shootPoint.SetActive(true);
         reload = true;
+        if (source.isPlaying) source.Stop();
+        source.Play();
         Invoke("StopShoot", shootTime);
         Invoke("Reload", reloadTime);
     }

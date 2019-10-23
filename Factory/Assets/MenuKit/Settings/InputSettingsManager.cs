@@ -46,4 +46,20 @@ public class InputSettingsManager : MonoBehaviour
         Debug.LogWarning("Не удалось найти клавишу " + Name + ". Проверьте написание!");
         return KeyCode.None;
     }
+    public void CopySettings(InputKitContainer right)
+    {
+        inputKit.sensivityMultiplicator = right.sensivityMultiplicator;
+
+        inputKit.keys.Clear();
+        for (int i = 0; i < right.keys.Count; i++)
+        {
+            inputKit.keys.Add(new KeyCodeContainer(right.keys[i]));
+        }
+
+        inputKit.axis.Clear();
+        for (int i = 0; i < right.axis.Count; i++)
+        {
+            inputKit.axis.Add(new AxisContainer(right.axis[i]));
+        }
+    }
 }

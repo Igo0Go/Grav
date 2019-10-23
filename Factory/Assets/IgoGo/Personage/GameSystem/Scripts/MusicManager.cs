@@ -10,7 +10,6 @@ public class MusicBox
 }
 
 public class MusicManager : MyTools {
-    public AudioSettingsPack audioSettings;
     [Tooltip("Текст, где будет отображаться название композиции")] public Text audioName;
     [Tooltip("Динамик")] public AudioSource source;
     [Tooltip("Аниматор панельки с текстом")] public Animator anim;
@@ -48,7 +47,7 @@ public class MusicManager : MyTools {
 
     private void Start()
     {
-        currentMultiplicator = audioSettings.musicMultiplicator;
+        currentMultiplicator = AudioSettingsPack.musicMultiplicator;
         source.volume = targetVolume = currentMultiplicator;
         ChangeClip(0);
     }
