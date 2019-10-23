@@ -130,12 +130,25 @@
      <Compile Include="Assets\MenuKit\Settings\LoadPanelManager.cs" />
      <Compile Include="Assets\MenuKit\Settings\LoadSlot.cs" />
      <Compile Include="Assets\MenuKit\Settings\MainMenuScript.cs" />
+     <Compile Include="Assets\Nestea\Prefabs\Flooded_Grounds\Scripts\DisableRenderer.cs" />
+     <Compile Include="Assets\Nestea\Prefabs\Flooded_Grounds\Scripts\FPSController\CharController_Motor.cs" />
+     <Compile Include="Assets\Nestea\Prefabs\Flooded_Grounds\Scripts\FPSDisplay.cs" />
+     <Compile Include="Assets\Nestea\Prefabs\Flooded_Grounds\Scripts\WaterFloat.cs" />
+     <None Include="Assets\Nestea\Prefabs\Flooded_Grounds\Content\Shaders\FG_PBR_Water.shader" />
+     <None Include="Assets\Nestea\Prefabs\Flooded_Grounds\Resources\WavingGrass.shader" />
+     <None Include="Assets\Nestea\Prefabs\Flooded_Grounds\Resources\TreeCreator\TreeCreatorBark.shader" />
+     <None Include="Assets\Nestea\Prefabs\Flooded_Grounds\Content\Shaders\FG_PBR_TopBlend.shader" />
+     <None Include="Assets\Nestea\Prefabs\Flooded_Grounds\Resources\TreeCreator\TreeCreatorLeaves.shader" />
+     <None Include="Assets\Nestea\Prefabs\Flooded_Grounds\Resources\TreeCreator\TreeCreatorLeavesOptimized.shader" />
      <None Include="Assets\IgoGo\Prefabs\EffectExamples\Misc Effects\Shaders\Dissolve.shader" />
      <None Include="Assets\IgoGo\Prefabs\EffectExamples\Misc Effects\Shaders\FireFly.shader" />
+     <None Include="Assets\Nestea\Prefabs\Flooded_Grounds\Resources\TreeCreator\TreeCreatorBarkOptimized.shader" />
      <None Include="Assets\IgoGo\ShederTest\NewUnlitShader.shader" />
      <None Include="Assets\IgoGo\Prefabs\EffectExamples\Misc Effects\Prefabs\Readme_Dissolve_Respawn_.txt" />
      <None Include="Assets\IgoGo\Prefabs\EffectExamples\Misc Effects\Shaders\Respawn.shader" />
      <None Include="Assets\IgoGo\Prefabs\EffectExamples\Magic Effects\Shaders\Ice.shader" />
+     <None Include="Assets\Nestea\Prefabs\Flooded_Grounds\Content\Shaders\FG_Triplanar_BumpSpec.shader" />
+     <None Include="Assets\Nestea\Prefabs\Flooded_Grounds\Content\Shaders\FG_Skybox_Rotating.shader" />
  <Reference Include="Unity.TextMeshPro.Editor">
  <HintPath>C:/Users/Настасья/Desktop/Всякие проги/Grav/Factory/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
  </Reference>

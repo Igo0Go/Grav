@@ -253,14 +253,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debug: 0
   used: 0
+  actionObjects: []
   lootPrefab: {fileID: 7360279157149525117, guid: 728dbc203d9b9224c8eaf88b96d83362,
     type: 3}
-  coinPrefab: {fileID: 318290703031612377, guid: c54230c7d0c16cb4f9226da3db9c04d3,
-    type: 3}
+  spendPrefab:
+  - {fileID: 318290703031612377, guid: c54230c7d0c16cb4f9226da3db9c04d3, type: 3}
   lootPoint: {fileID: 1938756023}
   costText: {fileID: 2145839505}
   cost: 10
   tipText: "\u043A\u0430\u043F\u0441\u0443\u043B\u0430 \u043A\u0438\u0441\u043B\u043E\u0442\u044B"
+  coinsType: 0
+  cardContains: 0
   useble: 0
 --- !u!1 &707306909
 GameObject:
@@ -3705,14 +3708,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debug: 0
   used: 0
+  actionObjects: []
   lootPrefab: {fileID: 1858409203576290464, guid: 551890d4e67daf648b34fade8620a761,
     type: 3}
-  coinPrefab: {fileID: 318290703031612377, guid: c54230c7d0c16cb4f9226da3db9c04d3,
-    type: 3}
+  spendPrefab:
+  - {fileID: 318290703031612377, guid: c54230c7d0c16cb4f9226da3db9c04d3, type: 3}
   lootPoint: {fileID: 4320882991710527473}
   costText: {fileID: 5904164670480116387}
   cost: 50
   tipText: "\u0441\u0444\u0435\u0440\u0430 \u043A\u043B\u043E\u043D\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u044F"
+  coinsType: 0
+  cardContains: 0
   useble: 0
 --- !u!1 &3238067421640500674
 GameObject:
