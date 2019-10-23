@@ -1800,7 +1800,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 2.2768393
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
@@ -2011,8 +2011,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 8300000, guid: e3bb2bc44ed52bc449c7b8050d59eade, type: 3}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -2739,7 +2739,6 @@ MonoBehaviour:
   stunSpeed: 0.5
   manager: {fileID: 0}
   returnTime: 0
-  audioSettings: {fileID: 11400000, guid: cf1c4dd2ed35f514091905a307e3b797, type: 2}
   inputKit: {fileID: 11400000, guid: afe6e1ae2c6f92c4a8fa026f3f5ffb54, type: 2}
 --- !u!114 &2289395655168458227
 MonoBehaviour:
@@ -9038,7 +9037,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36fea2fd2825a9b4abfba43ac5e2d560, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioSettings: {fileID: 11400000, guid: cf1c4dd2ed35f514091905a307e3b797, type: 2}
   audioName: {fileID: 9044560230800476584}
   source: {fileID: 9044560230823150409}
   anim: {fileID: 9044560230969631350}

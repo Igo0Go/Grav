@@ -64,7 +64,7 @@ public class AudioSettingsPackContainer
     [Tooltip("множитель для громкости музыки"), Range(0, 1)] public float otherAudioMultiplicator;
 
     public AudioSettingsPackContainer() { }
-    public AudioSettingsPackContainer(bool useSettings)
+    public AudioSettingsPackContainer(bool useSettings = true)
     {
         musicMultiplicator = AudioSettingsPack.musicMultiplicator;
         otherAudioMultiplicator = AudioSettingsPack.otherAudioMultiplicator;
@@ -115,11 +115,13 @@ public static class DataLoader
 {
     public static void SaveXML(StatusPack statusPack, InputKit inputKit)
     {
-        LoadData data = new LoadData();
-        data.statusPack = new StatusPackContainer(statusPack);
-        data.levelModuleStatusKit = LevelModuleStatusSettings.levelModuleStatusList;
-        data.audioSettings = new AudioSettingsPackContainer(true);
-        data.inputKit = new InputKitContainer(inputKit);
+        LoadData data = new LoadData
+        {
+            statusPack = new StatusPackContainer(statusPack),
+            levelModuleStatusKit = LevelModuleStatusSettings.levelModuleStatusList,
+            audioSettings = new AudioSettingsPackContainer(true),
+            inputKit = new InputKitContainer(inputKit)
+        };
 
         System.Type[] extraTypes = { typeof(StatusPackContainer), typeof(LevelModuleStatus), typeof(PosPack), typeof(KeyCodeContainer),
             typeof(KeyCode), typeof(AxisContainer), typeof(AudioSettingsPackContainer)};

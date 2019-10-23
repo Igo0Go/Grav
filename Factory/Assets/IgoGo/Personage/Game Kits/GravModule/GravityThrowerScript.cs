@@ -130,7 +130,7 @@ public class GravityThrowerScript : MyTools
         Toggle();
         line = GetComponent<LineRenderer>();
         dangerSoundSource = GetComponent<AudioSource>();
-        player.gravFPSUI.onGetLoot += CheckSlider;
+        player.gravFPSUI.OnGetLoot += CheckSlider;
     }
     void Update()
     {

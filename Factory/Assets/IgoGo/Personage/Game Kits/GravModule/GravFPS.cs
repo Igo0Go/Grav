@@ -73,7 +73,6 @@ public class GravFPS : MonoBehaviour
     private PhysicMaterial floorMaterial;
     private int gravMultiplicator;
     private int gravRotSpeed;
-    private bool onGround;
     private bool rotToGrav;
     private bool alive;
     private sbyte jump;
@@ -121,7 +120,7 @@ public class GravFPS : MonoBehaviour
             gravFPSUI.StatusPack.hubScene = gravFPSUI.StatusPack.currentScene;
         }
 
-        gravFPSUI.onFinalStun += ReturnActive;
+        gravFPSUI.OnFinalStun += ReturnActive;
 
         if(playerStartSceneSettings == null)
         {
@@ -580,25 +579,25 @@ public class GravFPS : MonoBehaviour
         if(currentStepTime >= stepTyme)
         {
             source.Stop();
-            if (floorMaterial != null)
+            if (OnGround() && floorMaterial != null)
             {
                 switch (floorMaterial.name)
                 {
                     case "Ground (Instance)":
                         source.Stop();
-                        source.PlayOneShot(stepPack[0]);
+                        source.PlayOneShot(stepPack[0], UnityEngine.Random.Range(0.4f, 1));
                         break;
                     case "Metal (Instance)":
                         source.Stop();
-                        source.PlayOneShot(stepPack[1]);
+                        source.PlayOneShot(stepPack[1], UnityEngine.Random.Range(0.4f, 1));
                         break;
                     case "Grass (Instance)":
                         source.Stop();
-                        source.PlayOneShot(stepPack[2]);
+                        source.PlayOneShot(stepPack[2], UnityEngine.Random.Range(0.4f, 1));
                         break;
                     default:
                         source.Stop();
-                        source.PlayOneShot(stepPack[0]);
+                        source.PlayOneShot(stepPack[0], UnityEngine.Random.Range(0.4f, 1));
                         break;
                 }
             }
