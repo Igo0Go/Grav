@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class ModuleController : MonoBehaviour
 {
-    
     [Tooltip("Объекты, у которых нужно сохранить положение")] public List<GameObject> saveTransformObjects;
     [Tooltip("Объекты, у которых нужно сохранить показатель активности на сцене")] public List<GameObject> activeSelfObjects;
     [Tooltip("Объекты, у которых нужно сохранить показатель срабатывания модуля")] public List<UsingObject> usingObjects;
@@ -16,7 +15,7 @@ public class ModuleController : MonoBehaviour
     [HideInInspector] public LevelModuleStatus moduleStatus;
     [HideInInspector] public List<UsingObject> firstActionObjects;
 
-    private string sceneName;
+    [HideInInspector] public string sceneName;
 
     public bool loadOnStart;
 

@@ -68,7 +68,7 @@ public class LootItem : MonoBehaviour
     public void SetTarget(GravFPS fps)
     {
         target = fps.transform;
-        transform.parent = target;
+        //transform.parent = target;
         player = fps;
         status = 1;
         if(physicalCollider != null)

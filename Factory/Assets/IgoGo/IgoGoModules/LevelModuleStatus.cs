@@ -69,4 +69,18 @@ public static class LevelModuleStatusSettings
         levelModuleStatusList.Add(result);
         return result;
     }
+
+    public static bool Find(string sceneName, out LevelModuleStatus moduleStatus)
+    {
+        moduleStatus = null;
+        foreach (var item in levelModuleStatusList)
+        {
+            if(item.sceneName.Equals(sceneName))
+            {
+                moduleStatus = item;
+                return true;
+            }
+        }
+        return false;
+    }
 }
