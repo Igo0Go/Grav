@@ -202,7 +202,7 @@ GameObject:
   - component: {fileID: 424087832}
   - component: {fileID: 424087831}
   m_Layer: 2
-  m_Name: LootPointAcidBottle
+  m_Name: LootPoint (1)
   m_TagString: LootPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -262,7 +262,7 @@ MonoBehaviour:
   costText: {fileID: 2145839505}
   cost: 10
   tipText: "\u043A\u0430\u043F\u0441\u0443\u043B\u0430 \u043A\u0438\u0441\u043B\u043E\u0442\u044B"
-  coinsType: 1
+  coinsType: 0
   cardContains: 0
   useble: 0
 --- !u!1 &707306909
@@ -3657,7 +3657,7 @@ GameObject:
   - component: {fileID: 1484626689094175718}
   - component: {fileID: 8165089590325272985}
   m_Layer: 2
-  m_Name: LootPointLifeSpheres
+  m_Name: LootPoint
   m_TagString: LootPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3717,7 +3717,7 @@ MonoBehaviour:
   costText: {fileID: 5904164670480116387}
   cost: 50
   tipText: "\u0441\u0444\u0435\u0440\u0430 \u043A\u043B\u043E\u043D\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u044F"
-  coinsType: 1
+  coinsType: 0
   cardContains: 0
   useble: 0
 --- !u!1 &3238067421640500674
