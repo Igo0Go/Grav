@@ -8,7 +8,7 @@ public class DeadLineOrigin : MonoBehaviour
     [Tooltip("На какие слои не будет реагировать луч")]public LayerMask ignoreMask;
     [Tooltip("Пак частиц, которые появляются в месте, куда бъёт луч.")] public GameObject sparks;
     [Tooltip("Максимальная дальность луча"), Range(1, 1000)] public float maxRange = 10;
-    [Tooltip("Урон"), Range(1, 10)] public int damage = 1; 
+    [Tooltip("Урон"), Range(1, 10)] public int damage = 1;
 
     private LineRenderer renderItem;
     
