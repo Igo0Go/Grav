@@ -149,7 +149,7 @@ public class GravFPSUI : MonoBehaviour
     {
         if(lootPoint.cost > StatusPack.money)
         {
-            tip.text = "Не хватает монет для покупки " + lootPoint.tipText;
+            tip.text = "Не хватает монет";
         }
         else
         {

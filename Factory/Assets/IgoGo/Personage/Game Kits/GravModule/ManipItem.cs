@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class ManipItem : MyTools
 {
     private Rigidbody rb;
     [HideInInspector] public bool damaged;
+
+    public event Action OnSocketPos;
 
     private void OnEnable()
     {
@@ -26,6 +29,15 @@ public class ManipItem : MyTools
             {
                 if(manip.manip == this)
                 {
+                    if(manip.isSocket)
+                    {
+                        rb.isKinematic = true;
+                        transform.position = manip.plugPoint.position;
+                        transform.rotation = manip.plugPoint.rotation;
+                        OnSocketPos?.Invoke();
+                        tag = "Untagged";
+                        Destroy(this, Time.fixedDeltaTime);
+                    }
                     manip.Use();
                 }
             }

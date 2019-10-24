@@ -79,7 +79,7 @@ public class LootPointScript : UsingOrigin
             {
                 if (spendObjects.Count < cost)
                 {
-                    spendObjects.Add(Instantiate(spendPrefab[0], player.position, Quaternion.identity, transform).transform);
+                    spendObjects.Add(Instantiate(spendPrefab[0], player.position+ player.up, Quaternion.identity, transform).transform);
                     Invoke("ReturnSpawn", 0.1f);
                 }
                 else
@@ -102,7 +102,7 @@ public class LootPointScript : UsingOrigin
                     if(gravFPSUI.StatusPack.cards[currentSpendIndex])
                     {
                         gravFPSUI.StatusPack.cards[currentSpendIndex] = false;
-                        spendObjects.Add(Instantiate(spendPrefab[currentSpendIndex], player.position, Quaternion.identity, transform).transform);
+                        spendObjects.Add(Instantiate(spendPrefab[currentSpendIndex], player.position + player.up, Quaternion.identity, transform).transform);
                         cardContains++;
                     }
                     currentSpendIndex++;

@@ -131,6 +131,7 @@ public class GravityThrowerScript : MyTools
         line = GetComponent<LineRenderer>();
         dangerSoundSource = GetComponent<AudioSource>();
         player.gravFPSUI.OnGetLoot += CheckSlider;
+        anim.SetBool("Ready", true);
     }
     void Update()
     {
@@ -189,6 +190,10 @@ public class GravityThrowerScript : MyTools
                             shootSource.clip = shootSounds[2];
                             shootSource.loop = true;
                             shootSource.Play();
+                            if(MyGetComponent(currentManipObj, out ManipItem item))
+                            {
+                                item.OnSocketPos += ReturnManip;
+                            }
                         }
                     }
                     else if(hit.collider.tag.Equals("ManipForEnemy"))
@@ -404,6 +409,10 @@ public class GravityThrowerScript : MyTools
             if (MyGetComponent(currentManipObj, out Pawn pawn))
             {
                 pawn.ToDefaultState();
+            }
+            if(MyGetComponent(currentManipObj, out ManipItem item))
+            {
+                item.OnSocketPos -= ReturnManip;
             }
             manipRenderer.material.color = materialColor;
             currentRB.useGravity = true;
