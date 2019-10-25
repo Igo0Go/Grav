@@ -46,8 +46,8 @@ MonoBehaviour:
   debug: 0
   used: 0
   actionObjects:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 2723280875204236539}
+  - {fileID: 5576294062106494145}
   once: 1
   actors:
   - {fileID: 406742809}
@@ -234,7 +234,7 @@ Transform:
   m_GameObject: {fileID: 3238067419723067422}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -140.90309, y: -5.8436685, z: -62.52123}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2.4153547, y: 2.4153552, z: 2.4153547}
   m_Children:
   - {fileID: 3238067421550098121}
   - {fileID: 1218700252}
@@ -312,6 +312,8 @@ MonoBehaviour:
   actionObjects:
   - {fileID: 406742808}
   - {fileID: 1218700253}
+  plugPoint: {fileID: 0}
+  isSocket: 0
   manip: {fileID: 0}
   once: 0
 --- !u!1 &3238067419781076762
@@ -3254,11 +3256,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3238067419723067421}
     m_Modifications:
-    - target: {fileID: 1925890949723974928, guid: 13d54fbc25143c44cb500e1d31e30440,
-        type: 3}
-      propertyPath: m_Name
-      value: LootPointSphere
-      objectReference: {fileID: 0}
     - target: {fileID: 1925890949723974931, guid: 13d54fbc25143c44cb500e1d31e30440,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3314,6 +3311,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1925890949723974928, guid: 13d54fbc25143c44cb500e1d31e30440,
+        type: 3}
+      propertyPath: m_Name
+      value: LootPointSphere
+      objectReference: {fileID: 0}
     - target: {fileID: 2096038104095212887, guid: 13d54fbc25143c44cb500e1d31e30440,
         type: 3}
       propertyPath: spendPrefab.Array.size
@@ -3355,6 +3357,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 4097596213731168684}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2723280875204236539 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2096038104095212887, guid: 13d54fbc25143c44cb500e1d31e30440,
+    type: 3}
+  m_PrefabInstance: {fileID: 4097596213731168684}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08b5da98c50b94e4d8030f0bed9aeae0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5797371231300551062
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3362,11 +3376,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3238067419723067421}
     m_Modifications:
-    - target: {fileID: 1925890949723974928, guid: 13d54fbc25143c44cb500e1d31e30440,
-        type: 3}
-      propertyPath: m_Name
-      value: LootPointAcid
-      objectReference: {fileID: 0}
     - target: {fileID: 1925890949723974931, guid: 13d54fbc25143c44cb500e1d31e30440,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3421,6 +3430,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1925890949723974928, guid: 13d54fbc25143c44cb500e1d31e30440,
+        type: 3}
+      propertyPath: m_Name
+      value: LootPointAcid
       objectReference: {fileID: 0}
     - target: {fileID: 2096038104095212887, guid: 13d54fbc25143c44cb500e1d31e30440,
         type: 3}
@@ -3478,3 +3492,15 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 5797371231300551062}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5576294062106494145 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2096038104095212887, guid: 13d54fbc25143c44cb500e1d31e30440,
+    type: 3}
+  m_PrefabInstance: {fileID: 5797371231300551062}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08b5da98c50b94e4d8030f0bed9aeae0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

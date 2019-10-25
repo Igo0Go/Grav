@@ -73,6 +73,7 @@ public class GravityThrowerScript : MyTools
     [Tooltip("Параметр кислотности - сколько связей структуры будет нарушено вокруг точки попадания.")]
     public int acidity = 3;
     [Tooltip("количество точек, между соседними А и Б (чем больше, тем сильнее сглаживание и выше нагрузка на систему)"), Range(6, 100)] public int segmentCount = 25;
+    [Tooltip("Сила броска"), Range(1, 100)] public float manipDropForce = 10;
     #endregion
 
     #region Приватные переменные
@@ -241,7 +242,7 @@ public class GravityThrowerScript : MyTools
                     item.damaged = true;
                 }
                 ReturnManip();
-                currentRB.AddForce((transform.forward + transform.up * 0.5f) * 10, ForceMode.Impulse);
+                currentRB.AddForce((transform.forward + transform.up * 0.5f) * manipDropForce, ForceMode.Impulse);
             }
 
             //nearPoint = ShootPoint.position + ShootPoint.forward * Vector3.Distance(ShootPoint.position, currentManipObj.transform.position) / 2;
