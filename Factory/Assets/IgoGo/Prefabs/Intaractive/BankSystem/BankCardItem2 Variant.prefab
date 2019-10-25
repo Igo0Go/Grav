@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 8851709586269882116, guid: da860c90460bbb24d8d1de7b575375c5,
         type: 3}
       propertyPath: m_Name
-      value: BankCardItem2
+      value: BankCardItem2 Variant
       objectReference: {fileID: 0}
     - target: {fileID: 6099126648448948845, guid: da860c90460bbb24d8d1de7b575375c5,
         type: 3}
@@ -72,5 +72,25 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 729cc40e19b384c4db61749a08322421, type: 2}
+    - target: {fileID: 1168125066835234764, guid: da860c90460bbb24d8d1de7b575375c5,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 74eb776b51447fa4481d7cba351e23fe, type: 2}
+    - target: {fileID: 2929018553306464724, guid: da860c90460bbb24d8d1de7b575375c5,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 74eb776b51447fa4481d7cba351e23fe, type: 2}
+    - target: {fileID: 3056439344906021987, guid: da860c90460bbb24d8d1de7b575375c5,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: cdbbfe7eec8ae4e4d958a6dda70590d0, type: 2}
+    - target: {fileID: 2483918513194137049, guid: da860c90460bbb24d8d1de7b575375c5,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: cdbbfe7eec8ae4e4d958a6dda70590d0, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: da860c90460bbb24d8d1de7b575375c5, type: 3}
