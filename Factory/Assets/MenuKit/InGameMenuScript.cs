@@ -56,8 +56,8 @@ public class InGameMenuScript : MyTools
     {
         if(player.inHub)
         {
-            player.gravFPSUI.SaveStats();
-            player.gravFPSUI.StatusPack.currentScene = "MainMenu";
+            player.gravFPSUI.StatusPack.currentScene = player.gravFPSUI.StatusPack.hubScene = "MainMenu";
+            player.ReturnStats();
             player.sceneManager.LoadNextScene();
         }
         else

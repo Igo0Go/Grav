@@ -217,9 +217,7 @@ public class GravFPS : MonoBehaviour
     public void LoadHubScene()
     {
         gravFPSUI.CheckSpheres();
-        gravFPSUI.StatusPack.money = gravFPSUI.StatusPack.saveMoney;
-        gravFPSUI.StatusPack.currentScene = gravFPSUI.StatusPack.hubScene;
-        gravFPSUI.StatusPack.acidCount = gravFPSUI.StatusPack.saveAcidCount;
+        ReturnStats();
         sceneManager.LoadNextScene();
     }
     public void RotateToGrav()
@@ -265,6 +263,12 @@ public class GravFPS : MonoBehaviour
     public void Ready(bool value)
     {
         gun.anim.SetBool("Ready", value);
+    }
+    public void ReturnStats()
+    {
+        gravFPSUI.StatusPack.money = gravFPSUI.StatusPack.saveMoney;
+        gravFPSUI.StatusPack.currentScene = gravFPSUI.StatusPack.hubScene;
+        gravFPSUI.StatusPack.acidCount = gravFPSUI.StatusPack.saveAcidCount;
     }
     #endregion
 

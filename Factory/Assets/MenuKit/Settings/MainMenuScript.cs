@@ -124,7 +124,7 @@ public static class DataLoader
         };
 
         System.Type[] extraTypes = { typeof(StatusPackContainer), typeof(LevelModuleStatus), typeof(PosPack), typeof(KeyCodeContainer),
-            typeof(KeyCode), typeof(AxisContainer), typeof(AudioSettingsPackContainer)};
+            typeof(KeyCode), typeof(AxisContainer), typeof(AudioSettingsPackContainer), typeof(InputKitContainer)};
         XmlSerializer serializer = new XmlSerializer(typeof(LoadData), extraTypes);
 
         string datapath = Application.dataPath + "/Saves";
@@ -143,7 +143,7 @@ public static class DataLoader
     {
         data = null;
         System.Type[] extraTypes = { typeof(StatusPackContainer), typeof(LevelModuleStatus), typeof(PosPack), typeof(KeyCodeContainer),
-            typeof(KeyCode), typeof(AxisContainer), typeof(AudioSettingsPackContainer)};
+            typeof(KeyCode), typeof(AxisContainer), typeof(AudioSettingsPackContainer), typeof(InputKitContainer)};
         XmlSerializer serializer = new XmlSerializer(typeof(LoadData), extraTypes);
         string datapath = Application.dataPath + "/Saves";
         if (!Directory.Exists(datapath))
@@ -211,6 +211,10 @@ public class MainMenuScript : MonoBehaviour
     }
     public void NewGame(int slot)
     {
+        if(DataLoader.LoadXML(slot, out LoadData data))
+        {
+            DataLoader.RemoveXML(slot);
+        }
         playerStatusPack.loadSlot = slot;
         playerStatusPack.saveAcidCount = playerStatusPack.saveSphere = playerStatusPack.saveMoney = playerStatusPack.lifeSphereCount = playerStatusPack.money = 0;
         playerStatusPack.acidCount = 0;
