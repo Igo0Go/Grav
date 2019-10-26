@@ -27638,7 +27638,8 @@ MonoBehaviour:
   - {fileID: 1391079345}
   - {fileID: 1048007285}
   usingObjects:
-  - {fileID: 1347055404}
+  - {fileID: 881482642}
+  - {fileID: 1850378714}
   lootObjects:
   - {fileID: 1704133601}
   - {fileID: 1161537258}
@@ -81040,11 +81041,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 9044560230640899427, guid: 36132e4bdd1a2a4449a062f85ace73cb,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 9044560231281737914, guid: 36132e4bdd1a2a4449a062f85ace73cb,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -81315,21 +81311,6 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4810478074717223638, guid: 36132e4bdd1a2a4449a062f85ace73cb,
-        type: 3}
-      propertyPath: shieldAudio
-      value: 
-      objectReference: {fileID: 1091312479}
-    - target: {fileID: 4810478074717223638, guid: 36132e4bdd1a2a4449a062f85ace73cb,
-        type: 3}
-      propertyPath: crolSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 32f390cbcb625c44c99a615010acc06a, type: 3}
-    - target: {fileID: 9044560230523452697, guid: 36132e4bdd1a2a4449a062f85ace73cb,
-        type: 3}
-      propertyPath: jumpForce
-      value: 7
-      objectReference: {fileID: 0}
     - target: {fileID: 9044560230523452698, guid: 36132e4bdd1a2a4449a062f85ace73cb,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -81345,10 +81326,20 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 8.19
       objectReference: {fileID: 0}
+    - target: {fileID: 9044560230640899427, guid: 36132e4bdd1a2a4449a062f85ace73cb,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2509714398223363083, guid: 36132e4bdd1a2a4449a062f85ace73cb,
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9044560230523452697, guid: 36132e4bdd1a2a4449a062f85ace73cb,
+        type: 3}
+      propertyPath: jumpForce
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 8538052713742517671, guid: 36132e4bdd1a2a4449a062f85ace73cb,
         type: 3}
@@ -81370,6 +81361,16 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4810478074717223638, guid: 36132e4bdd1a2a4449a062f85ace73cb,
+        type: 3}
+      propertyPath: shieldAudio
+      value: 
+      objectReference: {fileID: 1091312479}
+    - target: {fileID: 4810478074717223638, guid: 36132e4bdd1a2a4449a062f85ace73cb,
+        type: 3}
+      propertyPath: crolSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 32f390cbcb625c44c99a615010acc06a, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 36132e4bdd1a2a4449a062f85ace73cb, type: 3}
 --- !u!114 &2096775380 stripped
