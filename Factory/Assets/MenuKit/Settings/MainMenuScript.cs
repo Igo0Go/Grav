@@ -115,7 +115,11 @@ public static class DataLoader
 {
     public static void SaveXML(StatusPack statusPack, InputKit inputKit)
     {
-        LoadData data = new LoadData
+        if (DataLoader.LoadXML(statusPack.loadSlot, out LoadData data))
+        {
+            DataLoader.RemoveXML(statusPack.loadSlot);
+        }
+        data = new LoadData
         {
             statusPack = new StatusPackContainer(statusPack),
             levelModuleStatusKit = LevelModuleStatusSettings.levelModuleStatusList,
