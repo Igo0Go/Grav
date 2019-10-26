@@ -478,7 +478,7 @@ public class GravFPS : MonoBehaviour
         {
             Physics.gravity = saveGrav;
         }
-
+        OnGravChange?.Invoke();
         Physics.gravity = saveGrav;
         rb.velocity = Vector3.zero;
         transform.position = savePos;

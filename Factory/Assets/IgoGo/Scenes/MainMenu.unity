@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748172, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -17175,9 +17175,8 @@ MonoBehaviour:
   - {fileID: 3289898513628338515}
   mainMenuPanel: {fileID: 3289898511651305918}
   playerStatusPack: {fileID: 11400000, guid: 0d2c14a493d5a2d4cad620c11a86d708, type: 2}
-  audioSettings: {fileID: 11400000, guid: cf1c4dd2ed35f514091905a307e3b797, type: 2}
   inputKit: {fileID: 11400000, guid: afe6e1ae2c6f92c4a8fa026f3f5ffb54, type: 2}
-  startScene: SaveTestHub
+  startScene: StartHub
 --- !u!224 &3289898512608601471
 RectTransform:
   m_ObjectHideFlags: 0
@@ -17584,7 +17583,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   manager: {fileID: 3289898513628338516}
-  audioSettings: {fileID: 11400000, guid: cf1c4dd2ed35f514091905a307e3b797, type: 2}
   musicSlider: {fileID: 3289898512891345304}
   otherAudioSlider: {fileID: 3289898511992835148}
   audioSettingsPanel: {fileID: 3289898512471723076}

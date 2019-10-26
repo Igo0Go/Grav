@@ -9,6 +9,9 @@ public class AudioChanger : MonoBehaviour
 
     public void VolumeUpdate(float value)
     {
-        source.volume = value;
+        if(source != null)
+        {
+            source.volume = value;
+        }
     }
 }

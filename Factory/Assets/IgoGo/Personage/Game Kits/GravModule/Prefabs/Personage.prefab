@@ -8745,6 +8745,7 @@ MonoBehaviour:
   manipulationRange: 30
   acidity: 10
   segmentCount: 25
+  manipDropForce: 20
 --- !u!95 &9044560231256446591
 Animator:
   serializedVersion: 3
@@ -10756,7 +10757,7 @@ PrefabInstance:
     - target: {fileID: 7745773842186112618, guid: 31e35d0ef9ef63046a3cb8efafafc28d,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.00001090765
+      value: -0.00001954664
       objectReference: {fileID: 0}
     - target: {fileID: 7745773842186112618, guid: 31e35d0ef9ef63046a3cb8efafafc28d,
         type: 3}
@@ -10768,6 +10769,16 @@ PrefabInstance:
       propertyPath: m_Size
       value: 0.59238505
       objectReference: {fileID: 0}
+    - target: {fileID: 7745773842066152653, guid: 31e35d0ef9ef63046a3cb8efafafc28d,
+        type: 3}
+      propertyPath: m_Value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7745773842066152653, guid: 31e35d0ef9ef63046a3cb8efafafc28d,
+        type: 3}
+      propertyPath: m_Size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7745773842496426772, guid: 31e35d0ef9ef63046a3cb8efafafc28d,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -10776,6 +10787,11 @@ PrefabInstance:
     - target: {fileID: 7745773842496426772, guid: 31e35d0ef9ef63046a3cb8efafafc28d,
         type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7745773842496426772, guid: 31e35d0ef9ef63046a3cb8efafafc28d,
+        type: 3}
+      propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7745773842988904123, guid: 31e35d0ef9ef63046a3cb8efafafc28d,
