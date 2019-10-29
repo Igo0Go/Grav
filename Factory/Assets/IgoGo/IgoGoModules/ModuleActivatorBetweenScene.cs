@@ -5,7 +5,7 @@ using UnityEngine;
 public class ModuleActivatorBetweenScene : UsingObject
 {
     public string sceneName;
-    [Range(0,1000)]public int moduleIndexInScene;
+    public List<int> moduleIndexInSceneList;
 
     private LevelModuleStatus moduleStatus;
 
@@ -14,20 +14,25 @@ public class ModuleActivatorBetweenScene : UsingObject
         used = false;
         if(LevelModuleStatusSettings.Find(sceneName, out moduleStatus))
         {
-            if(!(moduleStatus.moduleStatusList.Count > moduleIndexInScene))
+            for (int i = 0; i < moduleIndexInSceneList.Count; i++)
             {
-                Debug.LogError("На сцене " + sceneName + " не найден модуль с индексом " + moduleIndexInScene);
+                if (!(moduleStatus.moduleStatusList.Count > moduleIndexInSceneList[i]))
+                {
+                    Debug.LogError("На сцене " + sceneName + " не найден модуль с индексом " + moduleIndexInSceneList[i]);
+                }
             }
         }
         else
         {
             Debug.LogError("Не найдена сцена " + sceneName);
-
         }
     }
     public override void Use()
     {
-        moduleStatus.moduleStatusList[moduleIndexInScene] = true;
+        for (int i = 0; i < moduleIndexInSceneList.Count; i++)
+        {
+            moduleStatus.moduleStatusList[moduleIndexInSceneList[i]] = true;
+        }
     }
     void Start()
     {

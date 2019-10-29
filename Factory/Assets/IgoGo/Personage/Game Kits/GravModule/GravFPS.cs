@@ -477,9 +477,11 @@ public class GravFPS : MonoBehaviour
         if (planet != null)
         {
             planet = savePlanet;
+            transform.parent = gravObj;
         }
         else
         {
+            transform.parent = null;
             Physics.gravity = saveGrav;
         }
         OnGravChange?.Invoke();

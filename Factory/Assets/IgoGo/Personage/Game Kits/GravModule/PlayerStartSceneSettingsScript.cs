@@ -18,7 +18,7 @@ public class PlayerStartSceneSettingsScript : MonoBehaviour
     {
         if (player.gravFPSUI.StatusPack.hubPoint > items.Count - 1)
         {
-            Debug.LogError("Нет позиции ждя игрока с указанным индексом.");
+            Debug.LogError("Нет позиции для игрока с указанным индексом.");
         }
         else
         {
