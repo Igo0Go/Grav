@@ -22,10 +22,18 @@ public class BezierReactor : MyTools
     }
     private void Update()
     {
-        if(gravFPS.Status == PlayerState.speceUse)
+        if (gravFPS.Status == PlayerState.speceUse && !gravFPS.OnGround())
         {
-            MoveToTarget();
+            if (Input.GetKeyDown(gravFPS.inputSettingsManager.GetKey("Jump")))
+            {
+                StopMove();
+                gravFPS.rb.AddForce(transform.up, ForceMode.Impulse);
+            }
         }
+    }
+    private void FixedUpdate()
+    {
+        MoveToTarget();
     }
 
     private void GetNearPoint()
@@ -63,11 +71,6 @@ public class BezierReactor : MyTools
                 transform.position = targetPoint;
                 CheckTargetPoint();
             }
-        }
-        if(Input.GetKeyDown(gravFPS.inputSettingsManager.GetKey("Jump")))
-        {
-            StopMove();
-            gravFPS.rb.AddForce(transform.up, ForceMode.Impulse);
         }
     }
     private void CheckTargetPoint()
