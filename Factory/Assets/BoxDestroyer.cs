@@ -27,7 +27,7 @@ public class BoxDestroyer : MyTools
             {
                 if (MyGetComponent(transform.GetChild(i).gameObject, out col))
                 {
-                    Destroy(col);
+                     DestroyImmediate(col);
                 }
             }
             clear = false;
