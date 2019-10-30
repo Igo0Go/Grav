@@ -13,7 +13,7 @@ public class QuinScript : UsingObject, ITargetTracker
     private int attack;
 
     public Transform Target => toTarget?  _target : transform;
-    private bool NearWithTarget => Vector3.Distance(body.position, Target.position) <= speed * Time.deltaTime * 2;
+    private bool NearWithTarget => Vector3.Distance(body.position, Target.position) <= speed * Time.deltaTime * 3;
 
     void Update()
     {
@@ -68,7 +68,7 @@ public class QuinScript : UsingObject, ITargetTracker
         if (attack != 0)
         {
             Vector3 currentDirection = (Target.position + Target.up) - body.position;
-            body.forward = currentDirection;
+            //body.forward = currentDirection;
             if (NearWithTarget)
             {
                 body.position = Target.position;
