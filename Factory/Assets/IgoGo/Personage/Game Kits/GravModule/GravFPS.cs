@@ -34,6 +34,7 @@ public class GravFPS : MonoBehaviour
     public AudioSource source;
     [Tooltip("0 - земля, 1 - металл, 3 - трава")] public List<AudioClip> stepPack;
     [Tooltip("0 - земля, 1 - металл, 3 - трава")] public List<AudioClip> fallPack;
+    [Tooltip("Звук падения в воду")] public AudioClip waterClip;
     [Space(20)]
     [Tooltip("Transform камеры игрока")]
     public Transform cam;
@@ -629,6 +630,13 @@ public class GravFPS : MonoBehaviour
         if (other.tag.Equals("DeadZone"))
         {
             Death();
+            return;
+        }
+        else if (other.tag.Equals("Water"))
+        {
+            source.PlayOneShot(waterClip);
+            Invoke("Death", 1);
+            return;
         }
         else if(other.tag.Equals("Loot"))
         {
@@ -637,6 +645,7 @@ public class GravFPS : MonoBehaviour
             { 
                 loot.SetTarget(this);
             }
+            return;
         }
         else if (other.tag.Equals("CheckPoint"))
         {
@@ -646,6 +655,7 @@ public class GravFPS : MonoBehaviour
                 savePoint.Save(transform);
                 Save(savePoint.transform);
             }
+            return;
         }
         else if(other.tag.Equals("SceneLoad"))
         {
@@ -655,11 +665,13 @@ public class GravFPS : MonoBehaviour
         {
             currentLootPoint = other.GetComponent<LootPointScript>();
             gravFPSUI.SetTip(currentLootPoint, inputSettingsManager);
+            return;
         }
         else if (other.tag.Equals("MoveTransform"))
         {
             currentMoveTransformCol = other;
             transform.parent = currentMoveTransformCol.transform;
+            return;
         }
         else if(other.tag.Equals("EnemyView"))
         {
