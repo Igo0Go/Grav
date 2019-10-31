@@ -536,7 +536,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.030000001, y: 0.083333336}
   m_AnchorMax: {x: 0.275, y: 0.90000004}
-  m_AnchoredPosition: {x: -3.09, y: 0.5}
+  m_AnchoredPosition: {x: -3.0899963, y: 0.5}
   m_SizeDelta: {x: -4.18, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &637399960182886255
@@ -828,21 +828,15 @@ MonoBehaviour:
   subsPanel: {fileID: 8295704574385412668}
   subs: {fileID: 5064448054403448880}
   actionReplicas:
-  - text: "\u041B\u0430\u0434\u043D\u043E. \u0414\u0430\u0432\u0430\u0439 \u0441\u0434\u0435\u043B\u0430\u044E."
-    audioClip: {fileID: 8300000, guid: 3f27c9f3dd090394aab22ca0c37197ac, type: 3}
-  - text: "\u041D\u0443, \u0435\u0441\u043B\u0438 \u0442\u044F\u043C\u0443 \u043D\u0435
-      \u0445\u0432\u0430\u0442\u0430\u0435\u0442, \u0442\u043E \u0434\u0430\u0432\u0430\u0439
-      \u043F\u043E\u043C\u043E\u0433\u0443."
-    audioClip: {fileID: 8300000, guid: 6a4b00b45b84166488e5d513ab3a5057, type: 3}
-  - text: "\u0429\u0430 \u0432\u0441\u0451 \u0431\u0443\u0434\u0435\u0442."
-    audioClip: {fileID: 8300000, guid: 0f9912226631dab4493b3dbe5927f5a2, type: 3}
+  - text: "\u042F \u043F\u043E\u0447\u0438\u043D\u044E"
+    audioClip: {fileID: 8300000, guid: a1c8a6b6b88bd7c4e87e19bfe7fa84bd, type: 3}
+  - text: "\u0421\u0435\u0439\u0447\u0430\u0441"
+    audioClip: {fileID: 8300000, guid: b75119e7a718e9f4f8ff4d1120f2589b, type: 3}
   altUseReplicas:
-  - text: "\u041C\u043E\u0436\u0435\u0442, \u0442\u044B \u0441\u0430\u043C?"
-    audioClip: {fileID: 8300000, guid: b5b91e3215b0c5b449633c4a459b318b, type: 3}
-  - text: "\u0410 \u043C\u043E\u0436\u0435\u0442, \u044F \u0442\u0443\u0442 \u043F\u043E\u0441\u0442\u0430\u044E?"
-    audioClip: {fileID: 8300000, guid: efcc39d8c7627b94bb97ef86dd0a8ce6, type: 3}
-  - text: "\u0422\u044B \u0443\u0432\u0435\u0440\u0435\u043D?"
-    audioClip: {fileID: 8300000, guid: e033deda6123b3643964fc62d5f094dc, type: 3}
+  - text: "\u0422\u044B \u0432 \u043F\u043E\u0440\u044F\u0434\u043A\u0435?"
+    audioClip: {fileID: 8300000, guid: 192adb99ee505794aaf29b6891c336cb, type: 3}
+  - text: "\u041E\u0441\u0442\u043E\u0440\u043E\u0436\u043D\u0435\u0439"
+    audioClip: {fileID: 8300000, guid: 38aba97435235054bbcba096191bcea3, type: 3}
   shieldAudio: {fileID: 6770608243115020072}
   crolSound: {fileID: 8300000, guid: 32f390cbcb625c44c99a615010acc06a, type: 3}
 --- !u!54 &5594301093378156175
@@ -1392,7 +1386,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 2.3, y: 0}
+  m_AnchoredPosition: {x: 2.300003, y: 0}
   m_SizeDelta: {x: -4.6, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9044560230408686872
@@ -1982,7 +1976,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.030000001, y: 0.083333336}
   m_AnchorMax: {x: 0.275, y: 0.90000004}
-  m_AnchoredPosition: {x: -3.09, y: 0.5}
+  m_AnchoredPosition: {x: -3.0899963, y: 0.5}
   m_SizeDelta: {x: -4.18, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9044560230552465374

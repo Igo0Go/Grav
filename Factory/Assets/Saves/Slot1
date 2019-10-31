@@ -2,17 +2,17 @@
 <GameLoadData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <statusPack>
     <loadSlot>1</loadSlot>
-    <currentScene>Mission1</currentScene>
+    <currentScene>LaboratoryHub</currentScene>
     <hubScene>LaboratoryHub</hubScene>
     <loadStatus>0</loadStatus>
-    <money>2</money>
+    <money>105</money>
     <lifeSphereCount>6</lifeSphereCount>
-    <acidCount>4</acidCount>
-    <saveMoney>2</saveMoney>
+    <acidCount>3</acidCount>
+    <saveMoney>105</saveMoney>
     <saveSphere>6</saveSphere>
-    <saveAcidCount>4</saveAcidCount>
+    <saveAcidCount>3</saveAcidCount>
     <maxAcidCount>5</maxAcidCount>
-    <hubPoint>1</hubPoint>
+    <hubPoint>2</hubPoint>
     <cards>
       <boolean>false</boolean>
       <boolean>false</boolean>
@@ -27,8 +27,8 @@
     </saveCards>
   </statusPack>
   <audioSettings>
-    <musicMultiplicator>0</musicMultiplicator>
-    <otherAudioMultiplicator>0</otherAudioMultiplicator>
+    <musicMultiplicator>0.233377054</musicMultiplicator>
+    <otherAudioMultiplicator>1</otherAudioMultiplicator>
   </audioSettings>
   <LevelModuleStatusKit>
     <LevelModuleStatusItem>
@@ -45,588 +45,588 @@
         <SavedTransformItem>
           <Position>
             <x>9.223511</x>
-            <y>5.790573</y>
-            <z>27.4159622</z>
+            <y>5.790659</y>
+            <z>27.4162083</z>
           </Position>
           <Rotation>
-            <x>0.0280817728</x>
-            <y>0.002238475</y>
-            <z>359.9553</z>
+            <x>0.0361329</x>
+            <y>-0.003746148</y>
+            <z>359.966553</z>
           </Rotation>
         </SavedTransformItem>
         <SavedTransformItem>
           <Position>
-            <x>9.223541</x>
-            <y>5.790678</y>
-            <z>28.2484379</z>
+            <x>9.22355652</x>
+            <y>5.79063034</y>
+            <z>28.2484</z>
           </Position>
           <Rotation>
-            <x>0.0112213753</x>
-            <y>0.0864449143</y>
-            <z>359.9666</z>
+            <x>0.0107256882</x>
+            <y>0.09138249</y>
+            <z>359.959534</z>
           </Rotation>
         </SavedTransformItem>
         <SavedTransformItem>
           <Position>
-            <x>9.222107</x>
+            <x>9.221359</x>
             <y>5.79064941</y>
-            <z>26.595747</z>
+            <z>26.5976238</z>
           </Position>
           <Rotation>
-            <x>0.24025698</x>
-            <y>359.855835</y>
-            <z>359.962036</z>
+            <x>0.109757483</x>
+            <y>359.786682</y>
+            <z>359.9604</z>
           </Rotation>
         </SavedTransformItem>
         <SavedTransformItem>
           <Position>
-            <x>9.224091</x>
-            <y>5.790697</y>
-            <z>25.8018379</z>
+            <x>9.224075</x>
+            <y>5.790848</y>
+            <z>25.8010426</z>
           </Position>
           <Rotation>
-            <x>359.903137</x>
-            <y>0.0572551563</y>
-            <z>359.972015</z>
+            <x>0.00295529165</x>
+            <y>0.07116116</y>
+            <z>0.00236956752</z>
+          </Rotation>
+        </SavedTransformItem>
+        <SavedTransformItem>
+          <Position>
+            <x>9.225052</x>
+            <y>5.790867</y>
+            <z>25.0049725</z>
+          </Position>
+          <Rotation>
+            <x>359.8857</x>
+            <y>0.1436254</y>
+            <z>359.983246</z>
+          </Rotation>
+        </SavedTransformItem>
+        <SavedTransformItem>
+          <Position>
+            <x>9.230896</x>
+            <y>6.331005</y>
+            <z>27.4018421</z>
+          </Position>
+          <Rotation>
+            <x>0.178617463</x>
+            <y>0.0703346953</y>
+            <z>359.949</z>
+          </Rotation>
+        </SavedTransformItem>
+        <SavedTransformItem>
+          <Position>
+            <x>9.239273</x>
+            <y>6.330864</y>
+            <z>28.23123</z>
+          </Position>
+          <Rotation>
+            <x>0.221824646</x>
+            <y>0.1612223</y>
+            <z>359.949738</z>
+          </Rotation>
+        </SavedTransformItem>
+        <SavedTransformItem>
+          <Position>
+            <x>9.224701</x>
+            <y>6.33083534</y>
+            <z>26.6028347</z>
+          </Position>
+          <Rotation>
+            <x>0.10363207</x>
+            <y>0.191124514</y>
+            <z>359.90506</z>
           </Rotation>
         </SavedTransformItem>
         <SavedTransformItem>
           <Position>
             <x>9.22403</x>
+            <y>6.332199</y>
+            <z>25.8029175</z>
+          </Position>
+          <Rotation>
+            <x>359.884949</x>
+            <y>359.959076</y>
+            <z>359.9318</z>
+          </Rotation>
+        </SavedTransformItem>
+        <SavedTransformItem>
+          <Position>
+            <x>9.220184</x>
+            <y>6.33254051</y>
+            <z>24.9725838</z>
+          </Position>
+          <Rotation>
+            <x>359.9836</x>
+            <y>0.490833133</y>
+            <z>359.9516</z>
+          </Rotation>
+        </SavedTransformItem>
+        <SavedTransformItem>
+          <Position>
+            <x>10.714035</x>
             <y>5.790867</y>
-            <z>25.00698</z>
+            <z>27.4164543</z>
           </Position>
           <Rotation>
-            <x>359.866547</x>
-            <y>0.05614954</y>
-            <z>359.992554</z>
+            <x>0.00458850525</x>
+            <y>359.992126</y>
+            <z>359.9895</z>
           </Rotation>
         </SavedTransformItem>
         <SavedTransformItem>
           <Position>
-            <x>9.229813</x>
-            <y>6.33074</y>
-            <z>27.4004784</z>
-          </Position>
-          <Rotation>
-            <x>0.211354792</x>
-            <y>0.00176002714</y>
-            <z>359.970917</z>
-          </Rotation>
-        </SavedTransformItem>
-        <SavedTransformItem>
-          <Position>
-            <x>9.238007</x>
-            <y>6.33153725</y>
-            <z>28.2307549</z>
-          </Position>
-          <Rotation>
-            <x>0.258216381</x>
-            <y>0.0999276042</y>
-            <z>359.955353</z>
-          </Rotation>
-        </SavedTransformItem>
-        <SavedTransformItem>
-          <Position>
-            <x>9.22551</x>
-            <y>6.33136559</y>
-            <z>26.6026649</z>
-          </Position>
-          <Rotation>
-            <x>359.9652</x>
-            <y>0.06270338</y>
-            <z>359.968384</z>
-          </Rotation>
-        </SavedTransformItem>
-        <SavedTransformItem>
-          <Position>
-            <x>9.221985</x>
-            <y>6.33239937</y>
-            <z>25.7968922</z>
-          </Position>
-          <Rotation>
-            <x>0.08410951</x>
-            <y>0.24072428</y>
-            <z>359.940125</z>
-          </Rotation>
-        </SavedTransformItem>
-        <SavedTransformItem>
-          <Position>
-            <x>9.208176</x>
-            <y>6.33247375</y>
-            <z>24.9518681</z>
-          </Position>
-          <Rotation>
-            <x>359.80954</x>
-            <y>0.5056824</y>
-            <z>-0.00233321427</z>
-          </Rotation>
-        </SavedTransformItem>
-        <SavedTransformItem>
-          <Position>
-            <x>10.71402</x>
+            <x>10.7162781</x>
             <y>5.790867</y>
-            <z>27.41632</z>
+            <z>28.2586536</z>
           </Position>
           <Rotation>
-            <x>0.00335649867</x>
-            <y>359.993622</y>
-            <z>359.9896</z>
+            <x>359.8778</x>
+            <y>0.207453609</y>
+            <z>0.007175747</z>
           </Rotation>
         </SavedTransformItem>
         <SavedTransformItem>
           <Position>
-            <x>10.715271</x>
-            <y>5.79087639</y>
-            <z>28.26161</z>
+            <x>10.7131348</x>
+            <y>5.79089546</y>
+            <z>26.6010342</z>
           </Position>
           <Rotation>
-            <x>359.7349</x>
-            <y>0.104247175</y>
-            <z>0.0241944827</z>
+            <x>0.0372674875</x>
+            <y>359.822235</y>
+            <z>359.987823</z>
           </Rotation>
         </SavedTransformItem>
         <SavedTransformItem>
           <Position>
-            <x>10.7135925</x>
+            <x>10.7134094</x>
+            <y>5.79089546</y>
+            <z>25.8026714</z>
+          </Position>
+          <Rotation>
+            <x>0.0210154448</x>
+            <y>359.9462</y>
+            <z>-0.000949120033</z>
+          </Rotation>
+        </SavedTransformItem>
+        <SavedTransformItem>
+          <Position>
+            <x>10.7147369</x>
             <y>5.790905</y>
-            <z>26.5990829</z>
+            <z>25.0058823</z>
           </Position>
           <Rotation>
-            <x>0.06407388</x>
-            <y>359.904236</y>
-            <z>359.991516</z>
+            <x>359.942139</x>
+            <y>0.09356293</y>
+            <z>0.004231971</z>
           </Rotation>
         </SavedTransformItem>
         <SavedTransformItem>
           <Position>
-            <x>10.71373</x>
-            <y>5.79083824</y>
-            <z>25.8021984</z>
+            <x>9.341156</x>
+            <y>6.87120056</y>
+            <z>28.25981</z>
           </Position>
           <Rotation>
-            <x>0.05232568</x>
-            <y>359.969849</y>
-            <z>359.991272</z>
+            <x>0.355760425</x>
+            <y>1.58532929</y>
+            <z>359.913574</z>
           </Rotation>
         </SavedTransformItem>
         <SavedTransformItem>
           <Position>
-            <x>10.7142639</x>
-            <y>5.79093361</y>
-            <z>25.0070763</z>
+            <x>9.294464</x>
+            <y>6.871647</y>
+            <z>27.4189568</z>
           </Position>
           <Rotation>
-            <x>359.883942</x>
-            <y>0.04917613</y>
-            <z>0.008805061</z>
+            <x>0.2168705</x>
+            <y>1.532544</y>
+            <z>359.981567</z>
           </Rotation>
         </SavedTransformItem>
         <SavedTransformItem>
           <Position>
-            <x>9.339233</x>
-            <y>6.87169456</y>
-            <z>28.2589188</z>
+            <x>9.257584</x>
+            <y>6.873192</y>
+            <z>26.5356865</z>
           </Position>
           <Rotation>
-            <x>0.407479</x>
-            <y>1.53986549</y>
-            <z>359.9083</z>
+            <x>0.135369316</x>
+            <y>359.579041</y>
+            <z>359.922363</z>
           </Rotation>
         </SavedTransformItem>
         <SavedTransformItem>
           <Position>
-            <x>9.292435</x>
-            <y>6.870859</y>
-            <z>27.4183884</z>
-          </Position>
-          <Rotation>
-            <x>0.3789057</x>
-            <y>1.53226411</y>
-            <z>0.0431665741</z>
-          </Rotation>
-        </SavedTransformItem>
-        <SavedTransformItem>
-          <Position>
-            <x>9.261337</x>
-            <y>6.872404</y>
-            <z>26.5364075</z>
-          </Position>
-          <Rotation>
-            <x>0.09187082</x>
-            <y>359.4425</y>
-            <z>359.937042</z>
-          </Rotation>
-        </SavedTransformItem>
-        <SavedTransformItem>
-          <Position>
-            <x>10.8820343</x>
+            <x>10.8833923</x>
             <y>6.33231354</y>
-            <z>27.44166</z>
+            <z>27.4431381</z>
           </Position>
           <Rotation>
-            <x>0.0843281746</x>
-            <y>1.53371513</y>
-            <z>359.9364</z>
+            <x>0.08722855</x>
+            <y>1.53108013</y>
+            <z>359.936279</z>
           </Rotation>
         </SavedTransformItem>
         <SavedTransformItem>
           <Position>
-            <x>10.8794708</x>
-            <y>6.333109</y>
-            <z>28.2856979</z>
+            <x>10.88031</x>
+            <y>6.332741</y>
+            <z>28.28949</z>
           </Position>
           <Rotation>
-            <x>359.923553</x>
-            <y>359.271576</y>
-            <z>359.952576</z>
+            <x>0.0052157</x>
+            <y>359.008179</y>
+            <z>359.937134</z>
           </Rotation>
         </SavedTransformItem>
         <SavedTransformItem>
           <Position>
-            <x>10.8023529</x>
-            <y>6.333044</y>
-            <z>26.3645115</z>
+            <x>10.7955475</x>
+            <y>6.332939</y>
+            <z>26.3578777</z>
           </Position>
           <Rotation>
-            <x>0.0009791109</x>
-            <y>344.841949</y>
-            <z>359.98468</z>
+            <x>-0.0041856626</x>
+            <y>345.224854</y>
+            <z>359.981781</z>
           </Rotation>
         </SavedTransformItem>
         <SavedTransformItem>
           <Position>
-            <x>9.22348</x>
-            <y>5.790848</y>
-            <z>29.046175</z>
+            <x>9.223831</x>
+            <y>5.79085732</y>
+            <z>29.0453033</z>
           </Position>
           <Rotation>
-            <x>359.950531</x>
-            <y>0.0617278069</y>
-            <z>2.22385879E-05</z>
+            <x>359.9767</x>
+            <y>0.09123337</y>
+            <z>-0.00417792471</z>
           </Rotation>
         </SavedTransformItem>
         <SavedTransformItem>
           <Position>
-            <x>9.222183</x>
-            <y>5.79077148</y>
-            <z>29.8421116</z>
+            <x>9.221756</x>
+            <y>5.7908</y>
+            <z>29.8433819</z>
           </Position>
           <Rotation>
-            <x>0.09689179</x>
-            <y>359.884857</y>
-            <z>359.971863</z>
+            <x>0.05754099</x>
+            <y>359.8437</y>
+            <z>359.97934</z>
           </Rotation>
         </SavedTransformItem>
         <SavedTransformItem>
           <Position>
-            <x>10.8408051</x>
+            <x>10.8400726</x>
             <y>5.79093361</y>
-            <z>29.2954922</z>
+            <z>29.2970657</z>
           </Position>
           <Rotation>
-            <x>0.214685887</x>
-            <y>338.125183</y>
-            <z>359.933441</z>
+            <x>0.0946143344</x>
+            <y>338.071442</y>
+            <z>359.970062</z>
           </Rotation>
         </SavedTransformItem>
         <SavedTransformItem>
           <Position>
-            <x>9.229675</x>
-            <y>6.33280563</y>
-            <z>29.1150856</z>
+            <x>9.22998</x>
+            <y>6.332958</y>
+            <z>29.11499</z>
           </Position>
           <Rotation>
-            <x>-0.00359104131</x>
-            <y>0.189053252</y>
-            <z>359.95755</z>
+            <x>359.9339</x>
+            <y>0.192367077</y>
+            <z>-0.004623703</z>
           </Rotation>
         </SavedTransformItem>
         <SavedTransformItem>
           <Position>
-            <x>9.250488</x>
-            <y>6.332323</y>
-            <z>29.9151154</z>
+            <x>9.251083</x>
+            <y>6.33215141</y>
+            <z>29.9168224</z>
           </Position>
           <Rotation>
-            <x>0.133443266</x>
-            <y>0.415831238</y>
-            <z>359.931671</z>
+            <x>0.137527317</x>
+            <y>0.45053485</y>
+            <z>359.946045</z>
           </Rotation>
         </SavedTransformItem>
         <SavedTransformItem>
           <Position>
-            <x>41.7838135</x>
-            <y>8.274708</y>
-            <z>34.6383133</z>
+            <x>41.78351</x>
+            <y>8.274775</y>
+            <z>34.6389236</z>
           </Position>
           <Rotation>
-            <x>0.0709361061</x>
-            <y>359.9178</y>
-            <z>359.971283</z>
+            <x>0.0616119839</x>
+            <y>359.89502</y>
+            <z>359.970825</z>
           </Rotation>
         </SavedTransformItem>
         <SavedTransformItem>
           <Position>
-            <x>42.4032745</x>
-            <y>8.274481</y>
-            <z>41.2883873</z>
+            <x>42.4036255</x>
+            <y>8.2745</y>
+            <z>41.288475</z>
           </Position>
           <Rotation>
-            <x>359.926544</x>
-            <y>0.0125995614</y>
-            <z>359.909454</z>
+            <x>0.0153660178</x>
+            <y>0.0259598177</y>
+            <z>359.913635</z>
           </Rotation>
         </SavedTransformItem>
         <SavedTransformItem>
           <Position>
-            <x>42.4177551</x>
-            <y>8.27614</y>
-            <z>42.22767</z>
+            <x>42.4178772</x>
+            <y>8.27465248</y>
+            <z>42.2274323</z>
           </Position>
           <Rotation>
-            <x>359.71994</x>
-            <y>0.0867719054</y>
-            <z>359.826447</z>
+            <x>0.00347067579</x>
+            <y>0.0468086</y>
+            <z>359.950653</z>
           </Rotation>
         </SavedTransformItem>
         <SavedTransformItem>
           <Position>
-            <x>41.9603577</x>
+            <x>41.96051</x>
             <y>8.815758</y>
-            <z>34.7155838</z>
+            <z>34.7190437</z>
           </Position>
           <Rotation>
-            <x>0.0460861661</x>
-            <y>1.50447071</y>
-            <z>0.05330328</z>
+            <x>0.00461752573</x>
+            <y>1.7130754</y>
+            <z>0.0279708579</z>
           </Rotation>
         </SavedTransformItem>
         <SavedTransformItem>
           <Position>
-            <x>41.6785431</x>
-            <y>8.813057</y>
-            <z>41.2584419</z>
+            <x>41.677887</x>
+            <y>8.813198</y>
+            <z>41.2556763</z>
           </Position>
           <Rotation>
-            <x>359.711639</x>
-            <y>0.528129458</y>
-            <z>359.930634</z>
+            <x>359.993958</x>
+            <y>0.502123237</y>
+            <z>359.971039</z>
           </Rotation>
         </SavedTransformItem>
         <SavedTransformItem>
           <Position>
-            <x>42.344986</x>
-            <y>8.814676</y>
-            <z>42.21447</z>
+            <x>42.3432159</x>
+            <y>8.815008</y>
+            <z>42.21591</z>
           </Position>
           <Rotation>
-            <x>359.619873</x>
-            <y>0.0597126819</y>
-            <z>0.00343414955</z>
+            <x>359.810028</x>
+            <y>0.005292765</y>
+            <z>0.0245277137</z>
           </Rotation>
         </SavedTransformItem>
         <SavedTransformItem>
           <Position>
-            <x>40.5673981</x>
-            <y>8.275049</y>
-            <z>41.91909</z>
+            <x>40.56668</x>
+            <y>8.274908</y>
+            <z>41.9186249</z>
           </Position>
           <Rotation>
-            <x>0.10918951</x>
-            <y>339.970154</y>
-            <z>0.0131608918</z>
+            <x>0.048693426</x>
+            <y>339.9474</y>
+            <z>0.006863182</z>
           </Rotation>
         </SavedTransformItem>
         <SavedTransformItem>
           <Position>
-            <x>36.5972</x>
-            <y>8.274746</y>
-            <z>21.67097</z>
+            <x>36.5992126</x>
+            <y>8.274975</y>
+            <z>21.6690578</z>
           </Position>
           <Rotation>
-            <x>0.0262210052</x>
-            <y>0.0264999662</y>
-            <z>359.964935</z>
+            <x>0.00752668828</x>
+            <y>0.533629954</y>
+            <z>359.989624</z>
           </Rotation>
         </SavedTransformItem>
         <SavedTransformItem>
           <Position>
-            <x>36.52008</x>
-            <y>8.81517</y>
-            <z>21.6400223</z>
+            <x>36.6920776</x>
+            <y>8.814581</y>
+            <z>21.5222912</z>
           </Position>
           <Rotation>
-            <x>359.8851</x>
-            <y>1.2727598</y>
-            <z>359.958862</z>
+            <x>0.1714508</x>
+            <y>7.78304863</y>
+            <z>359.8611</z>
           </Rotation>
         </SavedTransformItem>
         <SavedTransformItem>
           <Position>
-            <x>43.7205048</x>
-            <y>10.9620209</y>
-            <z>14.3438692</z>
+            <x>43.72052</x>
+            <y>10.9619827</y>
+            <z>14.3437738</z>
           </Position>
           <Rotation>
-            <x>359.967438</x>
-            <y>348.762421</y>
-            <z>0.008020594</z>
+            <x>359.985382</x>
+            <y>348.760284</y>
+            <z>0.0131757865</z>
           </Rotation>
         </SavedTransformItem>
         <SavedTransformItem>
           <Position>
-            <x>36.78984</x>
-            <y>9.355686</y>
-            <z>21.7404137</z>
+            <x>36.96788</x>
+            <y>9.355858</y>
+            <z>21.5336819</z>
           </Position>
           <Rotation>
-            <x>0.009468013</x>
-            <y>340.124176</y>
-            <z>359.954163</z>
+            <x>0.155105531</x>
+            <y>347.391235</y>
+            <z>359.789948</z>
           </Rotation>
         </SavedTransformItem>
         <SavedTransformItem>
           <Position>
             <x>44.2241821</x>
-            <y>10.9621639</y>
-            <z>15.4013462</z>
+            <y>10.9620972</y>
+            <z>15.4014225</z>
           </Position>
           <Rotation>
-            <x>-0.00204179925</x>
-            <y>342.363342</y>
-            <z>359.989441</z>
+            <x>0.00479186</x>
+            <y>342.361938</y>
+            <z>-0.0016843956</z>
           </Rotation>
         </SavedTransformItem>
         <SavedTransformItem>
           <Position>
-            <x>44.15358</x>
-            <y>11.5042629</y>
-            <z>14.7596807</z>
+            <x>44.15367</x>
+            <y>11.50415</y>
+            <z>14.7598515</z>
           </Position>
           <Rotation>
-            <x>359.920319</x>
-            <y>352.493958</y>
-            <z>359.968658</z>
+            <x>359.975342</x>
+            <y>352.489227</y>
+            <z>359.991425</z>
           </Rotation>
         </SavedTransformItem>
         <SavedTransformItem>
           <Position>
-            <x>36.6139832</x>
-            <y>8.274746</y>
-            <z>17.2493782</z>
+            <x>36.6139069</x>
+            <y>8.274784</y>
+            <z>17.2479</z>
           </Position>
           <Rotation>
-            <x>0.0173396729</x>
-            <y>25.5618839</y>
-            <z>359.963074</z>
+            <x>0.022867851</x>
+            <y>25.6688919</y>
+            <z>359.966675</z>
           </Rotation>
         </SavedTransformItem>
         <SavedTransformItem>
           <Position>
-            <x>36.6113739</x>
-            <y>8.815037</y>
-            <z>17.2116814</z>
+            <x>36.59001</x>
+            <y>8.8146</y>
+            <z>17.1869888</z>
           </Position>
           <Rotation>
-            <x>0.0359714553</x>
-            <y>354.8961</y>
-            <z>359.834045</z>
+            <x>359.7871</x>
+            <y>358.5936</y>
+            <z>359.914673</z>
           </Rotation>
         </SavedTransformItem>
         <SavedTransformItem>
           <Position>
-            <x>36.6105347</x>
-            <y>9.357061</y>
-            <z>17.2279434</z>
+            <x>36.5687866</x>
+            <y>9.356596</y>
+            <z>17.1956482</z>
           </Position>
           <Rotation>
-            <x>0.09493899</x>
-            <y>5.04771</y>
-            <z>359.815216</z>
+            <x>359.769684</x>
+            <y>9.38079</y>
+            <z>359.9165</z>
           </Rotation>
         </SavedTransformItem>
         <SavedTransformItem>
           <Position>
             <x>41.78311</x>
-            <y>8.378681</y>
-            <z>33.75596</z>
+            <y>8.378841</y>
+            <z>33.755806</z>
           </Position>
           <Rotation>
-            <x>359.9895</x>
-            <y>0.9510903</y>
-            <z>0.00667685131</z>
+            <x>359.958527</x>
+            <y>0.9412479</y>
+            <z>0.000264612172</z>
           </Rotation>
         </SavedTransformItem>
         <SavedTransformItem>
           <Position>
-            <x>42.04193</x>
-            <y>9.116217</y>
-            <z>33.9298134</z>
+            <x>42.0422058</x>
+            <y>9.107849</y>
+            <z>33.9341545</z>
           </Position>
           <Rotation>
-            <x>330.4685</x>
-            <y>4.56376457</y>
-            <z>359.866882</z>
+            <x>331.836365</x>
+            <y>4.28222275</y>
+            <z>359.851563</z>
           </Rotation>
         </SavedTransformItem>
         <SavedTransformItem>
           <Position>
-            <x>42.19934</x>
-            <y>9.356009</y>
-            <z>42.1528931</z>
+            <x>42.19699</x>
+            <y>9.35527</y>
+            <z>42.1552048</z>
           </Position>
           <Rotation>
-            <x>359.5261</x>
-            <y>1.09620452</y>
-            <z>0.0108639216</z>
+            <x>359.676178</x>
+            <y>1.0303427</y>
+            <z>0.06713484</z>
           </Rotation>
         </SavedTransformItem>
         <SavedTransformItem>
           <Position>
-            <x>41.9117432</x>
-            <y>10.295414</y>
-            <z>41.7458649</z>
+            <x>41.911438</x>
+            <y>10.2913685</y>
+            <z>41.75191</z>
           </Position>
           <Rotation>
-            <x>270.494568</x>
-            <y>174.231979</y>
-            <z>187.558517</z>
+            <x>270.048462</x>
+            <y>1.957464</y>
+            <z>0</z>
           </Rotation>
         </SavedTransformItem>
         <SavedTransformItem>
           <Position>
-            <x>42.15863</x>
-            <y>8.568886</y>
-            <z>39.1737556</z>
+            <x>42.12262</x>
+            <y>8.671114</y>
+            <z>39.4417953</z>
           </Position>
           <Rotation>
-            <x>47.6951561</x>
-            <y>352.3441</y>
-            <z>0.006645498</z>
+            <x>90</x>
+            <y>352.246674</y>
+            <z>0</z>
           </Rotation>
         </SavedTransformItem>
         <SavedTransformItem>
           <Position>
-            <x>41.74228</x>
+            <x>41.7412872</x>
             <y>9.354418</y>
-            <z>41.21245</z>
+            <z>41.2123528</z>
           </Position>
           <Rotation>
-            <x>359.5511</x>
-            <y>355.2333</y>
-            <z>-0.00499198632</z>
+            <x>359.7886</x>
+            <y>355.206818</y>
+            <z>0.00431523658</z>
           </Rotation>
         </SavedTransformItem>
         <SavedTransformItem>
           <Position>
-            <x>42.07579</x>
-            <y>8.670942</y>
-            <z>38.22239</z>
+            <x>42.07585</x>
+            <y>8.671114</y>
+            <z>38.22279</z>
           </Position>
           <Rotation>
-            <x>89.94766</x>
-            <y>4.340966</y>
+            <x>90</x>
+            <y>4.33561563</y>
             <z>0</z>
           </Rotation>
         </SavedTransformItem>
@@ -639,8 +639,9 @@
         <SavedActiveStatusItem>false</SavedActiveStatusItem>
       </SavedActiveStatus>
       <SavedModuleStatus>
-        <SavedModuleStatusItem>false</SavedModuleStatusItem>
-        <SavedModuleStatusItem>false</SavedModuleStatusItem>
+        <SavedModuleStatusItem>true</SavedModuleStatusItem>
+        <SavedModuleStatusItem>true</SavedModuleStatusItem>
+        <SavedModuleStatusItem>true</SavedModuleStatusItem>
       </SavedModuleStatus>
       <SavedLootStatus>
         <SavedLootStatusItem>true</SavedLootStatusItem>
@@ -667,10 +668,10 @@
         <SavedLootStatusItem>true</SavedLootStatusItem>
         <SavedLootStatusItem>true</SavedLootStatusItem>
         <SavedLootStatusItem>true</SavedLootStatusItem>
-        <SavedLootStatusItem>false</SavedLootStatusItem>
-        <SavedLootStatusItem>false</SavedLootStatusItem>
-        <SavedLootStatusItem>false</SavedLootStatusItem>
-        <SavedLootStatusItem>false</SavedLootStatusItem>
+        <SavedLootStatusItem>true</SavedLootStatusItem>
+        <SavedLootStatusItem>true</SavedLootStatusItem>
+        <SavedLootStatusItem>true</SavedLootStatusItem>
+        <SavedLootStatusItem>true</SavedLootStatusItem>
         <SavedLootStatusItem>false</SavedLootStatusItem>
         <SavedLootStatusItem>false</SavedLootStatusItem>
         <SavedLootStatusItem>false</SavedLootStatusItem>
@@ -975,6 +976,14 @@
         <SavedLootStatusItem>false</SavedLootStatusItem>
         <SavedLootStatusItem>false</SavedLootStatusItem>
       </SavedLootStatus>
+      <Bank_x0020_card_x0020_status>0</Bank_x0020_card_x0020_status>
+    </LevelModuleStatusItem>
+    <LevelModuleStatusItem>
+      <Scene_x0020_name>Mission2</Scene_x0020_name>
+      <SavedTransforms />
+      <SavedActiveStatus />
+      <SavedModuleStatus />
+      <SavedLootStatus />
       <Bank_x0020_card_x0020_status>0</Bank_x0020_card_x0020_status>
     </LevelModuleStatusItem>
   </LevelModuleStatusKit>
