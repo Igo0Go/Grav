@@ -27,19 +27,27 @@ public class ManipItem : MyTools
         {
             if(MyGetComponent(other.gameObject, out ManipReactor manip))
             {
-                if(manip.manip == this)
+                if(manip.manip == null)
                 {
-                    if(manip.isSocket)
-                    {
-                        rb.isKinematic = true;
-                        transform.position = manip.plugPoint.position;
-                        transform.rotation = manip.plugPoint.rotation;
-                        OnSocketPos?.Invoke();
-                        tag = "Untagged";
-                        Destroy(this, Time.fixedDeltaTime);
-                    }
                     manip.Use();
                 }
+                else
+                {
+                    if (manip.manip == this)
+                    {
+                        if (manip.isSocket)
+                        {
+                            rb.isKinematic = true;
+                            transform.position = manip.plugPoint.position;
+                            transform.rotation = manip.plugPoint.rotation;
+                            OnSocketPos?.Invoke();
+                            tag = "Untagged";
+                            Destroy(this, Time.fixedDeltaTime);
+                        }
+                        manip.Use();
+                    }
+                }
+                
             }
         }
         else if (other.tag.Equals("EnemyView"))
