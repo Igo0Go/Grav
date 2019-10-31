@@ -10,8 +10,6 @@ public delegate void RotateHandler(Quaternion rot);
 [RequireComponent(typeof(CapsuleCollider))]
 public class GravFPS : MonoBehaviour
 {
-    public BoxCollider box;
-
     #region Публичные поля (настройки игрока)
     [Tooltip("Пак для настроек управления")] public InputSettingsManager inputSettingsManager;
 
