@@ -737,5 +737,13 @@ public class GravFPS : MonoBehaviour
                 GetDamage(Mathf.RoundToInt(rb.velocity.magnitude));
             }
         }
+        else if (collision.collider.tag.Equals("Damager"))
+        {
+            Rigidbody rb = collision.gameObject.GetComponent<Rigidbody>();
+            if (rb.velocity.magnitude > 5)
+            {
+                GetDamage(25);
+            }
+        }
     }
 }

@@ -154,5 +154,4 @@ public class LootPointScript : UsingOrigin
             item.Use();
         }
     }
-   
 }

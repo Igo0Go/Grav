@@ -46114,7 +46114,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1052757214
 Transform:
   m_ObjectHideFlags: 0
@@ -76896,30 +76896,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: Personage (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 9044560230523452697, guid: 36132e4bdd1a2a4449a062f85ace73cb,
+    - target: {fileID: 9044560231256446562, guid: 36132e4bdd1a2a4449a062f85ace73cb,
         type: 3}
-      propertyPath: jumpForce
-      value: 7
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9044560230800476584, guid: 36132e4bdd1a2a4449a062f85ace73cb,
+    - target: {fileID: 8538052713742517671, guid: 36132e4bdd1a2a4449a062f85ace73cb,
         type: 3}
-      propertyPath: m_Color.r
-      value: 0.78039217
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9044560230800476584, guid: 36132e4bdd1a2a4449a062f85ace73cb,
+    - target: {fileID: 2509714398223363083, guid: 36132e4bdd1a2a4449a062f85ace73cb,
         type: 3}
-      propertyPath: m_Color.g
-      value: 0.7647059
-      objectReference: {fileID: 0}
-    - target: {fileID: 9044560230800476584, guid: 36132e4bdd1a2a4449a062f85ace73cb,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 0.9019608
-      objectReference: {fileID: 0}
-    - target: {fileID: 9044560230800476584, guid: 36132e4bdd1a2a4449a062f85ace73cb,
-        type: 3}
-      propertyPath: m_FontData.m_FontStyle
-      value: 3
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9044560231281737914, guid: 36132e4bdd1a2a4449a062f85ace73cb,
         type: 3}
@@ -77146,6 +77136,51 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: -1.8
       objectReference: {fileID: 0}
+    - target: {fileID: 8295704574385412668, guid: 36132e4bdd1a2a4449a062f85ace73cb,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9044560230523452697, guid: 36132e4bdd1a2a4449a062f85ace73cb,
+        type: 3}
+      propertyPath: jumpForce
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 9044560230969631351, guid: 36132e4bdd1a2a4449a062f85ace73cb,
+        type: 3}
+      propertyPath: musicBoxes.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9044560230969631351, guid: 36132e4bdd1a2a4449a062f85ace73cb,
+        type: 3}
+      propertyPath: audioName
+      value: 
+      objectReference: {fileID: 847740875}
+    - target: {fileID: 9044560230969631351, guid: 36132e4bdd1a2a4449a062f85ace73cb,
+        type: 3}
+      propertyPath: source
+      value: 
+      objectReference: {fileID: 1479222969}
+    - target: {fileID: 9044560230969631351, guid: 36132e4bdd1a2a4449a062f85ace73cb,
+        type: 3}
+      propertyPath: anim
+      value: 
+      objectReference: {fileID: 1397739697}
+    - target: {fileID: 9044560230969631351, guid: 36132e4bdd1a2a4449a062f85ace73cb,
+        type: 3}
+      propertyPath: musicBoxes.Array.data[0].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 88cf5cfc0b1a6d244b5fd3618a0a4df7, type: 3}
+    - target: {fileID: 9044560230969631351, guid: 36132e4bdd1a2a4449a062f85ace73cb,
+        type: 3}
+      propertyPath: musicBoxes.Array.data[0].loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9044560230969631351, guid: 36132e4bdd1a2a4449a062f85ace73cb,
+        type: 3}
+      propertyPath: musicBoxes.Array.data[0].hide
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9044560232001509563, guid: 36132e4bdd1a2a4449a062f85ace73cb,
         type: 3}
       propertyPath: audioChangers.Array.size
@@ -77271,6 +77306,21 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 5064448054403448880, guid: 36132e4bdd1a2a4449a062f85ace73cb,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.78039217
+      objectReference: {fileID: 0}
+    - target: {fileID: 5064448054403448880, guid: 36132e4bdd1a2a4449a062f85ace73cb,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.7647059
+      objectReference: {fileID: 0}
+    - target: {fileID: 5064448054403448880, guid: 36132e4bdd1a2a4449a062f85ace73cb,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.9019608
+      objectReference: {fileID: 0}
     - target: {fileID: 9044560232221329766, guid: 36132e4bdd1a2a4449a062f85ace73cb,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -77305,16 +77355,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.x
       value: 2.199976
-      objectReference: {fileID: 0}
-    - target: {fileID: 8295704574385412668, guid: 36132e4bdd1a2a4449a062f85ace73cb,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2509714398223363083, guid: 36132e4bdd1a2a4449a062f85ace73cb,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9044560230804861436, guid: 36132e4bdd1a2a4449a062f85ace73cb,
         type: 3}
@@ -77370,11 +77410,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.y
       value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 8538052713742517671, guid: 36132e4bdd1a2a4449a062f85ace73cb,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6817089224083739470, guid: 36132e4bdd1a2a4449a062f85ace73cb,
         type: 3}
@@ -77466,50 +77501,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 9044560230969631351, guid: 36132e4bdd1a2a4449a062f85ace73cb,
-        type: 3}
-      propertyPath: musicBoxes.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9044560230969631351, guid: 36132e4bdd1a2a4449a062f85ace73cb,
-        type: 3}
-      propertyPath: audioName
-      value: 
-      objectReference: {fileID: 847740875}
-    - target: {fileID: 9044560230969631351, guid: 36132e4bdd1a2a4449a062f85ace73cb,
-        type: 3}
-      propertyPath: source
-      value: 
-      objectReference: {fileID: 1479222969}
-    - target: {fileID: 9044560230969631351, guid: 36132e4bdd1a2a4449a062f85ace73cb,
-        type: 3}
-      propertyPath: anim
-      value: 
-      objectReference: {fileID: 1397739697}
-    - target: {fileID: 9044560230969631351, guid: 36132e4bdd1a2a4449a062f85ace73cb,
-        type: 3}
-      propertyPath: musicBoxes.Array.data[0].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 88cf5cfc0b1a6d244b5fd3618a0a4df7, type: 3}
-    - target: {fileID: 9044560230969631351, guid: 36132e4bdd1a2a4449a062f85ace73cb,
-        type: 3}
-      propertyPath: musicBoxes.Array.data[0].loop
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9044560230969631351, guid: 36132e4bdd1a2a4449a062f85ace73cb,
-        type: 3}
-      propertyPath: musicBoxes.Array.data[0].hide
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 9044560231074945515, guid: 36132e4bdd1a2a4449a062f85ace73cb,
         type: 3}
       propertyPath: m_IsActive
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9044560231256446562, guid: 36132e4bdd1a2a4449a062f85ace73cb,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9044560231944316661, guid: 36132e4bdd1a2a4449a062f85ace73cb,
         type: 3}
@@ -77545,21 +77540,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Color.a
       value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 5064448054403448880, guid: 36132e4bdd1a2a4449a062f85ace73cb,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 0.78039217
-      objectReference: {fileID: 0}
-    - target: {fileID: 5064448054403448880, guid: 36132e4bdd1a2a4449a062f85ace73cb,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 0.7647059
-      objectReference: {fileID: 0}
-    - target: {fileID: 5064448054403448880, guid: 36132e4bdd1a2a4449a062f85ace73cb,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 0.9019608
       objectReference: {fileID: 0}
     - target: {fileID: 1202876045950884724, guid: 36132e4bdd1a2a4449a062f85ace73cb,
         type: 3}
@@ -77640,6 +77620,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Color.a
       value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 9044560230800476584, guid: 36132e4bdd1a2a4449a062f85ace73cb,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.78039217
+      objectReference: {fileID: 0}
+    - target: {fileID: 9044560230800476584, guid: 36132e4bdd1a2a4449a062f85ace73cb,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.7647059
+      objectReference: {fileID: 0}
+    - target: {fileID: 9044560230800476584, guid: 36132e4bdd1a2a4449a062f85ace73cb,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.9019608
+      objectReference: {fileID: 0}
+    - target: {fileID: 9044560230800476584, guid: 36132e4bdd1a2a4449a062f85ace73cb,
+        type: 3}
+      propertyPath: m_FontData.m_FontStyle
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 9044560231127510832, guid: 36132e4bdd1a2a4449a062f85ace73cb,
         type: 3}

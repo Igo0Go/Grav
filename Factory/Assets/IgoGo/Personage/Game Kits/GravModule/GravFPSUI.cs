@@ -166,8 +166,11 @@ public class GravFPSUI : MonoBehaviour
     }
     public void Spend(int count)
     {
-        StatusPack.money -= count;
-        spendMoney = true;
+        if(!spendMoney)
+        {
+            StatusPack.money -= count;
+            spendMoney = true;
+        }
     }
     public void SetStun()
     {
