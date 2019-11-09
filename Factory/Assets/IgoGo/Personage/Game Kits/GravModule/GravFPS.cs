@@ -289,7 +289,7 @@ public class GravFPS : MonoBehaviour
         if (h != 0 || v != 0)
         {
             dir = transform.right * h + transform.forward * v;
-            dir *= Sprint();
+            dir = dir.normalized * Sprint();
         }
         else
         {

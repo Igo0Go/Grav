@@ -196,10 +196,6 @@ public class ImageCodePanel : UsingOrigin
             gravFPS.gravFPSUI.AddCoin();
             Invoke("GiveCoins", Time.deltaTime);
         }
-        else
-        {
-            Destroy(this);
-        }
     }
 
     private bool MoveToTarget()
@@ -246,6 +242,5 @@ public class ImageCodePanel : UsingOrigin
     private void StopMessage()
     {
         subsPanel.SetActive(false);
-        
     }
 }
