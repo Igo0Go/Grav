@@ -48,6 +48,7 @@ public class LootPointScript : UsingOrigin
         gravFPSUI = fPS;
         player = gravFPSUI.transform;
         spawn = true;
+        useble = false;
     }
     public override void Use()
     {
@@ -91,7 +92,7 @@ public class LootPointScript : UsingOrigin
                     else
                     {
                         Instantiate(lootPrefab, lootPoint.position, Quaternion.identity, transform);
-                        useble = true;
+                        Invoke("ReturnUseble", 1);
                     }
                 }
             }
@@ -154,4 +155,5 @@ public class LootPointScript : UsingOrigin
             item.Use();
         }
     }
+    private void ReturnUseble() => useble = true;
 }

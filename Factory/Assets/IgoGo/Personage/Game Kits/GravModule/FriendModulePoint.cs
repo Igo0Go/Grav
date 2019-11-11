@@ -6,14 +6,26 @@ public class FriendModulePoint : UsingOrigin
 {
     [Tooltip("Позиция дрона при взломе")]public Transform friendPoint;
     [Range(0.01f, 60), Tooltip("Время взлома")]public float workTime = 1;
+    public GameObject disactivePanel;
+    public GameObject activePanel;
 
     public override void ToStart()
     {
         used = false;
+        if(debug)
+        {
+            activePanel.SetActive(used);
+            disactivePanel.SetActive(!used);
+        }
     }
     public override void Use()
     {
         Invoke("UseAll", workTime);
+    }
+
+    private void Start()
+    {
+        ToStart();
     }
 
     private void OnDrawGizmosSelected()
@@ -35,6 +47,12 @@ public class FriendModulePoint : UsingOrigin
         foreach (var item in actionObjects)
         {
             item.Use();
+        }
+        used = !used;
+        if(debug)
+        {
+            activePanel.SetActive(used);
+            disactivePanel.SetActive(!used);
         }
     }
 }
