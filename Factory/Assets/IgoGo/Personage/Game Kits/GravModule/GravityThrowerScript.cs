@@ -39,6 +39,8 @@ public class GravityThrowerScript : MyTools
     public Image powerFillArea;
     [Tooltip("Показатель, что можно отправить дрона")]
     public GameObject dronLight;
+    [Tooltip("Показатель, что есть опасность")]
+    public GameObject dangerLight;
     [Tooltip("Поместить объект, который должен менять цвет в зависимости от режима пушки")]
     public MeshRenderer modeIndicator;
     [Tooltip("Режимы для пушки. 0 - кислота, 1 - притяжение, 2 - манипуляция")]
@@ -115,6 +117,7 @@ public class GravityThrowerScript : MyTools
     #region События Unity
     void Start()
     {
+        dangerLight.SetActive(false);
         delay = false;
         if(modes[0].active)
         {
@@ -430,6 +433,7 @@ public class GravityThrowerScript : MyTools
             if(opportunityToPlayDangerSound)
             {
                 PlayDangerSound();
+                Invoke("ReturnDangerLight", 0.3f);
                 Invoke("ReturnDangerSound", (DistanceToDanger - 4) / 15);
             }
         }
@@ -437,10 +441,16 @@ public class GravityThrowerScript : MyTools
     private void PlayDangerSound()
     {
         dangerSoundSource.PlayOneShot(dangerClip);
+        
         opportunityToPlayDangerSound = false;
+        dangerLight.SetActive(true);
     }
     private void ReturnDangerSound() => opportunityToPlayDangerSound = true;
-
+    private void ReturnDangerLight()
+    {
+        if (!opportunityToPlayDangerSound)
+            dangerLight.SetActive(false);
+    }
     public void DrawCurves() // создание кривой и визуализация
     {
         List<Vector3> l = new List<Vector3>();

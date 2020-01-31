@@ -43,7 +43,7 @@ public class QuinScript : UsingObject, ITargetTracker
     {
         if(attack > 0)
         {
-            Vector3 currentDirection = _target.position - body.position;
+            Vector3 currentDirection = (_target.position + _target.up) - body.position;
             if (Physics.Raycast(body.position, currentDirection, out RaycastHit hit, currentDirection.magnitude, ~ignoreMask))
             {
                 if (hit.transform == _target)
