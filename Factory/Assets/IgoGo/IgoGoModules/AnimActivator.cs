@@ -7,8 +7,8 @@ public class AnimActivator : UsingObject {
 
     [Tooltip("Аниматор должен содержать параметр Active (bool)")]
     public List<Animator> animObjects;
-    [SerializeField]public bool useFloat;
-    [SerializeField, Range(0.01f, 1)] public float speed = 0.1f;
+    public bool useFloat;
+    [Range(0.01f, 1)] public float speed = 0.1f;
     [Tooltip("Начальное состояние")] public bool active;
 
     private bool currentActive;

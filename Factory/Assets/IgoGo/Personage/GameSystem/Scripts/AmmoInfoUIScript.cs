@@ -18,10 +18,7 @@ public class AmmoInfoUIScript : MonoBehaviour
 
     private float reloadTimer = 0;
     private float reloadTimerMax = 1;
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
+
 
     public void ImageCurrentAmmo(int current)
     {

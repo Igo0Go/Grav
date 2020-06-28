@@ -16,7 +16,7 @@ public class ReturnTransformModule : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag.Equals("Water") || other.tag.Equals("Water"))
+        if(other.CompareTag("Water") || other.CompareTag("DeadZone"))
         {
             rb.velocity = Vector3.zero;
             transform.position = startPos;

@@ -104,7 +104,7 @@ public class GravTest : MonoBehaviour
     {
         if (Physics.Raycast(transform.position, gravVector, out RaycastHit hit, 2, ~jumpMask))
         {
-            Vector3 bufer = hit.point - transform.position;
+    //        Vector3 bufer = hit.point - transform.position;
             return true;
         }
         return false;
@@ -112,7 +112,7 @@ public class GravTest : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag.Equals("Grav"))
+        if(other.CompareTag("Grav"))
         {
             currentCol = other;
             gravObj = other.transform;

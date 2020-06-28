@@ -10,54 +10,53 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 98def92ed5964e1499b6e3df9de93d3c, type: 3}
-  m_Name: ShooterSettingsPack
+  m_Name: TestInputPack
   m_EditorClassIdentifier: 
   sensivityMultiplicator: 1
   keys:
-  - Name: Forward
+  - name: Forward
+    titleForMenu: "\u0412\u043F\u0435\u0440\u0451\u0434"
     key: 119
-  - Name: Backward
+  - name: Back
+    titleForMenu: "\u041D\u0430\u0437\u0430\u0434"
     key: 115
-  - Name: Right
+  - name: Right
+    titleForMenu: "\u0412\u043F\u0440\u0430\u0432\u043E"
     key: 100
-  - Name: Left
+  - name: Left
+    titleForMenu: "\u0412\u043B\u0435\u0432\u043E"
     key: 97
-  - Name: Jump
+  - name: Jump
+    titleForMenu: "\u041F\u0440\u044B\u0436\u043E\u043A"
     key: 32
-  - Name: Sprint
+  - name: Sprint
+    titleForMenu: "\u0411\u0435\u0433"
     key: 304
-  - Name: Fire1
-    key: 323
-  - Name: Fire2
-    key: 324
-  - Name: Using
-    key: 101
-  - Name: Info
-    key: 9
-  - Name: AltUsing
-    key: 102
-  - Name: ChangeUsing
-    key: 113
-  - Name: Cancel
+  - name: Pause
+    titleForMenu: "\u041F\u0430\u0443\u0437\u0430"
     key: 27
   axis:
   - positiveButtonKeyIndex: 0
     negativeButtonKeyIndex: 1
     name: Vertical
     positiveButton:
-      Name: Forward
+      name: Forward
+      titleForMenu: "\u0412\u043F\u0435\u0440\u0451\u0434"
       key: 119
     negativeButton:
-      Name: Backward
+      name: Back
+      titleForMenu: "\u041D\u0430\u0437\u0430\u0434"
       key: 115
     sensivity: 1
   - positiveButtonKeyIndex: 2
     negativeButtonKeyIndex: 3
     name: Horizontal
     positiveButton:
-      Name: Right
+      name: Right
+      titleForMenu: "\u0412\u043F\u0440\u0430\u0432\u043E"
       key: 100
     negativeButton:
-      Name: Left
+      name: Left
+      titleForMenu: "\u0412\u043B\u0435\u0432\u043E"
       key: 97
     sensivity: 1

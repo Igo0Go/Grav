@@ -180,7 +180,7 @@ public class GravityThrowerScript : MyTools
                 Debug.DrawRay(cam.position, dir, Color.red, 3);
                 if (Physics.Raycast(cam.position, dir, out RaycastHit hit, manipulationRange, ~ignoreMask))
                 {
-                    if (hit.collider.tag.Equals("Manip"))
+                    if (hit.collider.CompareTag("Manip"))
                     {
                         currentManipObj = hit.collider.gameObject;
                         manipRenderer = currentManipObj.GetComponent<MeshRenderer>();
@@ -200,7 +200,7 @@ public class GravityThrowerScript : MyTools
                             }
                         }
                     }
-                    else if(hit.collider.tag.Equals("ManipForEnemy"))
+                    else if(hit.collider.CompareTag("ManipForEnemy"))
                     {
                         currentManipObj = hit.collider.transform.parent.parent.gameObject;
                         manipRenderer = hit.collider.gameObject.GetComponent<MeshRenderer>();
@@ -293,10 +293,10 @@ public class GravityThrowerScript : MyTools
         if (Physics.Raycast(cam.position, cam.forward, out RaycastHit hit, 500, ~ignoreMask))
         {
             lookPoint.position = hit.point;
-            if(hit.collider.tag.Equals("DronModule"))
+            if(hit.collider.CompareTag("DronModule"))
             {
                 dronLight.SetActive(true);
-                if(Input.GetKeyDown(player.inputSettingsManager.GetKey("AltUsing")))
+                if(Input.GetKeyDown(player.inputSettingsManager.GetKey("Dron")))
                 {
                     ISeeDronPointEvent?.Invoke(hit.collider.GetComponent<FriendModulePoint>());
                 }

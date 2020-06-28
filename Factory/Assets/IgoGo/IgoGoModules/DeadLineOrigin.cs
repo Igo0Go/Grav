@@ -33,7 +33,7 @@ public class DeadLineOrigin : MonoBehaviour
     {
         if(Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, maxRange, ~ignoreMask))
         {
-            if(hit.collider.tag.Equals("Player"))
+            if(hit.collider.CompareTag("Player"))
             {
                 hit.collider.GetComponent<GravFPS>().GetDamage(damage);
             }

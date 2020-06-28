@@ -5,7 +5,7 @@ using System;
 
 public class InGameMenuScript : MyTools
 {
-    public InpustSettingsScript settingsScript;
+    public InputSettingsMenuScript settingsScript;
     public AudioSettingsPanelScript audioSettings;
     public GameObject menuPanel;
     public GravFPS player;
@@ -31,7 +31,7 @@ public class InGameMenuScript : MyTools
     }
     private void Update()
     {
-        if (Input.GetKeyDown(settingsScript.manager.GetKey("Cancel"))/* && !inSettings*/)
+        if (Input.GetKeyDown(settingsScript.manager.GetKey("Pause"))/* && !inSettings*/)
         {
             if(!inSettings)
             GetMenuPanel();

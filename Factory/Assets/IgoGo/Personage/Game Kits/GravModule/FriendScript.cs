@@ -167,7 +167,7 @@ public class FriendScript : MonoBehaviour
     }
     private void ShieldInput()
     {
-        if(Input.GetKeyDown(inputSettingsManager.GetKey("ChangeUsing")) && moveToTarget == 0)
+        if(Input.GetKeyDown(inputSettingsManager.GetKey("Shield")) && moveToTarget == 0)
         {
             UseShield();
         }

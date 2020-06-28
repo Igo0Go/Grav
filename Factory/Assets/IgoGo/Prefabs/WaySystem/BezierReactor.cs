@@ -99,7 +99,7 @@ public class BezierReactor : MyTools
 
     private void OnTriggerStay(Collider other)
     {
-        if(!gravFPS.OnGround() && gravFPS.Status == PlayerState.active && other.tag.Equals("WayStarter"))
+        if(!gravFPS.OnGround() && gravFPS.Status == PlayerState.active && other.CompareTag("WayStarter"))
         {
             BezierCurve bufer = null;
             if (curve != null)

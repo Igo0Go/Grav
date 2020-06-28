@@ -23,7 +23,7 @@ public class ManipItem : MyTools
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag.Equals("ManipReactor"))
+        if(other.CompareTag("ManipReactor"))
         {
             if(MyGetComponent(other.gameObject, out ManipReactor manip))
             {
@@ -50,7 +50,7 @@ public class ManipItem : MyTools
                 
             }
         }
-        else if (other.tag.Equals("EnemyView"))
+        else if (other.CompareTag("EnemyView"))
         {
             other.GetComponent<ITargetTracker>().SetTarget(transform);
             return;
@@ -58,7 +58,7 @@ public class ManipItem : MyTools
     }
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag.Equals("EnemyView"))
+        if (other.CompareTag("EnemyView"))
         {
             other.GetComponent<ITargetTracker>().ClearTarget(transform);
             return;
@@ -66,7 +66,7 @@ public class ManipItem : MyTools
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag.Equals("Module"))
+        if (collision.gameObject.CompareTag("Module"))
         {
             if (MyGetComponent(collision.gameObject, out ManipReactor manip))
             {

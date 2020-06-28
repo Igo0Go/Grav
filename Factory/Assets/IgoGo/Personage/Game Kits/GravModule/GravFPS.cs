@@ -627,18 +627,18 @@ public class GravFPS : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag.Equals("DeadZone"))
+        if (other.CompareTag("DeadZone"))
         {
             Death();
             return;
         }
-        else if (other.tag.Equals("Water"))
+        else if (other.CompareTag("Water"))
         {
             source.PlayOneShot(waterClip);
             Invoke("Death", 1);
             return;
         }
-        else if(other.tag.Equals("Loot"))
+        else if(other.CompareTag("Loot"))
         {
             LootItem loot = other.GetComponent<LootItem>();
             if(loot.opportunityToSuffice)
@@ -647,7 +647,7 @@ public class GravFPS : MonoBehaviour
             }
             return;
         }
-        else if (other.tag.Equals("CheckPoint"))
+        else if (other.CompareTag("CheckPoint"))
         {
             if(savePoint != other.GetComponent<SavePoint>())
             {
@@ -657,28 +657,28 @@ public class GravFPS : MonoBehaviour
             }
             return;
         }
-        else if(other.tag.Equals("SceneLoad"))
+        else if(other.CompareTag("SceneLoad"))
         {
             sceneManager.LoadNextScene();
         }
-        else if (other.tag.Equals("LootPoint"))
+        else if (other.CompareTag("LootPoint"))
         {
             currentLootPoint = other.GetComponent<LootPointScript>();
             gravFPSUI.SetTip(currentLootPoint, inputSettingsManager);
             return;
         }
-        else if (other.tag.Equals("MoveTransform"))
+        else if (other.CompareTag("MoveTransform"))
         {
             currentMoveTransformCol = other;
             transform.parent = currentMoveTransformCol.transform;
             return;
         }
-        else if(other.tag.Equals("EnemyView"))
+        else if(other.CompareTag("EnemyView"))
         {
             other.GetComponent<ITargetTracker>().SetTarget(transform);
             return;
         }
-        else if (other.tag.Equals("Dron"))
+        else if (other.CompareTag("Dron"))
         {
             gun.SetDangerPoin(other.transform);
             return;
@@ -686,7 +686,7 @@ public class GravFPS : MonoBehaviour
     }
     private void OnTriggerStay(Collider other)
     {
-        if (other.tag.Equals("LootPoint"))
+        if (other.CompareTag("LootPoint"))
         {
             if(Input.GetKeyDown(inputSettingsManager.GetKey("Using")) && currentLootPoint == other.GetComponent<LootPointScript>())
             {
@@ -704,24 +704,24 @@ public class GravFPS : MonoBehaviour
     }
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag.Equals("LootPoint") && currentLootPoint == other.GetComponent<LootPointScript>())
+        if (other.CompareTag("LootPoint") && currentLootPoint == other.GetComponent<LootPointScript>())
         {
             currentLootPoint = null;
             gravFPSUI.ClearTip();
             return;
         }
-        else if (other.tag.Equals("MoveTransform") && other == currentMoveTransformCol)
+        else if (other.CompareTag("MoveTransform") && other == currentMoveTransformCol)
         {
             currentMoveTransformCol = null;
             transform.parent = null;
             return;
         }
-        else if (other.tag.Equals("EnemyView"))
+        else if (other.CompareTag("EnemyView"))
         {
             other.GetComponent<ITargetTracker>().ClearTarget(transform);
             return;
         }
-        else if (other.tag.Equals("Dron"))
+        else if (other.CompareTag("Dron"))
         {
             gun.ClearDangerPoint();
             return;
@@ -729,7 +729,7 @@ public class GravFPS : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.tag.Equals("Manip"))
+        if (collision.collider.CompareTag("Manip"))
         {
             Rigidbody rb = collision.gameObject.GetComponent<Rigidbody>();
             if (rb.velocity.magnitude * rb.mass > 100 - rb.mass)
@@ -737,7 +737,7 @@ public class GravFPS : MonoBehaviour
                 GetDamage(Mathf.RoundToInt(rb.velocity.magnitude));
             }
         }
-        else if (collision.collider.tag.Equals("Damager"))
+        else if (collision.collider.CompareTag("Damager"))
         {
             Rigidbody rb = collision.gameObject.GetComponent<Rigidbody>();
             if (rb.velocity.magnitude > 5)

@@ -13,11 +13,6 @@ public class SizeChanger : UsingObject
     private float currentSize;
     private float step;
     private bool resize;
-
-    void Start()
-    {
-        
-    }
     void Update()
     {
         if(resize)

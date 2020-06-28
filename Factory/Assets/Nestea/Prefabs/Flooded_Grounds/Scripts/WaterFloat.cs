@@ -4,12 +4,8 @@ using UnityEngine;
 
 public class WaterFloat : MonoBehaviour {
 
-
 	public float WaterHeight = 15.5f;
-	// Use this for initialization
-	void Start () {
-		
-	}
+
 	
 	// Update is called once per frame
 	void Update () {

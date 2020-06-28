@@ -22,7 +22,7 @@ public class CardUserModule : MonoBehaviour
     {
         if(Physics.Raycast(cam.position , cam.forward, out hit, 1.4f, ~ignoreMask))
         {
-            if(hit.collider.tag.Equals("CardPoint"))
+            if(hit.collider.CompareTag("CardPoint"))
             {
                 BankCard card = hit.collider.GetComponent<BankCard>();
                 if(gravFPSUI.StatusPack.cards[card.number])
@@ -46,21 +46,21 @@ public class CardUserModule : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag.Equals("CardPoint"))
+        if (other.CompareTag("CardPoint"))
         {
             gravFPSUI.SetTip(settingsManager.GetKey("Using").ToString() + " - ввести код");
         }
     }
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag.Equals("CardPoint"))
+        if (other.CompareTag("CardPoint"))
         {
             gravFPSUI.ClearTip();
         }
     }
     private void OnTriggerStay(Collider other)
     {
-        if(other.tag.Equals("CardPoint"))
+        if(other.CompareTag("CardPoint"))
         {
             if (Input.GetKeyDown(settingsManager.GetKey("Using")))
             {

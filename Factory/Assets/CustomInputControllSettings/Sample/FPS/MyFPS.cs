@@ -1,14 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
+
+/// <summary>
+/// Клас контроллера от первого лица с примером применения пакета настроек.
+/// </summary>
 [RequireComponent(typeof(CharacterController))]
 public class MyFPS : MonoBehaviour {
 
-    public InputSettingsManager inputSettingsManager;
+    public InputSettingsManager manager; //передаём InputManager, в котором указан нужный пакет.
 
-    [Space(20)]
-    [Range(1, 10)]
+    [Space(20), Range(1, 10)]
     public float speed;
     [Range(1, 360)]
     public float camRotateSpeed;
@@ -25,35 +29,51 @@ public class MyFPS : MonoBehaviour {
     public float grav;
     [Range(-100, 100)]
     public float jumpForce;
-    
+
+    public InputSettingsMenuScript menuPanel;
+
     private CharacterController characterController;
     private Vector3 dir;
     private float yAxis;
     private float currentYAxisAngel;
     private float currentXAxisAngel;
 
+    private bool InMenu
+    {
+        get => _inMenu;
+        set
+        {
+            _inMenu = value;
+            Cursor.lockState = _inMenu ? CursorLockMode.None : CursorLockMode.Locked;
+            Cursor.visible = _inMenu;
+        }
+    }
+    private bool _inMenu;
+
     void Start()
     {
         currentYAxisAngel = transform.eulerAngles.y;
         currentXAxisAngel = transform.eulerAngles.x;
         characterController = GetComponent<CharacterController>();
-        Cursor.lockState = CursorLockMode.Locked;
+        menuPanel.Initialize();
+        InMenu = false;
     }
     void Update()
     {
-        PlayerMove();
+        if(!InMenu) PlayerMove();
+        PauseInput();
     }
     private void LateUpdate()
     {
-        PlayerRotate();
+        if(!InMenu) PlayerRotate();
     }
 
     private void PlayerMove()
     {
         float h, v;
 
-        v = inputSettingsManager.GetAxis("Vertical");
-        h = inputSettingsManager.GetAxis("Horizontal");
+        h = manager.GetAxis("Horizontal"); //оси получаем напрямую из менеджера
+        v = manager.GetAxis("Vertical");
 
         Vector3 camForward = transform.forward;
         camForward.y = 0;
@@ -65,21 +85,19 @@ public class MyFPS : MonoBehaviour {
         }
         if (characterController.isGrounded)
         {
-            if (Input.GetKeyDown(inputSettingsManager.GetKey("Jump")))
+            yAxis = 0;
+            if (Input.GetKeyDown(manager.GetKey("Jump"))) //а тут пример обращения к конкретной кнопке
             {
                 if (jumpForce < 0)
                 {
                     Debug.LogError("Ты чё, больной?! Ты ж вниз прыгаешь...");
                 }
                 yAxis = jumpForce;
-                
             }
         }
-        else
-        {
-            yAxis -= grav * Time.deltaTime;
-        }
+        yAxis -= grav * Time.deltaTime;
         dir = new Vector3(dir.x * speed * Time.deltaTime, yAxis * Time.deltaTime, dir.z * speed * Time.deltaTime);
+
         if (dir != Vector3.zero)
         {
             characterController.Move(dir);
@@ -88,8 +106,8 @@ public class MyFPS : MonoBehaviour {
     private void PlayerRotate()
     {
         float mx, my;
-        mx = Input.GetAxis("Mouse X");
-        my = Input.GetAxis("Mouse Y");
+        mx = Input.GetAxis("Mouse X") * manager.inputKit.sensivityMultiplicator; //здесь применяется чувствительность мыши
+        my = Input.GetAxis("Mouse Y") * manager.inputKit.sensivityMultiplicator;
 
         if (mx != 0 || my != 0)
         {
@@ -101,10 +119,19 @@ public class MyFPS : MonoBehaviour {
     }
     private float Sprint()
     {
-        if(Input.GetKey(inputSettingsManager.GetKey("Sprint")))
+        if(Input.GetKey(manager.GetKey("Sprint")))  //а кнопки позволяют просто динамически менять KeyCode, который передаём в методы Input
         {
             return sprintMultiplicator;
         }
         return 1;
+    }
+
+    public void PauseInput()
+    {
+        if (Input.GetKeyDown(manager.GetKey("Pause")))
+        {
+            menuPanel.GetSettingsPanel();
+            InMenu = !InMenu;
+        }
     }
 }

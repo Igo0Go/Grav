@@ -18,7 +18,6 @@ namespace Es.WaveformProvider
 		/// <summary>
 		/// Whether to update the waveform.
 		/// </summary>
-		[SerializeField]
 		public bool update = true;
 
 		/// <summary>

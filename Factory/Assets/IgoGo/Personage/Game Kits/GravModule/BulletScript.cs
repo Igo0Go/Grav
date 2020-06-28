@@ -81,7 +81,7 @@ public class BulletScript : MyTools
                 item.InvokeOnBullet();
             }
 
-            if (hit.collider.tag.Equals("Grav"))
+            if (hit.collider.CompareTag("Grav"))
             {
                 decal = Instantiate(Particles[0]);
                 if (MyGetComponent(hit.collider.gameObject, out SphereGravModule gravReactor))
@@ -95,7 +95,7 @@ public class BulletScript : MyTools
                 }
                 player.RotateToGrav();
             }
-            else if (hit.collider.tag.Equals("Enemy"))
+            else if (hit.collider.CompareTag("Enemy"))
             {
                 decal = Instantiate(Particles[0]);
                 if (MyGetComponent(hit.transform.parent.gameObject, out TurretScript turret))
@@ -125,11 +125,10 @@ public class BulletScript : MyTools
                 bulletReactor.Use();
             }
 
-            if (hit.collider.tag.Equals("AcidReactor"))
+            if (hit.collider.CompareTag("AcidReactor"))
             {
                 
-                AcidReactor acidReactor;
-                if(MyGetComponent(hit.collider.gameObject, out acidReactor))
+                if(MyGetComponent(hit.collider.gameObject, out AcidReactor acidReactor))
                 {
                     decal = Instantiate(Particles[0]);
                     acidReactor.source.Play();

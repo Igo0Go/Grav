@@ -6,10 +6,9 @@ public class ModuleReactor : MyTools
 {
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag.Equals("Module"))
+        if(other.CompareTag("Module"))
         {
-            UsingObject usingObject;
-            if(MyGetComponent(other.gameObject, out usingObject))
+            if (MyGetComponent(other.gameObject, out UsingObject usingObject))
             {
                 usingObject.Use();
             }
@@ -17,14 +16,13 @@ public class ModuleReactor : MyTools
     }
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag.Equals("Module"))
+        if (other.CompareTag("Module"))
         {
-            UsingObject usingObject;
-            if (MyGetComponent(other.gameObject, out usingObject))
+            if (MyGetComponent(other.gameObject, out UsingObject usingObject))
             {
-                if(usingObject is LocationReactor)
+                if (usingObject is LocationReactor reactor)
                 {
-                    if (!((LocationReactor)usingObject).enterOnly)
+                    if (!reactor.enterOnly)
                     {
                         usingObject.Use();
                     }

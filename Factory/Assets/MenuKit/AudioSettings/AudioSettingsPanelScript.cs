@@ -52,7 +52,7 @@ public class AudioSettingsPanelScript : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetKeyDown(manager.GetKey("Cancel")) && audioSettingsPanel.activeSelf)
+        if (Input.GetKeyDown(manager.GetKey("Pause")) && audioSettingsPanel.activeSelf)
         {
             GetAudioPanel();
         }

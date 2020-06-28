@@ -199,7 +199,7 @@ public class GravFPSUI : MonoBehaviour
     }
     private void StatisticInput()
     {
-        if(Input.GetKeyDown(manager.GetKey("Info")))
+        if(Input.GetKeyDown(manager.GetKey("Stats")))
         {
             foreach (var item in panels)
             {
