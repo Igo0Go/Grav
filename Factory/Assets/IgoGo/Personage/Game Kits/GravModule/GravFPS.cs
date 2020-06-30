@@ -11,7 +11,7 @@ public delegate void RotateHandler(Quaternion rot);
 public class GravFPS : MonoBehaviour
 {
     #region Публичные поля (настройки игрока)
-    [Tooltip("Пак для настроек управления")] public InputSettingsManager inputSettingsManager;
+    [Tooltip("Скрипт работы с настройками управления")] public InputSettingsManager inputSettingsManager;
 
     [Space(20)]
     [Range(1, 5)]
@@ -274,7 +274,7 @@ public class GravFPS : MonoBehaviour
     #endregion
 
     #region Служебные
-    private void PlayerMoveStandard()
+    private void PlayerMoveStandard(float horizontal, float vertical)
     {
         float h, v;
 
@@ -305,7 +305,7 @@ public class GravFPS : MonoBehaviour
             }
         }
     }
-    private void PlayerMoveSphere()
+    private void PlayerMoveSphere(float horizontal, float vertical)
     {
         if(Status == PlayerState.active)
         {
@@ -347,9 +347,8 @@ public class GravFPS : MonoBehaviour
             rb.velocity = down + right + forward;
         }
     }
-    private void PlayerRotate()
+    private void PlayerRotate(float mx, float my)
     {
-        float mx, my;
         mx = my = 0;
         if(!inMenu)
         {
@@ -365,9 +364,9 @@ public class GravFPS : MonoBehaviour
             cam.localRotation = Quaternion.Euler(currentCamAngle, cam.localRotation.eulerAngles.y, 0);
         }
     }
-    private float Sprint()
+    private float Sprint(bool useSprint)
     {
-        if (Input.GetKey(inputSettingsManager.GetKey("Sprint")) && !inMenu)
+        if (useSprint && !inMenu)
         {
             return sprintMultiplicator;
         }
@@ -549,7 +548,7 @@ public class GravFPS : MonoBehaviour
     }
     private void Jump()
     {
-        if (Input.GetKeyDown(inputSettingsManager.GetKey("Jump")) && Status == PlayerState.active)
+        if (Status == PlayerState.active)
         {
             if (OnGround() && !inMenu)
             {

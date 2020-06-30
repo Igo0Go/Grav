@@ -18097,7 +18097,7 @@ MonoBehaviour:
   stunSpeed: 0.5
   manager: {fileID: 0}
   returnTime: 0
-  inputKit: {fileID: 0}
+  inputKit: {fileID: 11400000, guid: 809346dccc114b040b4ef854da103ab1, type: 2}
 --- !u!114 &2289395655168458227
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27027,6 +27027,11 @@ PrefabInstance:
     - target: {fileID: 4576455140287654738, guid: 31e35d0ef9ef63046a3cb8efafafc28d,
         type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4576455140287654738, guid: 31e35d0ef9ef63046a3cb8efafafc28d,
+        type: 3}
+      propertyPath: m_AnchorMin.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4617359011841505891, guid: 31e35d0ef9ef63046a3cb8efafafc28d,

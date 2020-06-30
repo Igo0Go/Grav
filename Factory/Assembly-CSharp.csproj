@@ -64,13 +64,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\BoxDestroyer.cs" />
-    <Compile Include="Assets\CodePanel\CodePanelScript.cs" />
-    <Compile Include="Assets\CustomInputControllSettings\InputKit.cs" />
-    <Compile Include="Assets\CustomInputControllSettings\InputKitInspector.cs" />
-    <Compile Include="Assets\CustomInputControllSettings\InputSettingsManager.cs" />
-    <Compile Include="Assets\CustomInputControllSettings\InputSettingsMenuItem.cs" />
-    <Compile Include="Assets\CustomInputControllSettings\InputSettingsMenuScript.cs" />
-    <Compile Include="Assets\CustomInputControllSettings\Sample\FPS\MyFPS.cs" />
     <Compile Include="Assets\IgoGo\Enemies\Horse\HorseScript.cs" />
     <Compile Include="Assets\IgoGo\Enemies\Oficer\OficerScript.cs" />
     <Compile Include="Assets\IgoGo\Enemies\Pawn\Pawn.cs" />
@@ -104,24 +97,31 @@
     <Compile Include="Assets\IgoGo\IgoGoModules\Timer.cs" />
     <Compile Include="Assets\IgoGo\IgoGoModules\TimlineActivator.cs" />
     <Compile Include="Assets\IgoGo\IgoGoModules\WeaponReactor.cs" />
-    <Compile Include="Assets\IgoGo\Personage\Game Kits\GravModule\AcidReactor.cs" />
-    <Compile Include="Assets\IgoGo\Personage\Game Kits\GravModule\BulletReactor.cs" />
-    <Compile Include="Assets\IgoGo\Personage\Game Kits\GravModule\BulletScript.cs" />
+    <Compile Include="Assets\IgoGo\Personage\CustomInputControllSettings\InputKit.cs" />
+    <Compile Include="Assets\IgoGo\Personage\CustomInputControllSettings\InputKitInspector.cs" />
+    <Compile Include="Assets\IgoGo\Personage\CustomInputControllSettings\InputSettingsManager.cs" />
+    <Compile Include="Assets\IgoGo\Personage\CustomInputControllSettings\InputSettingsMenuItem.cs" />
+    <Compile Include="Assets\IgoGo\Personage\CustomInputControllSettings\InputSettingsMenuScript.cs" />
+    <Compile Include="Assets\IgoGo\Personage\CustomInputControllSettings\Sample\FPS\MyFPS.cs" />
     <Compile Include="Assets\IgoGo\Personage\Game Kits\GravModule\FriendModulePoint.cs" />
     <Compile Include="Assets\IgoGo\Personage\Game Kits\GravModule\FriendScript.cs" />
+    <Compile Include="Assets\IgoGo\Personage\Game Kits\GravModule\GamplayParts\AcidReactor.cs" />
+    <Compile Include="Assets\IgoGo\Personage\Game Kits\GravModule\GamplayParts\BulletReactor.cs" />
+    <Compile Include="Assets\IgoGo\Personage\Game Kits\GravModule\GamplayParts\LootItem.cs" />
+    <Compile Include="Assets\IgoGo\Personage\Game Kits\GravModule\GamplayParts\ManipItem.cs" />
+    <Compile Include="Assets\IgoGo\Personage\Game Kits\GravModule\GamplayParts\ManipReactor.cs" />
+    <Compile Include="Assets\IgoGo\Personage\Game Kits\GravModule\GamplayParts\SavePoint.cs" />
+    <Compile Include="Assets\IgoGo\Personage\Game Kits\GravModule\GamplayParts\SphereGravItem.cs" />
+    <Compile Include="Assets\IgoGo\Personage\Game Kits\GravModule\GamplayParts\SphereGravModule.cs" />
     <Compile Include="Assets\IgoGo\Personage\Game Kits\GravModule\GravFPS.cs" />
     <Compile Include="Assets\IgoGo\Personage\Game Kits\GravModule\GravFPSSceneManager.cs" />
     <Compile Include="Assets\IgoGo\Personage\Game Kits\GravModule\GravFPSUI.cs" />
-    <Compile Include="Assets\IgoGo\Personage\Game Kits\GravModule\GravityThrowerScript.cs" />
     <Compile Include="Assets\IgoGo\Personage\Game Kits\GravModule\GroundScript.cs" />
+    <Compile Include="Assets\IgoGo\Personage\Game Kits\GravModule\GunControlParts\BulletScript.cs" />
+    <Compile Include="Assets\IgoGo\Personage\Game Kits\GravModule\GunControlParts\GravityThrowerScript.cs" />
     <Compile Include="Assets\IgoGo\Personage\Game Kits\GravModule\LoadSceneScript.cs" />
-    <Compile Include="Assets\IgoGo\Personage\Game Kits\GravModule\LootItem.cs" />
-    <Compile Include="Assets\IgoGo\Personage\Game Kits\GravModule\ManipItem.cs" />
-    <Compile Include="Assets\IgoGo\Personage\Game Kits\GravModule\ManipReactor.cs" />
+    <Compile Include="Assets\IgoGo\Personage\Game Kits\GravModule\PlayerControlParts\PlayerInputController.cs" />
     <Compile Include="Assets\IgoGo\Personage\Game Kits\GravModule\PlayerStartSceneSettingsScript.cs" />
-    <Compile Include="Assets\IgoGo\Personage\Game Kits\GravModule\SavePoint.cs" />
-    <Compile Include="Assets\IgoGo\Personage\Game Kits\GravModule\SphereGravItem.cs" />
-    <Compile Include="Assets\IgoGo\Personage\Game Kits\GravModule\SphereGravModule.cs" />
     <Compile Include="Assets\IgoGo\Personage\Game Kits\GravModule\StatusPack.cs" />
     <Compile Include="Assets\IgoGo\Personage\GameSystem\Scripts\AmmoInfoUIScript.cs" />
     <Compile Include="Assets\IgoGo\Personage\GameSystem\Scripts\MusicManager.cs" />
@@ -132,14 +132,15 @@
     <Compile Include="Assets\IgoGo\Prefabs\Intaractive\BankSystem\BankCard.cs" />
     <Compile Include="Assets\IgoGo\Prefabs\Intaractive\BankSystem\CardUserModule.cs" />
     <Compile Include="Assets\IgoGo\Prefabs\Intaractive\BankSystem\ImageCodePanel.cs" />
+    <Compile Include="Assets\IgoGo\Prefabs\Intaractive\CodePanel\CodePanelScript.cs" />
     <Compile Include="Assets\IgoGo\Prefabs\Intaractive\LootPoint\LootPointScript.cs" />
-    <Compile Include="Assets\IgoGo\Prefabs\Tardis\TeleportPoint.cs" />
-    <Compile Include="Assets\IgoGo\Prefabs\WaySystem\BezierCurve.cs" />
-    <Compile Include="Assets\IgoGo\Prefabs\WaySystem\BezierCurveEditor.cs" />
-    <Compile Include="Assets\IgoGo\Prefabs\WaySystem\BezierCurvesAdjustment.cs" />
-    <Compile Include="Assets\IgoGo\Prefabs\WaySystem\BezierPoint.cs" />
-    <Compile Include="Assets\IgoGo\Prefabs\WaySystem\BezierReactor.cs" />
-    <Compile Include="Assets\IgoGo\Prefabs\WaySystem\WayStarter.cs" />
+    <Compile Include="Assets\IgoGo\Prefabs\Intaractive\Tardis\TeleportPoint.cs" />
+    <Compile Include="Assets\IgoGo\Prefabs\Intaractive\WaySystem\BezierCurve.cs" />
+    <Compile Include="Assets\IgoGo\Prefabs\Intaractive\WaySystem\BezierCurveEditor.cs" />
+    <Compile Include="Assets\IgoGo\Prefabs\Intaractive\WaySystem\BezierCurvesAdjustment.cs" />
+    <Compile Include="Assets\IgoGo\Prefabs\Intaractive\WaySystem\BezierPoint.cs" />
+    <Compile Include="Assets\IgoGo\Prefabs\Intaractive\WaySystem\BezierReactor.cs" />
+    <Compile Include="Assets\IgoGo\Prefabs\Intaractive\WaySystem\WayStarter.cs" />
     <Compile Include="Assets\InkPainter\Sample\Script\ClipPainter.cs" />
     <Compile Include="Assets\InkPainter\Sample\Script\CollisionPainter.cs" />
     <Compile Include="Assets\InkPainter\Sample\Script\CollisionReflectionPainter.cs" />
@@ -212,7 +213,7 @@
     <None Include="Assets\InkPainter\Shader\Paint\PaintMain.shader" />
     <None Include="Assets\InkPainter\Shader\Paint\PaintHeight.shader" />
     <None Include="Assets\InkPainter\readme_jp.txt" />
-    <None Include="Assets\CustomInputControllSettings\instruction_rus.txt" />
+    <None Include="Assets\IgoGo\Personage\CustomInputControllSettings\instruction_rus.txt" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>D:/MyContent/Unity/Projects/Grav/Grav/Factory/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
