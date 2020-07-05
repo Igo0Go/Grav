@@ -103,7 +103,7 @@ public class HorseScript : UsingObject, ITargetTracker
                 {
                     if (hit.transform == _target)
                     {
-                        _target.GetComponent<GravFPS>().GetDamage(damage);
+                        _target.GetComponent<PlayerReactionsController>().GetDamage(damage);
                         AddForce();
                         state = -1;
                         GetCurrentTargetPos();
@@ -128,7 +128,7 @@ public class HorseScript : UsingObject, ITargetTracker
                 }
                 if(Vector3.Distance(head.position, _target.position) < 2f)
                 {
-                    _target.GetComponent<GravFPS>().GetDamage(damage);
+                    _target.GetComponent<PlayerReactionsController>().GetDamage(damage);
                     AddForce();
                     SetIndicatorsValue(0);
                     state = -1;
@@ -233,7 +233,7 @@ public class HorseScript : UsingObject, ITargetTracker
         {
             Vector3 dir = _target.position - transform.position;
             rb.AddForce(dir.normalized * force, ForceMode.Impulse);
-            _target.GetComponent<GravFPS>().Stun();
+            _target.GetComponent<PlayerStateController>().Stun();
         }
     }
 }

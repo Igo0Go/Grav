@@ -14,24 +14,24 @@ public class PlayerStartSceneSettingsScript : MonoBehaviour
 {
     public List<PlayerStartSceneSettingsItem> items;
 
-    public void SetSettings(GravFPS player)
+    public void SetSettings(PlayerStateController player)
     {
-        if (player.gravFPSUI.StatusPack.hubPoint > items.Count - 1)
+        if (player.statusPack.hubPoint > items.Count - 1)
         {
             Debug.LogError("Нет позиции для игрока с указанным индексом.");
         }
         else
         {
-            PlayerStartSceneSettingsItem item = items[player.gravFPSUI.StatusPack.hubPoint];
+            PlayerStartSceneSettingsItem item = items[player.statusPack.hubPoint];
             player.transform.position = item.point.position;
             player.transform.rotation = item.point.rotation;
             if (item.gravObj != null)
             {
-                player.SetGravObj(item.gravObj);
+                player.playerGravMoveController.SetGravObj(item.gravObj);
             }
             else
             {
-                player.SetGravVector(item.gravVector);
+                player.playerGravMoveController.SetGravVector(item.gravVector);
             }
         }
     }

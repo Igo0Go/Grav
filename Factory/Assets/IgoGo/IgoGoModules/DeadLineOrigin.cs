@@ -35,7 +35,7 @@ public class DeadLineOrigin : MonoBehaviour
         {
             if(hit.collider.CompareTag("Player"))
             {
-                hit.collider.GetComponent<GravFPS>().GetDamage(damage);
+                hit.collider.GetComponent<PlayerReactionsController>().GetDamage(damage);
             }
             DrawDeadLine(hit.point);
             GameObject bufer = Instantiate(sparks, hit.point + hit.normal * 0.01f, Quaternion.identity, hit.transform);

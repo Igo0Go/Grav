@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(GravFPS))]
+[RequireComponent(typeof(PlayerGravMoveController))]
 public class BezierReactor : MyTools
 {
     [Range(1,30)]public float speed = 1;
 
-    private GravFPS gravFPS;
+    private PlayerGravMoveController moveController;
     private BezierCurve curve;
 
     private Vector3 targetPoint;
@@ -17,18 +17,17 @@ public class BezierReactor : MyTools
 
     private void Start()
     {
-        gravFPS = GetComponent<GravFPS>();
-        gravFPS.OnGroundEvent += ClearCurve;
+        moveController = GetComponent<PlayerGravMoveController>();
+        moveController.OnGroundEvent += ClearCurve;
+        moveController.PlayerStateController.playerInputController.JumpInputEvent += JumpOffTheRails;
     }
-    private void Update()
+  
+    private void JumpOffTheRails()
     {
-        if (gravFPS.Status == PlayerState.speceUse && !gravFPS.OnGround())
+        if (moveController.Status == PlayerState.speceUse && !moveController.OnGround())
         {
-            if (Input.GetKeyDown(gravFPS.inputSettingsManager.GetKey("Jump")))
-            {
-                StopMove();
-                gravFPS.rb.AddForce(transform.up, ForceMode.Impulse);
-            }
+            StopMove();
+            moveController.rb.AddForce(transform.up, ForceMode.Impulse);
         }
     }
     private void FixedUpdate()
@@ -38,8 +37,8 @@ public class BezierReactor : MyTools
 
     private void GetNearPoint()
     {
-        gravFPS.rb.useGravity = false;
-        gravFPS.rb.velocity = Vector3.zero;
+        moveController.rb.useGravity = false;
+        moveController.rb.velocity = Vector3.zero;
         if (curve != null && curve.bezierPath.Length > 0)
         {
             pointNumber = 0;
@@ -55,12 +54,12 @@ public class BezierReactor : MyTools
                 }
 
             }
-            gravFPS.Status = PlayerState.speceUse;
+            moveController.PlayerStateController.Status = PlayerState.speceUse;
         }
     }
     private void MoveToTarget()
     {
-        if(gravFPS.Status == PlayerState.speceUse)
+        if(moveController.Status == PlayerState.speceUse)
         {
             if(Distance > 0.7f)
             {
@@ -87,10 +86,10 @@ public class BezierReactor : MyTools
     }
     private void StopMove()
     {
-        gravFPS.rb.useGravity = true;
-        gravFPS.rb.AddForce(transform.forward * 5 + transform.up * 2, ForceMode.Impulse);
-        gravFPS.Status = PlayerState.active;
-        gravFPS.RotateToGrav();
+        moveController.rb.useGravity = true;
+        moveController.rb.AddForce(transform.forward * 5 + transform.up * 2, ForceMode.Impulse);
+        moveController.PlayerStateController.Status = PlayerState.active;
+        moveController.RotateToGrav();
     }
     private void ClearCurve()
     {
@@ -99,7 +98,7 @@ public class BezierReactor : MyTools
 
     private void OnTriggerStay(Collider other)
     {
-        if(!gravFPS.OnGround() && gravFPS.Status == PlayerState.active && other.CompareTag("WayStarter"))
+        if(!moveController.OnGround() && moveController.Status == PlayerState.active && other.CompareTag("WayStarter"))
         {
             BezierCurve bufer = null;
             if (curve != null)

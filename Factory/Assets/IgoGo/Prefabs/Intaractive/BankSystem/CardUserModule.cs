@@ -2,19 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(PlayerUIController))]
 public class CardUserModule : MonoBehaviour
 {
     public LayerMask ignoreMask;
     public Transform cam;
 
     private InputSettingsManager settingsManager;
-    private GravFPSUI gravFPSUI;
+    private PlayerUIController playerUIController;
     private RaycastHit hit;
 
     void Start()
     {
         settingsManager = GetComponent<InputSettingsManager>();
-        gravFPSUI = GetComponent<GravFPSUI>();
+        playerUIController = GetComponent<PlayerUIController>();
     }
     
 
@@ -25,20 +26,20 @@ public class CardUserModule : MonoBehaviour
             if(hit.collider.CompareTag("CardPoint"))
             {
                 BankCard card = hit.collider.GetComponent<BankCard>();
-                if(gravFPSUI.StatusPack.cards[card.number])
+                if(playerUIController.StatusPack.cards[card.number])
                 {
-                    gravFPSUI.SetTip(card.tipText);
+                    playerUIController.SetTip(card.tipText, true);
                     if (Input.GetKeyDown(settingsManager.GetKey("Using")))
                     {
                         card.InstanceCard();
-                        gravFPSUI.RemoveCard(card.number);
-                        gravFPSUI.ClearTip();
+                        playerUIController.RemoveCard(card.number);
+                        playerUIController.ClearTip();
                         return;
                     }
                 }
                 else
                 {
-                    gravFPSUI.SetTip("Нет нужной карты");
+                    playerUIController.SetTip("Нет нужной карты", false);
                 }
             }
         }
@@ -48,14 +49,14 @@ public class CardUserModule : MonoBehaviour
     {
         if (other.CompareTag("CardPoint"))
         {
-            gravFPSUI.SetTip(settingsManager.GetKey("Using").ToString() + " - ввести код");
+            playerUIController.SetTip("ввести код", true);
         }
     }
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("CardPoint"))
         {
-            gravFPSUI.ClearTip();
+            playerUIController.ClearTip();
         }
     }
     private void OnTriggerStay(Collider other)
@@ -64,8 +65,8 @@ public class CardUserModule : MonoBehaviour
         {
             if (Input.GetKeyDown(settingsManager.GetKey("Using")))
             {
-                gravFPSUI.ClearTip();
-                other.GetComponent<ImageCodePanel>().SetPlayer(GetComponent<GravFPS>());
+                playerUIController.ClearTip();
+                other.GetComponent<ImageCodePanel>().SetPlayer(playerUIController.PlayerStateController);
             }
         }
     }

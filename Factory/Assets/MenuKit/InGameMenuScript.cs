@@ -8,7 +8,7 @@ public class InGameMenuScript : MyTools
     public InputSettingsMenuScript settingsScript;
     public AudioSettingsPanelScript audioSettings;
     public GameObject menuPanel;
-    public GravFPS player;
+    public PlayerStateController player;
 
 
     private static bool inSettings;
@@ -25,17 +25,12 @@ public class InGameMenuScript : MyTools
         audioSettings.Initialize();
         settingsScript.Initialize();
         menuPanel.SetActive(false);
-        MyCursor.OpportunityToChange = true;
-        MyCursor.LockState = CursorLockMode.Locked;
-        MyCursor.Visible = false;
+        player.playerInputController.PauseInputEvent += OnPauseInput;
     }
-    private void Update()
+    private void OnPauseInput()
     {
-        if (Input.GetKeyDown(settingsScript.manager.GetKey("Pause"))/* && !inSettings*/)
-        {
-            if(!inSettings)
+        if (!inSettings)
             GetMenuPanel();
-        }
     }
 
     public void Return()
@@ -54,15 +49,15 @@ public class InGameMenuScript : MyTools
     }
     public void Exit()
     {
-        if(player.inHub)
+        if(player.InHub)
         {
-            player.gravFPSUI.StatusPack.currentScene = player.gravFPSUI.StatusPack.hubScene = "MainMenu";
-            player.ReturnStats();
-            player.sceneManager.LoadNextScene();
+            player.statusPack.currentScene = player.statusPack.hubScene = "MainMenu";
+            player.playerSceneManagementController.ReturnStats();
+            player.playerSceneManagementController.LoadNextScene();
         }
         else
         {
-            player.LoadHubScene();
+            player.playerSceneManagementController.LoadHubScene();
         }
     }
 
@@ -72,18 +67,17 @@ public class InGameMenuScript : MyTools
         {
             MyTime.Pause();
             menuPanel.SetActive(true);
-            MyCursor.LockState = CursorLockMode.None;
-            MyCursor.Visible = true;
-            player.inMenu = true;
+            player.SetCursorVisible(true);
+      
+            player.InMenu = true;
         }
         else
         {
             MyTime.Start();
             menuPanel.SetActive(false);
             settingsScript.GetSettingsPanel(false);
-            MyCursor.LockState = CursorLockMode.Locked;
-            MyCursor.Visible = false;
-            player.inMenu = false;
+            player.SetCursorVisible(false);
+            player.InMenu = false;
         }
     }
     private void OnReturnEvent()

@@ -93,9 +93,9 @@ public class OficerScript : MyTools, ITargetTracker
                 body.position = Target.position;
                 if (attack == 2)
                 {
-                    if(MyGetComponent(_target.gameObject, out GravFPS gravFPS))
+                    if(MyGetComponent(_target.gameObject, out PlayerReactionsController reactionController))
                     {
-                        gravFPS.GetDamage(damage);     
+                        reactionController.GetDamage(damage);     
                     }
                     attack = -1;
                 }
@@ -123,7 +123,7 @@ public class OficerScript : MyTools, ITargetTracker
         {
             Vector3 dir = _target.position - transform.position;
             rb.AddForce(dir.normalized * force, ForceMode.Impulse);
-            _target.GetComponent<GravFPS>().Stun();
+            _target.GetComponent<PlayerStateController>().Stun();
         }
     }
     private void ReturnAttack() => attack = 1;

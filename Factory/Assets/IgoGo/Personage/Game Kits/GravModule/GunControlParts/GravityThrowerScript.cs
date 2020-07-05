@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using UnityEngine.XR.WSA.Input;
 
 [System.Serializable]
 public class GravGanMode
@@ -17,7 +18,7 @@ public delegate void ISeeDronModuleHandler(FriendModulePoint point);
 
 [RequireComponent(typeof(AudioSource))]
 [RequireComponent(typeof(LineRenderer))]
-public class GravityThrowerScript : MyTools
+public class GravityThrowerScript : PlayerControllerBlueprint
 {
     #region Публичные переменные (ссылки)
     [Tooltip("В маске указать, на ккие слои выстрел не должен реагировать")]
@@ -28,8 +29,8 @@ public class GravityThrowerScript : MyTools
     public Transform lookPoint;
     [Tooltip("Animator пушки")]
     public Animator anim;
-    [Tooltip("Ссылка на владельца пушки (GravFPS)")]
-    public GravFPS player;
+    [Tooltip("Отрисовывать луч при манипуляции")]
+    public bool drawManipLine;
     #endregion
 
     #region Публичные переменные (Пушка)
@@ -60,11 +61,11 @@ public class GravityThrowerScript : MyTools
     #endregion
 
     #region Свойства
-
+    private StatusPack StatusPack => PlayerStateController.statusPack; 
     private Vector3 ManipPosBufer => cam.transform.position + cam.forward + cam.forward * currentManipObj.transform.lossyScale.magnitude;
     private float ManipDistance => Vector3.Distance(ManipPosBufer, currentManipObj.transform.position);
     private float DistanceToDanger => Vector3.Distance(dangerPoint.position, transform.position);
-
+    private bool InMenu => PlayerStateController.InMenu;
     #endregion
 
     #region Настройки пушки
@@ -89,6 +90,7 @@ public class GravityThrowerScript : MyTools
     private Vector3 farPoint = Vector3.zero;
     private LineRenderer line;
     private Transform dangerPoint;
+    private Collider currentFriendPoint;
     private bool delay;
     private bool manipKey;
     private bool opportunityToPlayDangerSound;
@@ -114,9 +116,14 @@ public class GravityThrowerScript : MyTools
     }
     #endregion
 
-    #region События Unity
-    void Start()
+    #region Основное
+    protected override void SetReferences(PlayerStateController playerState)
     {
+        playerState.playerInputController.ChangeGunTypeInputEvent += Toggle;
+        playerState.playerInputController.ShootInputEvent += OnShootInput;
+        playerState.playerInputController.UsingInputEvent += ThrowManipObject;
+        playerState.playerInputController.DronInputEvent += UseDron;
+
         dangerLight.SetActive(false);
         delay = false;
         if(modes[0].active)
@@ -134,143 +141,91 @@ public class GravityThrowerScript : MyTools
         Toggle();
         line = GetComponent<LineRenderer>();
         dangerSoundSource = GetComponent<AudioSource>();
-        player.gravFPSUI.OnGetLoot += CheckSlider;
+        playerState.playerUIController.OnGetLoot += CheckSlider;
         anim.SetBool("Ready", true);
     }
     void Update()
     {
         TargetLook();
         CheckDanger();
-        if (!delay && player.Status > 0 && !player.inMenu)
-        {
-            shoot();
-        }
-
+        ManipUpdate();
     }
     #endregion
 
     #region Служебные методы
+    private void OnShootInput()
+    {
+        if(!InMenu)
+            shoot();
+    }
+    /// <summary>
+    /// Используется с помощью Invoke("methodName")
+    /// </summary>
     private void ReturnDelay()
     {
         delay = false;
     }
     private void GravShoot()
     {
-        if (Input.GetKeyDown(player.inputSettingsManager.GetKey("Fire1")))
-        {
             BulletScript bullet = Instantiate(currentBullet, ShootPoint.position, ShootPoint.rotation).GetComponent<BulletScript>();
             bullet.SetSettings(this);
             delay = true;
             anim.SetTrigger("Shoot");
             shootSource.PlayOneShot(shootSounds[0]);
             shootParticles.Play();
-        }
-        if (Input.GetKeyDown(player.inputSettingsManager.GetKey("Fire2")))
-        {
-            Toggle();
-        }
     }
     private void ManipulationShoot()
     {
-        if(!manipKey)
+        if(manipKey)
         {
-            if(Input.GetKeyDown(player.inputSettingsManager.GetKey("Fire1")))
-            {
-                Vector3 dir = lookPoint.position - cam.position;
-                Debug.DrawRay(cam.position, dir, Color.red, 3);
-                if (Physics.Raycast(cam.position, dir, out RaycastHit hit, manipulationRange, ~ignoreMask))
-                {
-                    if (hit.collider.CompareTag("Manip"))
-                    {
-                        currentManipObj = hit.collider.gameObject;
-                        manipRenderer = currentManipObj.GetComponent<MeshRenderer>();
-                        materialColor = manipRenderer.material.color;
-                        currentRB = currentManipObj.GetComponent<Rigidbody>();
-                        if(currentRB.mass <= 30)
-                        {
-                            currentRB.useGravity = false;
-                            currentRB.isKinematic = false;
-                            manipKey = true;
-                            shootSource.clip = shootSounds[2];
-                            shootSource.loop = true;
-                            shootSource.Play();
-                            if(MyGetComponent(currentManipObj, out ManipItem item))
-                            {
-                                item.OnSocketPos += ReturnManip;
-                            }
-                        }
-                    }
-                    else if(hit.collider.CompareTag("ManipForEnemy"))
-                    {
-                        currentManipObj = hit.collider.transform.parent.parent.gameObject;
-                        manipRenderer = hit.collider.gameObject.GetComponent<MeshRenderer>();
-                        materialColor = manipRenderer.material.color;
-                        currentRB = currentManipObj.GetComponent<Rigidbody>();
-                        if(MyGetComponent(currentManipObj, out Pawn pawn))
-                        {
-                            pawn.ToManipState();
-                            manipKey = true;
-                        }
-                    }
-                }
-            }
+            ReturnManip();
         }
         else
         {
-            if(ManipDistance > 0.1f)
+            Vector3 dir = lookPoint.position - cam.position;
+            Debug.DrawRay(cam.position, dir, Color.red, 3);
+            if (Physics.Raycast(cam.position, dir, out RaycastHit hit, manipulationRange, ~ignoreMask))
             {
-                if(Vector3.Angle(ManipPosBufer - currentManipObj.transform.position, currentRB.velocity) > 30)
+                if (hit.collider.CompareTag("Manip"))
                 {
-                    currentRB.velocity = Vector3.zero;
+                    currentManipObj = hit.collider.gameObject;
+                    manipRenderer = currentManipObj.GetComponent<MeshRenderer>();
+                    materialColor = manipRenderer.material.color;
+                    currentRB = currentManipObj.GetComponent<Rigidbody>();
+                    if (currentRB.mass <= 30)
+                    {
+                        currentRB.useGravity = false;
+                        currentRB.isKinematic = false;
+                        manipKey = true;
+                        shootSource.clip = shootSounds[2];
+                        shootSource.loop = true;
+                        shootSource.Play();
+                        ManipItem item = currentManipObj.GetComponent<ManipItem>();
+                        if (item != null)
+                        {
+                            item.OnSocketPos += ReturnManip;
+                        }
+                    }
                 }
-                if(Vector3.Angle(-cam.forward, currentManipObj.transform.position - cam.position) < 60 && Vector3.Angle(cam.forward, currentRB.velocity) < 30)
+                else if (hit.collider.CompareTag("ManipForEnemy"))
                 {
-                    currentRB.AddForce(cam.up * 5 * currentRB.mass, ForceMode.Impulse);
+                    currentManipObj = hit.collider.transform.parent.parent.gameObject;
+                    manipRenderer = hit.collider.gameObject.GetComponent<MeshRenderer>();
+                    materialColor = manipRenderer.material.color;
+                    currentRB = currentManipObj.GetComponent<Rigidbody>();
+                    Pawn pawn = currentManipObj.GetComponent<Pawn>();
+                    if (pawn != null)
+                    {
+                        pawn.ToManipState();
+                        manipKey = true;
+                    }
                 }
-                currentRB.AddForce((ManipPosBufer - currentManipObj.transform.position) * (2 - (currentRB.mass/30)) , ForceMode.Impulse);
             }
-            else
-            {
-                currentRB.velocity = Vector3.zero;
-            }
-
-            if(Input.GetKeyDown(player.inputSettingsManager.GetKey("Fire1")))
-            {
-                ReturnManip();
-            }
-            else if (Input.GetKeyDown(player.inputSettingsManager.GetKey("Using")))
-            {
-                if (MyGetComponent(currentManipObj, out ManipItem item))
-                {
-                    item.damaged = true;
-                }
-                ReturnManip();
-                currentRB.AddForce((transform.forward + transform.up * 0.5f) * manipDropForce, ForceMode.Impulse);
-            }
-
-            //nearPoint = ShootPoint.position + ShootPoint.forward * Vector3.Distance(ShootPoint.position, currentManipObj.transform.position) / 2;
-            //farPoint = Vector3.Lerp(currentManipObj.transform.position, nearPoint, Vector3.Distance(nearPoint, currentManipObj.transform.position) / 2);
-
-        }
-
-        if(manipKey && manipRenderer != null)
-        {
-            if(materialColor.a > 0.4f)
-            {
-                materialColor.a -= Time.deltaTime;
-                manipRenderer.material.color = materialColor;
-            }
-            //DrawCurves();
-        }
-
-        if (Input.GetKeyDown(player.inputSettingsManager.GetKey("Fire2")))
-        {
-            Toggle();
         }
     }
     private void AcidShoot()
     {
-        if (Input.GetKeyDown(player.inputSettingsManager.GetKey("Fire1")) && player.gravFPSUI.StatusPack.acidCount > 0)
+        if (StatusPack.currentAcidCount > 0)
         {
             BulletScript bullet = Instantiate(currentBullet, ShootPoint.position, ShootPoint.rotation).GetComponent<BulletScript>();
             bullet.SetSettings(this);
@@ -278,15 +233,64 @@ public class GravityThrowerScript : MyTools
             anim.SetTrigger("Shoot");
             shootSource.PlayOneShot(shootSounds[1]);
             shootParticles.Play();
-            player.gravFPSUI.StatusPack.acidCount--;
-            player.gravFPSUI.StatusPack.acidCount = Mathf.Clamp(player.gravFPSUI.StatusPack.acidCount,0, player.gravFPSUI.StatusPack.maxAcidCount);
-            player.gravFPSUI.CheckTexts();
-            powerSlider.value = player.gravFPSUI.StatusPack.acidCount;
+            powerSlider.value = StatusPack.currentAcidCount;
         }
-        if (Input.GetKeyDown(player.inputSettingsManager.GetKey("Fire2")))
+    }
+    private void ManipUpdate()
+    {
+        if (manipKey)
         {
-            Toggle();
+            if (ManipDistance > 0.1f)
+            {
+                if (Vector3.Angle(ManipPosBufer - currentManipObj.transform.position, currentRB.velocity) > 30)
+                {
+                    currentRB.velocity = Vector3.zero;
+                }
+                if (Vector3.Angle(-cam.forward, currentManipObj.transform.position - cam.position) < 60 && Vector3.Angle(cam.forward, currentRB.velocity) < 30)
+                {
+                    currentRB.AddForce(cam.up * 5 * currentRB.mass, ForceMode.Impulse);
+                }
+                currentRB.AddForce((ManipPosBufer - currentManipObj.transform.position) * (2 - (currentRB.mass / 30)), ForceMode.Impulse);
+            }
+            else
+            {
+                currentRB.velocity = Vector3.zero;
+            }
+
+            if(drawManipLine)
+            {
+                nearPoint = ShootPoint.position + ShootPoint.forward * Vector3.Distance(ShootPoint.position, currentManipObj.transform.position) / 2;
+                farPoint = Vector3.Lerp(currentManipObj.transform.position, nearPoint, Vector3.Distance(nearPoint, currentManipObj.transform.position) / 2);
+            }
+
+
+            if (manipRenderer != null)
+            {
+                if (materialColor.a > 0.4f)
+                {
+                    materialColor.a -= Time.deltaTime;
+                    manipRenderer.material.color = materialColor;
+                }
+                
+                if(drawManipLine) DrawCurves();
+            }
         }
+    }
+    private void ThrowManipObject()
+    {
+        if (manipKey)
+        {
+            ManipItem item = currentManipObj.GetComponent<ManipItem>();
+            if(item != null)
+                item.damaged = true;
+            ReturnManip();
+            currentRB.AddForce((transform.forward) * manipDropForce, ForceMode.Impulse);
+        }
+    }
+    private void UseDron()
+    {
+        if (currentFriendPoint = null)
+            ISeeDronPointEvent?.Invoke(currentFriendPoint.GetComponent<FriendModulePoint>());
     }
     private void TargetLook()
     {
@@ -296,109 +300,114 @@ public class GravityThrowerScript : MyTools
             if(hit.collider.CompareTag("DronModule"))
             {
                 dronLight.SetActive(true);
-                if(Input.GetKeyDown(player.inputSettingsManager.GetKey("Dron")))
-                {
-                    ISeeDronPointEvent?.Invoke(hit.collider.GetComponent<FriendModulePoint>());
-                }
+                if(hit.collider != currentFriendPoint) currentFriendPoint = hit.collider;
             }
             else
             {
+                currentFriendPoint = null;
                 dronLight.SetActive(false);
             }
         }
         else
         {
+            currentFriendPoint = null;
             lookPoint.position = cam.position + cam.forward * range;
             dronLight.SetActive(false);
         }
         ShootPoint.LookAt(lookPoint);
     }
+    /// <summary>
+    /// Переключение режима с учётом подписок на события и активной манипуляции объектом
+    /// </summary>
     private void Toggle()
     {
-        player.OnDeadEvent -= ReturnManip;
-        int modeNumber = 0;
-        switch (toggle)
+        if (!delay && PlayerStateController.Status > 0 && !PlayerStateController.InMenu)
         {
-            case -1:
-                if(modes[0].active)
-                {
-                    modeNumber = 0;
-                    shoot = AcidShoot;
-                    toggle = 0;
-                }
-                else if(modes[1].active)
-                {
-                    modeNumber = 1;
-                    shoot = GravShoot;
-                    toggle = 1;
-                }
-                else
-                {
-                    modeNumber = 2;
-                    player.OnDeadEvent += ReturnManip;
-                    shoot = ManipulationShoot;
-                    toggle = -1;
-                }
-                break;
-            case 0:
-                if (modes[1].active)
-                {
-                    modeNumber = 1;
-                    shoot = GravShoot;
-                    toggle = 1;
-                }
-                else if (modes[2].active)
-                {
-                    modeNumber = 2;
-                    shoot = ManipulationShoot;
-                    player.OnDeadEvent += ReturnManip;
-                    toggle = -1;
-                }
-                else
-                {
-                    modeNumber = 0;
-                    shoot = AcidShoot;
-                    toggle = 0;
-                }
-                break;
-            case 1:
-                if (modes[2].active)
-                {
-                    modeNumber = 2;
-                    shoot = ManipulationShoot;
-                    player.OnDeadEvent += ReturnManip;
-                    toggle = -1;
-                }
-                else if(modes[0].active)
-                {
-                    modeNumber = 0;
-                    shoot = AcidShoot;
-                    toggle = 0;
-                }
-                else
-                {
-                    modeNumber = 1;
-                    shoot = GravShoot;
-                    toggle = 1;
-                }
-                break;
+            PlayerStateController.playerReactionsController.DeathEvent -= ReturnManip;
+            int modeNumber = 0;
+            switch (toggle)
+            {
+                case -1:
+                    if (modes[0].active)
+                    {
+                        modeNumber = 0;
+                        shoot = AcidShoot;
+                        toggle = 0;
+                    }
+                    else if (modes[1].active)
+                    {
+                        modeNumber = 1;
+                        shoot = GravShoot;
+                        toggle = 1;
+                    }
+                    else
+                    {
+                        modeNumber = 2;
+                        PlayerStateController.playerReactionsController.DeathEvent += ReturnManip;
+                        shoot = ManipulationShoot;
+                        toggle = -1;
+                    }
+                    break;
+                case 0:
+                    if (modes[1].active)
+                    {
+                        modeNumber = 1;
+                        shoot = GravShoot;
+                        toggle = 1;
+                    }
+                    else if (modes[2].active)
+                    {
+                        modeNumber = 2;
+                        shoot = ManipulationShoot;
+                        PlayerStateController.playerReactionsController.DeathEvent += ReturnManip;
+                        toggle = -1;
+                    }
+                    else
+                    {
+                        modeNumber = 0;
+                        shoot = AcidShoot;
+                        toggle = 0;
+                    }
+                    break;
+                case 1:
+                    if (modes[2].active)
+                    {
+                        modeNumber = 2;
+                        shoot = ManipulationShoot;
+                        PlayerStateController.playerReactionsController.DeathEvent += ReturnManip;
+                        toggle = -1;
+                    }
+                    else if (modes[0].active)
+                    {
+                        modeNumber = 0;
+                        shoot = AcidShoot;
+                        toggle = 0;
+                    }
+                    else
+                    {
+                        modeNumber = 1;
+                        shoot = GravShoot;
+                        toggle = 1;
+                    }
+                    break;
+            }
+            if (toggle != -1 && manipKey)
+            {
+                ReturnManip();
+            }
+            shootSource.PlayOneShot(shootSounds[3]);
+            CheckSlider();
+            modeIndicator.material = modes[modeNumber].modeMaterialForGun;
+            powerFillArea.color = modes[modeNumber].modeColorForSlider;
+            currentBullet = modes[modeNumber].Bulleet;
         }
-        if(toggle != -1 && manipKey)
-        {
-            ReturnManip();
-        }
-        shootSource.PlayOneShot(shootSounds[3]);
-        CheckSlider();
-        modeIndicator.material = modes[modeNumber].modeMaterialForGun;
-        powerFillArea.color = modes[modeNumber].modeColorForSlider;
-        currentBullet = modes[modeNumber].Bulleet;
     }
     private void CheckSlider()
     {
         if (toggle == 0)
         {
-            powerSlider.maxValue = player.gravFPSUI.StatusPack.maxAcidCount;
-            powerSlider.value = player.gravFPSUI.StatusPack.acidCount;
+            powerSlider.maxValue = StatusPack.maxAcidCount;
+            powerSlider.value = StatusPack.currentAcidCount;
         }
         else
         {
@@ -410,11 +419,13 @@ public class GravityThrowerScript : MyTools
         materialColor.a = 1;
         if (currentManipObj != null)
         {
-            if (MyGetComponent(currentManipObj, out Pawn pawn))
+            Pawn pawn = currentManipObj.GetComponent<Pawn>();
+            if (pawn != null)
             {
                 pawn.ToDefaultState();
             }
-            if(MyGetComponent(currentManipObj, out ManipItem item))
+            ManipItem item = currentManipObj.GetComponent < ManipItem> ();
+            if (item != null)
             {
                 item.OnSocketPos -= ReturnManip;
             }
@@ -424,7 +435,9 @@ public class GravityThrowerScript : MyTools
         manipKey = false;
         shootSource.loop = false;
         shootSource.Stop();
-        //line.positionCount = 0;
+
+        if(drawManipLine)
+            line.positionCount = 0;
     }
     private void CheckDanger()
     {
@@ -451,7 +464,10 @@ public class GravityThrowerScript : MyTools
         if (!opportunityToPlayDangerSound)
             dangerLight.SetActive(false);
     }
-    public void DrawCurves() // создание кривой и визуализация
+    /// <summary>
+    /// Cоздание кривой и визуализация
+    /// </summary>
+    public void DrawCurves()
     {
         List<Vector3> l = new List<Vector3>();
 

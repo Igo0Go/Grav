@@ -18,7 +18,7 @@ public class LootPointScript : UsingOrigin
     [HideInInspector] public bool useble;
     private GameObject bufer;
     private Transform player;
-    private GravFPSUI gravFPSUI;
+    private PlayerUIController playerUI;
     private List<Transform> spendObjects;
     private bool spawn;
     private bool usingOrigin;
@@ -41,12 +41,12 @@ public class LootPointScript : UsingOrigin
         MoveCoins();
     }
 
-    public void SetPlayer(GravFPSUI fPS)
+    public void SetPlayer(PlayerStateController playerStateController)
     {
         spendObjects = new List<Transform>();
         currentSpendIndex = 0;
-        gravFPSUI = fPS;
-        player = gravFPSUI.transform;
+        playerUI = playerStateController.playerUIController;
+        player = playerUI.transform;
         spawn = true;
         useble = false;
     }
@@ -100,9 +100,9 @@ public class LootPointScript : UsingOrigin
             {
                 if (currentSpendIndex < 4)
                 {
-                    if(gravFPSUI.StatusPack.cards[currentSpendIndex])
+                    if(playerUI.StatusPack.cards[currentSpendIndex])
                     {
-                        gravFPSUI.StatusPack.cards[currentSpendIndex] = false;
+                        playerUI.StatusPack.cards[currentSpendIndex] = false;
                         spendObjects.Add(Instantiate(spendPrefab[currentSpendIndex], player.position + player.up, Quaternion.identity, transform).transform);
                         cardContains++;
                     }

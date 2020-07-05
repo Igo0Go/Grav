@@ -13,7 +13,7 @@ public enum LoadType
 
 public class LoadSceneScript : UsingObject
 {
-    public GravFPS gravFPS;
+    public PlayerStateController playerStateController;
     public StatusPack pack;
     public ModuleController moduleConroller;
     public LoadType loadType;
@@ -51,8 +51,8 @@ public class LoadSceneScript : UsingObject
         {
             pack.currentScene = pack.hubScene = sceneName;
         }
-        gravFPS.gravFPSUI.SaveStats();
-        gravFPS.sceneManager.LoadNextScene();
+        playerStateController.playerUIController.SaveStats();
+        playerStateController.playerSceneManagementController.LoadNextScene();
     }
     public override void ToStart()
     {

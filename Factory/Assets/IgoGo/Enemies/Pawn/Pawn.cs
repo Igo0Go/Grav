@@ -21,7 +21,7 @@ public class Pawn : UsingObject, ITargetTracker
     private NavMeshAgent agent;
     private Rigidbody rb;
     private Rigidbody rbBufer;
-    private GravFPS gravFPS;
+    private PlayerStateController gravFPS;
     private sbyte state; //0 выбор пункта/1 идти до пункта/ -1 идти к ящику/  -2 ждать ящик/ 2 идти до игрока/ 3 выбить деньги /4 - нас взяли
     #endregion
 
@@ -160,7 +160,7 @@ public class Pawn : UsingObject, ITargetTracker
     }
     private void GetMony()
     {
-        gravFPS.gravFPSUI.Spend(1);
+        gravFPS.playerUIController.Spend(1);
         rbBufer = Instantiate(coinWithRb, manipPoint.position, Quaternion.identity).GetComponent<Rigidbody>();
         Vector3 direction = Vector3.ProjectOnPlane(_target.position - manipPoint.position, transform.up) + transform.up;
         rbBufer.AddForce(direction.normalized * manipShootForce * 2, ForceMode.Impulse);

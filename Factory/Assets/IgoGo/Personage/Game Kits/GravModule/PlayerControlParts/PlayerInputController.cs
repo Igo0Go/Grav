@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerInputController : MonoBehaviour
+public class PlayerInputController : PlayerControllerBlueprint
 {
     public InputSettingsManager inputSettingsManager;
 
@@ -22,15 +22,32 @@ public class PlayerInputController : MonoBehaviour
     public event Action UsingInputEvent;
     public event Action DronInputEvent;
     public event Action ShieldInputEvent;
+    public event Action StatsInputEvent;
+    public event Action PauseInputEvent;
 
-    void Start()
+    protected override void SetReferences(PlayerStateController playerState)
     {
-        
+
     }
 
-    void Update()
+    private void Update()
     {
-        
+        SprintInput();
+        JumpInput();
+        MoveInput();
+
+        ShootInput();
+        ChangeGunTypeInput();
+
+        ShieldInput();
+        DronInput();
+        StatsInput();
+        PauseInput();
+        UsingInput();
+    }
+    private void LateUpdate()
+    {
+        RotateInput();
     }
 
     private void MoveInput()
@@ -70,6 +87,27 @@ public class PlayerInputController : MonoBehaviour
         if (Input.GetKeyDown(inputSettingsManager.GetKey("Dron")))
         {
             DronInputEvent?.Invoke();
+        }
+    }
+    private void StatsInput()
+    {
+        if (Input.GetKeyDown(inputSettingsManager.GetKey("Stats")))
+        {
+            StatsInputEvent?.Invoke();
+        }
+    }
+    private void PauseInput()
+    {
+        if (Input.GetKeyDown(inputSettingsManager.GetKey("Pause")))
+        {
+            PauseInputEvent?.Invoke();
+        }
+    }
+    private void UsingInput()
+    {
+        if (Input.GetKeyDown(inputSettingsManager.GetKey("Using")))
+        {
+            UsingInputEvent?.Invoke();
         }
     }
 }

@@ -47,9 +47,9 @@ public class FriendScript : MonoBehaviour
     void Start()
     {
         gravityThrower.ISeeDronPointEvent += SetTarget;
-        gravityThrower.player.OnDeadEvent += ToDead;
-        gravityThrower.player.OnRestartEvent += ToRestart;
-        inputSettingsManager = gravityThrower.player.inputSettingsManager;
+        gravityThrower.PlayerStateController.playerReactionsController.DeathEvent += ToDead;
+        gravityThrower.PlayerStateController.playerSceneManagementController.OnRestartEvent += ToRestart;
+        inputSettingsManager = gravityThrower.PlayerStateController.playerInputController.inputSettingsManager;
         rb = GetComponent<Rigidbody>();
         rb.useGravity = false;
         rb.isKinematic = true;

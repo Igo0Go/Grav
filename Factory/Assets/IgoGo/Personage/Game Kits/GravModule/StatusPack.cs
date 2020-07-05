@@ -11,12 +11,12 @@ public class StatusPack : ScriptableObject
 
     [Tooltip("Статус загрузки - миссия, хаб, перезагрузка")] public int loadStatus;
 
-    [Tooltip("Текущее количество монет")] public int money;
-    [Tooltip("Текущее количество жизней")] public int lifeSphereCount;
-    [Tooltip("Текущее количество выстрелов кислоты")] public float acidCount;
+    [Tooltip("Текущее количество монет")] public int currentMoneyCount;
+    [Tooltip("Текущее количество жизней")] public int currentLifeSphereCount;
+    [Tooltip("Текущее количество выстрелов кислоты")] public float currentAcidCount;
 
     [Tooltip("Сохраннное количество монет")] public int saveMoney;
-    [Tooltip("Сохранённое количество жизней")] public int saveSphere;
+    [Tooltip("Сохранённое количество жизней")] public int saveSphereCount;
     [Tooltip("Сохранённое количество выстрелов кислоты")] public float saveAcidCount;
     [Tooltip("Максимальное количество выстрелов кислоты в пушке")] public float maxAcidCount;
 

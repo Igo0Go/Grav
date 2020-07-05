@@ -24,7 +24,7 @@ public class BulletScript : MyTools
     private float power = 1;
     [Tooltip("На какие слои не реагировать"), SerializeField]
     private LayerMask ignoreMask;
-    private GravFPS player;
+    private PlayerStateController player;
     #endregion
 
     #region Приватные переменные
@@ -56,7 +56,7 @@ public class BulletScript : MyTools
         if (type == BulletType.Grav)
         {
             moveBullet = MoveGravBullet;
-            player = gravityThrower.player;
+            player = gravityThrower.PlayerStateController;
         }
         else
         {
@@ -86,14 +86,14 @@ public class BulletScript : MyTools
                 decal = Instantiate(Particles[0]);
                 if (MyGetComponent(hit.collider.gameObject, out SphereGravModule gravReactor))
                 {
-                    player.SetGravObj(gravReactor);
+                    player.playerGravMoveController.SetGravObj(gravReactor);
                 }
                 else
                 {
-                    player.SetGravVector(-hit.normal * power * 9.8f);
+                    player.playerGravMoveController.SetGravVector(-hit.normal * power);
                     player.transform.localScale = Vector3.one;
                 }
-                player.RotateToGrav();
+                player.playerGravMoveController.RotateToGrav();
             }
             else if (hit.collider.CompareTag("Enemy"))
             {

@@ -12,17 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 256d235b15d34794da05dd2937a9648a, type: 3}
   m_Name: GravStatus
   m_EditorClassIdentifier: 
-  loadSlot: 1
+  loadSlot: 3
   currentScene: SaveTestHub
   hubScene: SaveTestHub
   loadStatus: 0
-  money: 1020
-  lifeSphereCount: 21
-  acidCount: 0
-  saveMoney: 1020
-  saveSphere: 21
+  currentMoneyCount: 0
+  currentLifeSphereCount: 0
+  currentAcidCount: 4
+  saveMoney: 0
+  saveSphereCount: 0
   saveAcidCount: 0
   maxAcidCount: 5
-  hubPoint: 1
+  hubPoint: 0
   cards: 00000000
   saveCards: 00000000

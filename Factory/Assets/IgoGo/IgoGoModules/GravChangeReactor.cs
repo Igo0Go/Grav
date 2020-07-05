@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class GravChangeReactor : UsingOrigin
 {
-    public GravFPS gravFPS;
+    public PlayerStateController playerStateController;
 
     private void Start()
     {
-        if(gravFPS == null)
+        if(playerStateController == null)
         {
             Debug.LogError("Не был передан компонент gravFPS в " + name);
         }
         else
         {
-            gravFPS.OnGravChange += Use;
+            playerStateController.playerGravMoveController.OnGravChange += Use;
         }
     }
 

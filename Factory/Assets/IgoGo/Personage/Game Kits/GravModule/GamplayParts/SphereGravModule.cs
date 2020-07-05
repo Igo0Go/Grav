@@ -6,7 +6,7 @@ public class SphereGravModule : UsingObject
 {
     public bool planetGravityType;
     public List<Rigidbody> rigidbodies;
-    public GravFPS player;
+    public PlayerStateController player;
     public float radius;
 
     [Space(20)]
@@ -58,7 +58,7 @@ public class SphereGravModule : UsingObject
     {
         if(player != null)
         {
-            player.SetGravObj(this);
+            player.playerGravMoveController.SetGravObj(this);
         }
     }
     public override void ToStart()

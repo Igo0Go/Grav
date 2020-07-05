@@ -26,7 +26,7 @@ public class LootItem : MonoBehaviour
 
     private int status;
     private Transform target;
-    private GravFPS player;
+    private PlayerStateController player;
 
     void Update()
     {
@@ -38,16 +38,16 @@ public class LootItem : MonoBehaviour
                 switch (type)
                 {
                     case ItemType.AcidBottle:
-                        player.gravFPSUI.AddAcid(count);
+                        player.playerUIController.AddAcid(count);
                         break;
                     case ItemType.Coin:
-                        player.gravFPSUI.AddCoin();
+                        player.playerUIController.AddCoin();
                         break;
                     case ItemType.LifeSphere:
-                        player.gravFPSUI.AddLifeSphere();
+                        player.playerUIController.AddLifeSphere();
                         break;
                     case ItemType.BankCard:
-                        player.gravFPSUI.AddBankCard(count);
+                        player.playerUIController.AddBankCard(count);
                         break;
                 }
                 source.Play();
@@ -65,11 +65,11 @@ public class LootItem : MonoBehaviour
         }
     }
 
-    public void SetTarget(GravFPS fps)
+    public void SetTarget(PlayerStateController playerState)
     {
-        target = fps.transform;
+        target = playerState.transform;
         //transform.parent = target;
-        player = fps;
+        player = playerState;
         status = 1;
         if(physicalCollider != null)
         {

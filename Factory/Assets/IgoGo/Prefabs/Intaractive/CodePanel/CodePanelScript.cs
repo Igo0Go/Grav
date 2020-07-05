@@ -18,7 +18,7 @@ public class CodePanelScript : UsingOrigin
     public string message;
     public string blockText;
 
-    private GravFPS gravFPS;
+    private PlayerStateController playerStateController;
     private Transform player;
     private Transform playerCam;
     private int currentAttempt;
@@ -44,12 +44,12 @@ public class CodePanelScript : UsingOrigin
         }
     }
 
-    public void SetPlayer(GravFPS target)
+    public void SetPlayer(PlayerStateController target)
     {
-        gravFPS = target;
-        player = gravFPS.transform;
+        playerStateController = target;
+        player = playerStateController.transform;
         playerCam = player.GetChild(0);
-        gravFPS.Status = PlayerState.disactive;
+        playerStateController.Status = PlayerState.disactive;
         move = true;
     }
     public void AddSymbol(int value)
@@ -59,7 +59,7 @@ public class CodePanelScript : UsingOrigin
     }
     public void Escape()
     {
-        gravFPS.Status = PlayerState.active;
+        playerStateController.Status = PlayerState.active;
         MyCursor.OpportunityToChange = true;
         MyCursor.LockState = CursorLockMode.Locked;
         MyCursor.Visible = false;

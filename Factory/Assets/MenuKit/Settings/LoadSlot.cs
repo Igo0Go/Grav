@@ -47,11 +47,11 @@ public class LoadSlot : MonoBehaviour
     {
         mainMenu.playerStatusPack.saveAcidCount = right.saveAcidCount;
         mainMenu.playerStatusPack.saveMoney = right.saveMoney;
-        mainMenu.playerStatusPack.saveSphere = right.saveSphere;
+        mainMenu.playerStatusPack.saveSphereCount = right.saveSphere;
 
-        mainMenu.playerStatusPack.money = right.money;
-        mainMenu.playerStatusPack.lifeSphereCount = right.lifeSphereCount;
-        mainMenu.playerStatusPack.acidCount = right.acidCount;
+        mainMenu.playerStatusPack.currentMoneyCount = right.money;
+        mainMenu.playerStatusPack.currentLifeSphereCount = right.lifeSphereCount;
+        mainMenu.playerStatusPack.currentAcidCount = right.acidCount;
         mainMenu.playerStatusPack.maxAcidCount = right.maxAcidCount;
 
         mainMenu.playerStatusPack.loadSlot = right.loadSlot;

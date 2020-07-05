@@ -35,11 +35,11 @@ public class StatusPackContainer
         currentScene = pack.currentScene;
         hubScene = pack.hubScene;
         loadStatus = pack.loadStatus;
-        money = pack.money;
-        lifeSphereCount = pack.lifeSphereCount;
-        acidCount = pack.acidCount;
+        money = pack.currentMoneyCount;
+        lifeSphereCount = pack.currentLifeSphereCount;
+        acidCount = pack.currentAcidCount;
         saveMoney = pack.saveMoney;
-        saveSphere = pack.saveSphere;
+        saveSphere = pack.saveSphereCount;
         saveAcidCount = pack.saveAcidCount;
         maxAcidCount = pack.maxAcidCount;
         hubPoint = pack.hubPoint;
@@ -230,8 +230,8 @@ public class MainMenuScript : MonoBehaviour
     {
         DataLoader.RemoveXML(slot);
         playerStatusPack.loadSlot = slot;
-        playerStatusPack.saveAcidCount = playerStatusPack.saveSphere = playerStatusPack.saveMoney = playerStatusPack.lifeSphereCount = playerStatusPack.money = 0;
-        playerStatusPack.acidCount = 0;
+        playerStatusPack.saveAcidCount = playerStatusPack.saveSphereCount = playerStatusPack.saveMoney = playerStatusPack.currentLifeSphereCount = playerStatusPack.currentMoneyCount = 0;
+        playerStatusPack.currentAcidCount = 0;
         playerStatusPack.maxAcidCount = 5;
         playerStatusPack.saveCards = playerStatusPack.cards = new List<bool>() { false, false, false, false };
         playerStatusPack.currentScene = playerStatusPack.hubScene = startScene;
