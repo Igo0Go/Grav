@@ -63,9 +63,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\IgoGo\IgoGoModules\Editor\AnimActivatorEditor.cs" />
-    <Compile Include="Assets\IgoGo\IgoGoModules\Editor\CubeStructureEditor.cs" />
-    <Compile Include="Assets\InkPainter\Script\Editor\UVChecker.cs" />
+    <Compile Include="Assets\Editor\AnimActivatorEditor.cs" />
+    <Compile Include="Assets\Editor\CubeStructureEditor.cs" />
+    <Compile Include="Assets\Packages\InkPainter\Script\Editor\UVChecker.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>D:/MyContent/Unity/Projects/Grav/Grav/Factory/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>

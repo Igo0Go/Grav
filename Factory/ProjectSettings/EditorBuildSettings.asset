@@ -6,37 +6,37 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/IgoGo/Scenes/MainMenu.unity
+    path: Assets/Scenes/MainMenu.unity
     guid: 2b2f1d71f88ebc24997b92ddd7b7ca62
   - enabled: 1
-    path: Assets/IgoGo/Scenes/Load.unity
+    path: Assets/Scenes/Load.unity
     guid: 24aff585d44d4824c9d95ef55cdc3767
   - enabled: 1
-    path: Assets/Nestea/Scene/StartHub.unity
+    path: Assets/Scenes/OldGameScene/StartHub.unity
     guid: 8b6c29e16670da44ebb9c79588c1726f
   - enabled: 1
-    path: Assets/Nestea/Scene/LaboratoryHub.unity
+    path: Assets/Scenes/OldGameScene/LaboratoryHub.unity
     guid: 836c329ad59f06346a5076d9c2bb9f3c
   - enabled: 1
-    path: Assets/Nestea/Scene/Mission1.unity
+    path: Assets/Scenes/OldGameScene/Mission1.unity
     guid: 5ac8f4a222ee34042b3451d8dc9ac30f
   - enabled: 1
-    path: Assets/Nestea/Scene/Mission2.unity
+    path: Assets/Scenes/OldGameScene/Mission2.unity
     guid: 40752d64587573141b5535608e55a0dd
   - enabled: 1
-    path: Assets/Nestea/Scene/Mission3.unity
+    path: Assets/Scenes/OldGameScene/Mission3.unity
     guid: 4825663030d4e694ba2291dc84a0b46d
   - enabled: 1
-    path: Assets/IgoGo/Scenes/SecretMission.unity
+    path: Assets/Scenes/SecretMission.unity
     guid: 275f44c46a0191341b724505b537babe
   - enabled: 0
-    path: Assets/IgoGo/Scenes/IgoGoRooms/SaveTestHub.unity
+    path: Assets/Scenes/IgoGoRooms/SaveTestHub.unity
     guid: 157e589eb2ad1574ea816ddb9513ffbe
   - enabled: 0
-    path: Assets/IgoGo/Scenes/IgoGoRooms/SaveTestMission.unity
+    path: Assets/Scenes/IgoGoRooms/SaveTestMission.unity
     guid: e15721bfa8fbda143bab237060f3e2e4
   - enabled: 0
-    path: Assets/IgoGo/Scenes/IgoGoRooms/TestHub.unity
+    path: Assets/Scenes/IgoGoRooms/TestHub.unity
     guid: c43a9f7b0ce2829458c0b6ce4e5795fa
   - enabled: 0
     path: Assets/IgoGo/Scenes/IgoGoRooms/Angar.unity
@@ -60,6 +60,6 @@ EditorBuildSettings:
     path: Assets/IgoGo/Scenes/IgoGoRooms/Lights.unity
     guid: 20b51e690bc2d97429c3ef7e484796be
   - enabled: 0
-    path: Assets/IgoGo/Scenes/IgoGoRooms/Test.unity
+    path: Assets/Scenes/IgoGoRooms/Test.unity
     guid: 3052371f98d1a7149ab893a81a47d558
   m_configObjects: {}
