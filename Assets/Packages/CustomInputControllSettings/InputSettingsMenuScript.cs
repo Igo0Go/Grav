@@ -18,9 +18,6 @@ public class InputSettingsMenuScript : MonoBehaviour
     public GameObject itemPrefab;
     public Transform scrollViewContent;
 
-    [Space(20)]
-    public bool mainMenuMode = false;
-
     private List<InputSettingsMenuItem> items; 
     private KeyCodeContainer container;
     private int fieldNumber;
@@ -35,7 +32,7 @@ public class InputSettingsMenuScript : MonoBehaviour
         sensivitySlider.value = manager.inputKit.sensivityMultiplicator;
         sensivitySlider.onValueChanged.AddListener(ChangeSensivity);
         changePanel.SetActive(false);
-        settingsPannel.SetActive(mainMenuMode);
+        settingsPannel.SetActive(false);
     }
 
     public void GetSettingsPanel()

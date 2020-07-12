@@ -10029,7 +10029,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e341f200dc347f4b95610d2a433fd16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  source: {fileID: 255866218}
+  audioType: 1
 --- !u!82 &255866218
 AudioSource:
   m_ObjectHideFlags: 0
@@ -10608,7 +10608,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debug: 0
   used: 0
-  gravFPS: {fileID: 2096775380}
+  playerStateController: {fileID: 0}
   pack: {fileID: 11400000, guid: 0d2c14a493d5a2d4cad620c11a86d708, type: 2}
   moduleConroller: {fileID: 793964140}
   loadType: 1
@@ -35603,7 +35603,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e341f200dc347f4b95610d2a433fd16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  source: {fileID: 709215884}
+  audioType: 1
 --- !u!82 &709215884
 AudioSource:
   m_ObjectHideFlags: 0
@@ -45949,7 +45949,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debug: 0
   used: 0
-  gravFPS: {fileID: 2096775380}
+  playerStateController: {fileID: 0}
   pack: {fileID: 11400000, guid: 0d2c14a493d5a2d4cad620c11a86d708, type: 2}
   moduleConroller: {fileID: 793964140}
   loadType: 1
@@ -51538,7 +51538,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e341f200dc347f4b95610d2a433fd16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  source: {fileID: 1064824690}
+  audioType: 1
 --- !u!82 &1064824690
 AudioSource:
   m_ObjectHideFlags: 0
@@ -68089,7 +68089,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debug: 0
   used: 0
-  gravFPS: {fileID: 2096775380}
+  playerStateController: {fileID: 0}
   pack: {fileID: 11400000, guid: 0d2c14a493d5a2d4cad620c11a86d708, type: 2}
   moduleConroller: {fileID: 793964140}
   loadType: 1
@@ -70311,7 +70311,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e341f200dc347f4b95610d2a433fd16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  source: {fileID: 1479222864}
+  audioType: 1
 --- !u!82 &1479222864
 AudioSource:
   m_ObjectHideFlags: 0
@@ -70961,7 +70961,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e341f200dc347f4b95610d2a433fd16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  source: {fileID: 1498584279}
+  audioType: 1
 --- !u!82 &1498584279
 AudioSource:
   m_ObjectHideFlags: 0
@@ -80957,7 +80957,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e341f200dc347f4b95610d2a433fd16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  source: {fileID: 1696666773}
+  audioType: 1
 --- !u!82 &1696666773
 AudioSource:
   m_ObjectHideFlags: 0
@@ -83403,7 +83403,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debug: 0
   used: 0
-  gravFPS: {fileID: 2096775380}
+  playerStateController: {fileID: 0}
   pack: {fileID: 11400000, guid: 0d2c14a493d5a2d4cad620c11a86d708, type: 2}
   moduleConroller: {fileID: 793964140}
   loadType: 1
@@ -90816,7 +90816,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e341f200dc347f4b95610d2a433fd16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  source: {fileID: 1897752145}
+  audioType: 1
 --- !u!82 &1897752145
 AudioSource:
   m_ObjectHideFlags: 0
@@ -103789,6 +103789,11 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9044560230640899427, guid: 36132e4bdd1a2a4449a062f85ace73cb,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9044560230642500548, guid: 36132e4bdd1a2a4449a062f85ace73cb,
         type: 3}
       propertyPath: m_Name
@@ -103855,6 +103860,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9044560230854887936, guid: 36132e4bdd1a2a4449a062f85ace73cb,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9044560231281737914, guid: 36132e4bdd1a2a4449a062f85ace73cb,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9044560231281737914, guid: 36132e4bdd1a2a4449a062f85ace73cb,
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -104089,6 +104104,21 @@ PrefabInstance:
       propertyPath: audioChangers.Array.data[44]
       value: 
       objectReference: {fileID: 1997729500}
+    - target: {fileID: 9044560232087150630, guid: 36132e4bdd1a2a4449a062f85ace73cb,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9044560232087150630, guid: 36132e4bdd1a2a4449a062f85ace73cb,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9044560232087150630, guid: 36132e4bdd1a2a4449a062f85ace73cb,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9044560232102898378, guid: 36132e4bdd1a2a4449a062f85ace73cb,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -104111,18 +104141,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 36132e4bdd1a2a4449a062f85ace73cb, type: 3}
---- !u!114 &2096775380 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 9044560230523452697, guid: 36132e4bdd1a2a4449a062f85ace73cb,
-    type: 3}
-  m_PrefabInstance: {fileID: 2096775379}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc57c841119a4c7499db6c768c8bfdf8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2096775383 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5064448054403448880, guid: 36132e4bdd1a2a4449a062f85ace73cb,
@@ -105167,7 +105185,7 @@ MonoBehaviour:
   debug: 0
   used: 0
   actionObjects:
-  - {fileID: 1747910522}
+  - {fileID: 0}
   enterOnly: 1
   once: 0
 --- !u!65 &2114175596

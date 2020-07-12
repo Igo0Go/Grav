@@ -208,6 +208,11 @@ public class MainMenuScript : MonoBehaviour
         for (int i = 0; i < panels.Count; i++)
         {
             ClosePanel(i);
+            var inputPanel = panels[i].GetComponent<InputSettingsMenuScript>();
+            if (inputPanel)
+            {
+                inputPanel.ReturnEvent += ReturnToMainPanel;
+            }
         }
         mainMenuPanel.SetActive(true);
     }
@@ -243,5 +248,13 @@ public class MainMenuScript : MonoBehaviour
     public void Exit()
     {
         Application.Quit();
+    }
+
+    private void ReturnToMainPanel()
+    {
+        for (int i = 0; i < panels.Count; i++)
+        {
+            ClosePanel(i);
+        }
     }
 }

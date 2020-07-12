@@ -47,14 +47,6 @@ public class AudioSettingsPanelScript : MonoBehaviour
     {
         Initialize();
     }
-    void Update()
-    {
-        if (Input.GetKeyDown(manager.GetKey("Pause")) && audioSettingsPanel.activeSelf)
-        {
-            GetAudioPanel();
-        }
-    }
-
 
     public void Initialize()
     {
