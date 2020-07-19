@@ -99,6 +99,7 @@ public class GravityThrowerScript : PlayerControllerBlueprint
 
     #region Делегаты и События
 
+    public event Action AcidShootEvent;
     public event ISeeDronModuleHandler ISeeDronPointEvent;
     private Action shoot;
 
@@ -238,7 +239,7 @@ public class GravityThrowerScript : PlayerControllerBlueprint
             anim.SetTrigger("Shoot");
             shootSource.PlayOneShot(shootSounds[1]);
             shootParticles.Play();
-            StatusPack.currentAcidCount--;
+            AcidShootEvent?.Invoke();
             powerSlider.value = StatusPack.currentAcidCount;
             Invoke("ReturnDelay", 1);
         }

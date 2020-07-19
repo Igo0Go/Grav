@@ -15,11 +15,11 @@ public class PlayerUIController : PlayerControllerBlueprint
     public Text tip;
     public Image stunPanel;
     [Range(0.1f, 2)] public float stunSpeed;
-    [HideInInspector] public InputSettingsManager manager;
-    [HideInInspector] public float returnTime;
     #endregion
 
     #region Приватные поля
+    private InputSettingsManager manager;
+    private float returnTime;
     private float targetHelathSlideValue;
     private bool spendMoney;
     private bool changeHealth;
@@ -55,12 +55,12 @@ public class PlayerUIController : PlayerControllerBlueprint
         playerState.playerSceneManagementController.VisualizeSaveEvent += SetDeadPanelState;
         playerState.playerSceneManagementController.RemoveSphereEvent += RemoveLifeSphere;
         playerState.playerSceneManagementController.OpportunityToLoadEvent += OpenPanelForReload;
+        playerState.gravityThrower.AcidShootEvent += OnAcidShoot;
+        playerState.playerReactionsController.ActionTipMessageActivated += SetTip;
         OnFinalStun += playerState.ReturnActive;
 
-
-
         InMenu = false;
-
+        manager = playerState.playerInputController.inputSettingsManager;
         loadPanel.SetActive(false);
         healthSlider.maxValue = HealthSliderValue = 100;
         panels[0].text.text = StatusPack.currentMoneyCount.ToString();
@@ -208,7 +208,7 @@ public class PlayerUIController : PlayerControllerBlueprint
         tip.text = string.Empty;
     }
     /// <summary>
-    /// Потратить указанное количество монте
+    /// Потратить указанное количество монет
     /// </summary>
     /// <param name="count"></param>
     public void Spend(int count)
