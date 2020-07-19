@@ -297,7 +297,7 @@ public class GravityThrowerScript : PlayerControllerBlueprint
     }
     private void UseDron()
     {
-        if (currentFriendPoint = null)
+        if (currentFriendPoint != null)
             ISeeDronPointEvent?.Invoke(currentFriendPoint.GetComponent<FriendModulePoint>());
     }
     private void TargetLook()
@@ -308,7 +308,10 @@ public class GravityThrowerScript : PlayerControllerBlueprint
             if(hit.collider.CompareTag("DronModule"))
             {
                 dronLight.SetActive(true);
-                if(hit.collider != currentFriendPoint) currentFriendPoint = hit.collider;
+                if (hit.collider != currentFriendPoint)
+                {
+                    currentFriendPoint = hit.collider;
+                }
             }
             else
             {

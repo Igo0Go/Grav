@@ -49,6 +49,7 @@ public class FriendScript : MonoBehaviour
         gravityThrower.ISeeDronPointEvent += SetTarget;
         gravityThrower.PlayerStateController.playerReactionsController.DeathEvent += ToDead;
         gravityThrower.PlayerStateController.playerSceneManagementController.OnRestartEvent += ToRestart;
+        gravityThrower.PlayerStateController.playerInputController.ShieldInputEvent += ShieldInput;
         inputSettingsManager = gravityThrower.PlayerStateController.playerInputController.inputSettingsManager;
         rb = GetComponent<Rigidbody>();
         rb.useGravity = false;
@@ -61,12 +62,10 @@ public class FriendScript : MonoBehaviour
         anim = GetComponent<Animator>();
         shieldAudio.loop = shieldAudio.playOnAwake = false;
         ReturnSubs();
-
     }
     void Update()
     {
         MoveToTarget();
-        ShieldInput();
         ChangeShield();
     }
 
@@ -167,7 +166,7 @@ public class FriendScript : MonoBehaviour
     }
     private void ShieldInput()
     {
-        if(Input.GetKeyDown(inputSettingsManager.GetKey("Shield")) && moveToTarget == 0)
+        if(moveToTarget == 0)
         {
             UseShield();
         }
