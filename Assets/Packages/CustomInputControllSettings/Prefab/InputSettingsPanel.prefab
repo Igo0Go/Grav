@@ -72,7 +72,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -208.84438}
+  m_AnchoredPosition: {x: 0.040039062, y: -208.84438}
   m_SizeDelta: {x: 650, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1469226486482961663
@@ -622,16 +622,16 @@ MonoBehaviour:
   m_Content: {fileID: 1469226486482961651}
   m_Horizontal: 0
   m_Vertical: 1
-  m_MovementType: 0
+  m_MovementType: 2
   m_Elasticity: 0.1
   m_Inertia: 1
   m_DecelerationRate: 0.135
   m_ScrollSensitivity: 20
-  m_Viewport: {fileID: 0}
+  m_Viewport: {fileID: 1469226486989366945}
   m_HorizontalScrollbar: {fileID: 0}
   m_VerticalScrollbar: {fileID: 1469226488015482143}
   m_HorizontalScrollbarVisibility: 0
-  m_VerticalScrollbarVisibility: 1
+  m_VerticalScrollbarVisibility: 0
   m_HorizontalScrollbarSpacing: 0
   m_VerticalScrollbarSpacing: 0
   m_OnValueChanged:
@@ -913,7 +913,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1469226487567147521}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7002001262487595787}
+        m_MethodName: GetSettingsPanel
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1469226487869270485
 GameObject:
   m_ObjectHideFlags: 0
@@ -1415,16 +1426,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6384c16123abf040b94b7cb52d3de5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settingsPannel: {fileID: 0}
+  settingsPannel: {fileID: 1469226488327645141}
   changePanel: {fileID: 1469226486910402697}
   manager: {fileID: 0}
   sensivitySlider: {fileID: 1469226487316385289}
   itemPrefab: {fileID: 253774361201477216, guid: aecd8b88284971f4696f6a796beeb606,
     type: 3}
   scrollViewContent: {fileID: 1469226486482961651}
-  keyValuesTexts: []
-  checkButtons: 0
-  mainMenuMode: 0
 --- !u!1 &1469226488386531517
 GameObject:
   m_ObjectHideFlags: 0

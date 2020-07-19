@@ -31,7 +31,7 @@ public class LoadSlot : MonoBehaviour
         {
             CopyStatus(data.statusPack);
             CopySettings(data.audioSettings);
-            CopySettings(data.inputKit);
+            //CopySettings(data.inputKit);
 
             LevelModuleStatusSettings.levelModuleStatusList = data.levelModuleStatusKit;
             mainMenu.LoadScene();

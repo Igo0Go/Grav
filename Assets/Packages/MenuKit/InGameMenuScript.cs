@@ -26,6 +26,11 @@ public class InGameMenuScript : MyTools
         settingsScript.Initialize();
         menuPanel.SetActive(false);
         player.playerInputController.PauseInputEvent += OnPauseInput;
+
+        if(DataLoader.LoadXML(player.statusPack.loadSlot, out LoadData data))
+        {
+            settingsScript.sensivitySlider.value = data.inputKit.sensivityMultiplicator;
+        }
     }
     private void OnPauseInput()
     {
@@ -60,6 +65,8 @@ public class InGameMenuScript : MyTools
     {
         if(!inSettings)
         {
+            DataLoader.SaveXML(player.statusPack, player.playerInputController.inputSettingsManager.inputKit);
+
             if (player.InHub)
             {
                 player.statusPack.currentScene = player.statusPack.hubScene = "MainMenu";

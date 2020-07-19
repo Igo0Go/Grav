@@ -27,10 +27,9 @@ public class InputSettingsMenuScript : MonoBehaviour
 
     public void Initialize()
     {
+        sensivitySlider.onValueChanged.AddListener(ChangeSensivity);
         ClearAllItemsFromList();
         CheckItemList();
-        sensivitySlider.value = manager.inputKit.sensivityMultiplicator;
-        sensivitySlider.onValueChanged.AddListener(ChangeSensivity);
         changePanel.SetActive(false);
         settingsPannel.SetActive(false);
     }
@@ -44,10 +43,7 @@ public class InputSettingsMenuScript : MonoBehaviour
         else
         {
             settingsPannel.SetActive(false);
-            changePanel.SetActive(false);
-            manager.CheckAxis();
-            ReturnEvent?.Invoke();
-            input = false;
+            BlockInputPanelParts();
         }
     }
     public void GetSettingsPanel(bool value)
@@ -55,10 +51,7 @@ public class InputSettingsMenuScript : MonoBehaviour
         settingsPannel.SetActive(value);
         if (!settingsPannel.activeSelf)
         {
-            settingsPannel.SetActive(false);
-            changePanel.SetActive(false);
-            manager.CheckAxis();
-            input = false;
+            BlockInputPanelParts();
         }
     }
     public void GetContainer(int number)
@@ -68,7 +61,7 @@ public class InputSettingsMenuScript : MonoBehaviour
         changePanel.SetActive(true);
         input = true;
     }
-    
+
     private void GetKeyForKeyContainer()
     {
         if (Event.current.type == EventType.KeyDown || Event.current.isKey)
@@ -117,7 +110,6 @@ public class InputSettingsMenuScript : MonoBehaviour
             input = false;
         }
     }
-    private void ChangeSensivity(float value) => manager.inputKit.sensivityMultiplicator = sensivitySlider.value;
     private void CheckItemList()
     {
         if (items == null)
@@ -150,6 +142,18 @@ public class InputSettingsMenuScript : MonoBehaviour
         if (items != null)
             items.Clear();
     }
+    private void BlockInputPanelParts()
+    {
+        changePanel.SetActive(false);
+        manager.CheckAxis();
+        ReturnEvent?.Invoke();
+        input = false;
+    }
+    private void ChangeSensivity(float value)
+    {
+        manager.inputKit.sensivityMultiplicator = sensivitySlider.value;
+    }
+
 
     private void OnGUI()
     {//реакция на ввод кнопки (смена)
