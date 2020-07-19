@@ -2413,8 +2413,6 @@ MonoBehaviour:
   tip: {fileID: 9044560231297036102}
   stunPanel: {fileID: 2960585186728144743}
   stunSpeed: 0.414
-  manager: {fileID: 0}
-  returnTime: 0
 --- !u!114 &50963483039448539
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11945,6 +11943,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: GravityGun
+      objectReference: {fileID: 0}
+    - target: {fileID: 271052223195933629, guid: 89c2af8d145f2954eb1a4d44a60effd9,
+        type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 271052223195933629, guid: 89c2af8d145f2954eb1a4d44a60effd9,
+        type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 89c2af8d145f2954eb1a4d44a60effd9, type: 3}

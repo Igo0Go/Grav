@@ -123,7 +123,11 @@ public class OficerScript : MyTools, ITargetTracker
         {
             Vector3 dir = _target.position - transform.position;
             rb.AddForce(dir.normalized * force, ForceMode.Impulse);
-            _target.GetComponent<PlayerStateController>().Stun();
+            var player = _target.GetComponent<PlayerStateController>();
+            if(player != null)
+            {
+                player.Stun();
+            }
         }
     }
     private void ReturnAttack() => attack = 1;

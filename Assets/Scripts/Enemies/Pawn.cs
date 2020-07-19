@@ -22,7 +22,11 @@ public class Pawn : UsingObject, ITargetTracker
     private Rigidbody rb;
     private Rigidbody rbBufer;
     private PlayerStateController gravFPS;
-    private sbyte state; //0 выбор пункта/1 идти до пункта/ -1 идти к ящику/  -2 ждать ящик/ 2 идти до игрока/ 3 выбить деньги /4 - нас взяли
+    private Collider viewTrigger;
+    /// <summary>
+    /// 0 выбор пункта, 1 идти до пункта, -1 идти к ящику, -2 ждать ящик, 2 идти до игрока, 3 выбить деньги, 4 - нас взяли
+    /// </summary>
+    private sbyte state;
     #endregion
 
     #region Свойства
@@ -35,6 +39,7 @@ public class Pawn : UsingObject, ITargetTracker
     #region Обработка событий Unity
     void Start()
     {
+        viewTrigger = GetComponent<Collider>();
         targetPoints = new List<Transform>();
         agent = GetComponent<NavMeshAgent>();
         rb = GetComponent<Rigidbody>();
@@ -83,6 +88,7 @@ public class Pawn : UsingObject, ITargetTracker
         agent.enabled = false;
         rb.useGravity = false;
         rb.isKinematic = false;
+        viewTrigger.enabled = false;
     }
     public void ToDefaultState()
     {
@@ -244,6 +250,7 @@ public class Pawn : UsingObject, ITargetTracker
             transform.up = Vector3.up;
             rb.useGravity = false;
             rb.isKinematic = true;
+            viewTrigger.enabled = true;
             GetNewTarget();
         }
     }

@@ -88,9 +88,10 @@ GameObject:
   - component: {fileID: 3724729824794051232}
   - component: {fileID: 3724729824794051234}
   - component: {fileID: 3724729824794051235}
+  - component: {fileID: 836397269}
   m_Layer: 0
   m_Name: '[Capsule]'
-  m_TagString: Untagged
+  m_TagString: ManipForEnemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -154,6 +155,19 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &836397269
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3724729824794051233}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 2, z: 1}
+  m_Center: {x: -0.0000076293945, y: 0, z: 0.000015258789}
 --- !u!1 &3724729824897653775
 GameObject:
   m_ObjectHideFlags: 0

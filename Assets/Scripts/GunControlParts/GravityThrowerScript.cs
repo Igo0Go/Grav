@@ -217,7 +217,10 @@ public class GravityThrowerScript : PlayerControllerBlueprint
                 {
                     currentManipObj = hit.collider.transform.parent.parent.gameObject;
                     manipRenderer = hit.collider.gameObject.GetComponent<MeshRenderer>();
-                    materialColor = manipRenderer.material.color;
+                    if (manipRenderer != null)
+                    {
+                        materialColor = manipRenderer.material.color;
+                    }
                     currentRB = currentManipObj.GetComponent<Rigidbody>();
                     Pawn pawn = currentManipObj.GetComponent<Pawn>();
                     if (pawn != null)
