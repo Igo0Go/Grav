@@ -15,9 +15,12 @@ public class PlayerReactionsController : PlayerControllerBlueprint
         set
         {
             _health = value;
-
             if (_health <= 0)
+            {
                 Death();
+                _health = 0;
+            }
+            HealthChanged?.Invoke(_health);
         }
     }
     private float _health;
