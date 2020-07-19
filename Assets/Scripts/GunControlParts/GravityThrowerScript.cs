@@ -167,12 +167,17 @@ public class GravityThrowerScript : PlayerControllerBlueprint
     }
     private void GravShoot()
     {
+        if(!delay)
+        {
+
             BulletScript bullet = Instantiate(currentBullet, ShootPoint.position, ShootPoint.rotation).GetComponent<BulletScript>();
             bullet.SetSettings(this);
             delay = true;
             anim.SetTrigger("Shoot");
             shootSource.PlayOneShot(shootSounds[0]);
             shootParticles.Play();
+            Invoke("ReturnDelay", 1f);
+        }
     }
     private void ManipulationShoot()
     {
@@ -225,7 +230,7 @@ public class GravityThrowerScript : PlayerControllerBlueprint
     }
     private void AcidShoot()
     {
-        if (StatusPack.currentAcidCount > 0)
+        if (!delay && StatusPack.currentAcidCount > 0)
         {
             BulletScript bullet = Instantiate(currentBullet, ShootPoint.position, ShootPoint.rotation).GetComponent<BulletScript>();
             bullet.SetSettings(this);
@@ -233,7 +238,9 @@ public class GravityThrowerScript : PlayerControllerBlueprint
             anim.SetTrigger("Shoot");
             shootSource.PlayOneShot(shootSounds[1]);
             shootParticles.Play();
+            StatusPack.currentAcidCount--;
             powerSlider.value = StatusPack.currentAcidCount;
+            Invoke("ReturnDelay", 1);
         }
     }
     private void ManipUpdate()
@@ -400,6 +407,7 @@ public class GravityThrowerScript : PlayerControllerBlueprint
             modeIndicator.material = modes[modeNumber].modeMaterialForGun;
             powerFillArea.color = modes[modeNumber].modeColorForSlider;
             currentBullet = modes[modeNumber].Bulleet;
+            ReturnDelay();
         }
     }
     private void CheckSlider()
