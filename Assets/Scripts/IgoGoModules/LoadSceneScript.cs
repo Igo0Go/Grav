@@ -52,6 +52,7 @@ public class LoadSceneScript : UsingObject
             pack.currentScene = pack.hubScene = sceneName;
         }
         playerStateController.playerUIController.SaveStats();
+        DataLoader.SaveXML(playerStateController.statusPack, playerStateController.playerInputController.inputSettingsManager.inputKit);
         playerStateController.playerSceneManagementController.LoadNextScene();
     }
     public override void ToStart()

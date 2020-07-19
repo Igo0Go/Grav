@@ -19,6 +19,7 @@ public class AudioChanger : MonoBehaviour
         if (audioType == AudioType.Sound)
         {
             audioSettingsPanel.ChangeOtherVolume += VolumeUpdate;
+            VolumeUpdate(AudioSettingsPack.otherAudioMultiplicator);
         }
         else
         {
