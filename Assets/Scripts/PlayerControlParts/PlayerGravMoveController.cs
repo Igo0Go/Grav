@@ -283,7 +283,7 @@ public class PlayerGravMoveController : PlayerControllerBlueprint
 
     private void RotateToGravSmooth()
     {
-        if (Quaternion.Angle(transform.rotation, rotBufer) < 4)
+        if (Quaternion.Angle(transform.rotation, rotBufer) < 4 || OnGround())
         {
             Mytransform.rotation = rotBufer;
             rotToGrav = false;

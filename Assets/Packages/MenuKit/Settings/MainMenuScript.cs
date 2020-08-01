@@ -56,6 +56,8 @@ public class MainMenuScript : MonoBehaviour
         playerStatusPack.saveCards = playerStatusPack.cards = new List<bool>() { false, false, false, false };
         playerStatusPack.currentScene = playerStatusPack.hubScene = startScene;
         playerStatusPack.hubPoint = 0;
+        AudioSettingsPack.musicMultiplicator = 0.3f;
+        AudioSettingsPack.otherAudioMultiplicator = 1f;
         LevelModuleStatusSettings.levelModuleStatusList.Clear();
         DataLoader.SaveXML(playerStatusPack, inputKit);
         loader.allowSceneActivation = true;

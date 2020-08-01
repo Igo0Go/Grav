@@ -1874,7 +1874,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 8653457995419645807}
         m_MethodName: LoadHubScene
         m_Mode: 1
         m_Arguments:
@@ -10752,7 +10752,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 8653457995419645807}
         m_MethodName: RestartSceneWithLoadSphere
         m_Mode: 1
         m_Arguments:
@@ -11512,6 +11512,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: InGameMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 7745773841242076460, guid: 31e35d0ef9ef63046a3cb8efafafc28d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7745773841242076462, guid: 31e35d0ef9ef63046a3cb8efafafc28d,
         type: 3}
