@@ -1,8 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿#if Unity_Editor
 using UnityEngine;
 using UnityEditor;
 
+[ExecuteInEditMode]
 [CustomEditor(typeof(InputKit))]
 public class InputKitInspector : Editor
 {
@@ -133,3 +133,4 @@ public class InputKitInspector : Editor
     #endregion
 }
 
+#endif

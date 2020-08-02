@@ -1,9 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
-using UnityEngine.XR.WSA.Input;
 
 [System.Serializable]
 public class GravGanMode
@@ -205,6 +203,7 @@ public class GravityThrowerScript : PlayerControllerBlueprint
                         manipKey = true;
                         shootSource.clip = shootSounds[2];
                         shootSource.loop = true;
+                        shootSource.playOnAwake = true;
                         shootSource.Play();
                         ManipItem item = currentManipObj.GetComponent<ManipItem>();
                         if (item != null)
