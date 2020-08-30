@@ -10,7 +10,6 @@ public class DronReplicItem
     public AudioClip audioClip;
 }
 
-[RequireComponent(typeof(AudioSource))]
 [RequireComponent(typeof(Rigidbody))]
 public class FriendScript : MonoBehaviour
 {
@@ -28,12 +27,12 @@ public class FriendScript : MonoBehaviour
     public List<DronReplicItem> actionReplicas;
     public List<DronReplicItem> altUseReplicas;
     [Tooltip("Источник звука - щит")] public AudioSource shieldAudio;
+    [Tooltip("Источник звука - щит")] public AudioSource crolAudioSource;
     [Tooltip("Звук турбинок кролезаи")] public AudioClip crolSound;
     #endregion
 
     #region Служебные поля
     private FriendModulePoint modulePoint;
-    private AudioSource source;
     private Transform target = null;
     private Rigidbody rb;
     private InputSettingsManager inputSettingsManager;
@@ -54,8 +53,9 @@ public class FriendScript : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.useGravity = false;
         rb.isKinematic = true;
-        source = GetComponent<AudioSource>();
         subsPanel.SetActive(false);
+        crolAudioSource.loop = true;
+        crolAudioSource.Play();
         moveToTarget = 0;
         shield.SetActive(false);
         shieldForce = maxShieldTime;
@@ -91,15 +91,15 @@ public class FriendScript : MonoBehaviour
     }
     public void StartReplicas()
     {
-        if (!source.isPlaying)
+        if (!crolAudioSource.isPlaying)
         {
             int index = 0;
             index = Random.Range(0, altUseReplicas.Count + 4);
             if(index < altUseReplicas.Count)
             {
                 subsPanel.SetActive(true);
-                source.loop = false;
-                source.PlayOneShot(altUseReplicas[index].audioClip);
+                crolAudioSource.loop = false;
+                crolAudioSource.PlayOneShot(altUseReplicas[index].audioClip);
                 subs.text = altUseReplicas[index].text;
                 subs.color = replicasCollor;
                 Invoke("ReturnSubs", altUseReplicas[index].audioClip.length);
@@ -117,14 +117,14 @@ public class FriendScript : MonoBehaviour
 
     private void StartUseActionReplicas()
     {
-        if (!source.isPlaying)
+        if (!crolAudioSource.isPlaying)
         {
             int index = 0;
             index = Random.Range(0, actionReplicas.Count + 4);
             if(index < actionReplicas.Count)
             {
                 subsPanel.SetActive(true);
-                source.PlayOneShot(actionReplicas[index].audioClip);
+                crolAudioSource.PlayOneShot(actionReplicas[index].audioClip);
                 subs.text = actionReplicas[index].text;
                 subs.color = replicasCollor;
                 Invoke("ReturnSubs", actionReplicas[index].audioClip.length);
@@ -216,12 +216,12 @@ public class FriendScript : MonoBehaviour
     private void ReturnSubs()
     {
         subsPanel.SetActive(false);
-        source.loop = true;
-        if(source.isPlaying)
+        crolAudioSource.loop = true;
+        if(crolAudioSource.isPlaying)
         {
-            source.Stop();
+            crolAudioSource.Stop();
         }
-        source.clip = crolSound;
-        source.Play();
+        crolAudioSource.clip = crolSound;
+        crolAudioSource.Play();
     }
 }

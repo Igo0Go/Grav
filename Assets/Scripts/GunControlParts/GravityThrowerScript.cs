@@ -14,7 +14,6 @@ public class GravGanMode
 
 public delegate void ISeeDronModuleHandler(FriendModulePoint point);
 
-[RequireComponent(typeof(AudioSource))]
 [RequireComponent(typeof(LineRenderer))]
 public class GravityThrowerScript : PlayerControllerBlueprint
 {
@@ -139,7 +138,6 @@ public class GravityThrowerScript : PlayerControllerBlueprint
         }
         Toggle();
         line = GetComponent<LineRenderer>();
-        dangerSoundSource = GetComponent<AudioSource>();
         playerState.playerUIController.OnGetLoot += CheckSlider;
         anim.SetBool("Ready", true);
     }
