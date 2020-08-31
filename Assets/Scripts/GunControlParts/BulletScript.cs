@@ -20,8 +20,6 @@ public class BulletScript : MyTools
     public GameObject[] Particles;
     [Tooltip("Здесь должно быть 2 набора частиц - первый для попадания с изменением гравитации, второй для попадания без изменения")]
     public BulletType type;
-    [Tooltip("Сила притяжения гравитации (g)"), Range(0,10), SerializeField]
-    private float power = 1;
     [Tooltip("На какие слои не реагировать"), SerializeField]
     private LayerMask ignoreMask;
     private PlayerStateController player;
@@ -90,7 +88,7 @@ public class BulletScript : MyTools
                 }
                 else
                 {
-                    player.playerGravMoveController.SetGravVector(-hit.normal * power);
+                    player.playerGravMoveController.SetGravVector(-hit.normal);
                     player.transform.localScale = Vector3.one;
                 }
                 player.playerGravMoveController.RotateToGrav();

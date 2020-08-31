@@ -101,7 +101,7 @@ public class PlayerGravMoveController : PlayerControllerBlueprint
             }
             rotBufer = rotBufer * transform.rotation;
             gravRotSpeed = 5;
-            rotToGrav = true;
+            StartCoroutine(StartRotationCoroutine(0.1f));
         }
     }
     /// <summary>
@@ -279,8 +279,13 @@ public class PlayerGravMoveController : PlayerControllerBlueprint
         SaveLocationPack.savePos = point.position + transform.up * 1.5f;
         SaveLocationPack.saveRot = point.rotation;
     }
-    
 
+
+    private IEnumerator StartRotationCoroutine(float delayTime)
+    {
+        yield return new WaitForSeconds(delayTime);
+        rotToGrav = true;
+    }
     private void RotateToGravSmooth()
     {
         if (Quaternion.Angle(transform.rotation, rotBufer) < 4 || OnGround())
